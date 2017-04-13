@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-13T13:18:57.000Z</updated>
+  <updated>2017-04-13T13:33:19.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,72 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jdk8-31-工厂方法收集器Collectors的中的常用函数</title>
+    <link href="http://yoursite.com/2017/04/13/jdk8-31-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%94%B6%E9%9B%86%E5%99%A8Collectors%E7%9A%84%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/</id>
+    <published>2017-04-13T13:28:28.000Z</published>
+    <updated>2017-04-13T13:33:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-collectorImpl"><a href="#1-collectorImpl" class="headerlink" title="1   collectorImpl"></a>1   collectorImpl</h3><ul>
+<li><code>Collectors</code> 中的 的基础 <code>collectorImpl</code> 两个构造方法一个有 <code>finisher()</code>, 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 <code>finisher()</code> 方法</li>
+</ul>
+<a id="more"></a>
+<h3 id="2-两种实现方式"><a href="#2-两种实现方式" class="headerlink" title="2  两种实现方式"></a>2  两种实现方式</h3><p>对于工厂类 两种实现方式</p>
+<ol>
+<li><code>CollectorImpl</code> 来实现。</li>
+<li><code>reduceing</code> 来实现， 而 <code>reducing</code> 方法归根还是用的是 <code>CollectorImpl</code> 方法来实现</li>
+</ol>
+<h3 id="3-常见函数"><a href="#3-常见函数" class="headerlink" title="3  常见函数"></a>3  常见函数</h3><h4 id="1）-toList-amp-toCollection"><a href="#1）-toList-amp-toCollection" class="headerlink" title="1）  toList() &amp; toCollection"></a>1）  <code>toList()</code> &amp; <code>toCollection</code></h4><ul>
+<li><p>两个最常用的方法 <code>toList()</code> &amp; <code>toCollection</code><br><img src="http://ooapi4q4v.bkt.clouddn.com/14918251558881.jpg" alt=""></p>
+</li>
+<li><p><code>toSet()</code> 方法是也是 <code>toCollection</code> 的特化。</p>
+</li>
+</ul>
+<h4 id="2）-joining"><a href="#2）-joining" class="headerlink" title="2）  joining()"></a>2）  <code>joining()</code></h4><ul>
+<li><code>joining</code> 三种重载方法</li>
+</ul>
+<h4 id="3）-mapping"><a href="#3）-mapping" class="headerlink" title="3）  mapping()"></a>3）  <code>mapping()</code></h4><ul>
+<li><code>mapping()</code> 将输入元素转换成输出元素</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; lastNamesByCity= people.stream().collect(groupingBy(</div><div class="line">Person::getCity,</div><div class="line">mapping(Person::getLastName, toSet()) <span class="comment">// Mapping , 将Person 转换成String , 提供给下游 Collector 使用</span></div><div class="line">));</div></pre></td></tr></table></figure>
+<h4 id="4）-collectingAndThen"><a href="#4）-collectingAndThen" class="headerlink" title="4）  collectingAndThen()"></a>4）  <code>collectingAndThen()</code></h4><ul>
+<li><p><code>collectingAndThen(Collector&lt;T,A,R&gt; downstream, Function&lt;R,RR&gt; finisher)</code>  先过完上层收集器 <code>downstream</code> ，在进行一次 <code>finisher()</code> 转换结果</p>
+<p> 比如说，你在 <code>toList()</code> 之后，想将它转换成一个 <code>immutableList()</code> 就可以如下使用</p>
+</li>
+</ul>
+<pre><code>List&lt;String&gt; people = people.stream().collect(collectingAndThen(toList(), Collections::unmodifiableList));
+</code></pre><p>实现其实很有意思<br><img src="http://ooapi4q4v.bkt.clouddn.com/14918263223655.jpg" alt=""></p>
+<h4 id="5）-counting-minBy-maxBy"><a href="#5）-counting-minBy-maxBy" class="headerlink" title="5）  counting() , minBy() , maxBy()"></a>5）  <code>counting()</code> , <code>minBy()</code> , <code>maxBy()</code></h4><ul>
+<li><code>counting()</code> , <code>minBy()</code> , <code>maxBy()</code> 用 <code>reducing()</code> 实现, <code>reducing()</code> 又是基于 <code>CollectorImpl</code> 实现</li>
+</ul>
+<h4 id="6）-summingInt-averagingInt-averagingDouble"><a href="#6）-summingInt-averagingInt-averagingDouble" class="headerlink" title="6）  summingInt() , averagingInt() , averagingDouble()"></a>6）  <code>summingInt()</code> , <code>averagingInt()</code> , <code>averagingDouble()</code></h4><ul>
+<li><code>summingInt()</code> 对每一个元素使用 <code>toIntFunction</code> 在累加，实现很有意思</li>
+</ul>
+<p><img src="http://ooapi4q4v.bkt.clouddn.com/14918267966242.jpg" alt=""></p>
+<p><code>Supplier()</code> 采用生成了一个 长度为1 的 <code>int</code> 数组，而不是直接使用的整形数字？<br>因为数字是一个 <code>值</code>， 值是无法传递的，而数组是一个 <code>引用</code>， 引用是可以传递的。</p>
+<ul>
+<li><code>averagingInt()</code> 求平均值</li>
+</ul>
+<p><img src="http://ooapi4q4v.bkt.clouddn.com/14918270760778.jpg" alt=""></p>
+<ul>
+<li>对于<code>averagingDouble()</code> 的实现可以再去看一下，他的初始数组长度为4，他们视为浮点数计算的补偿产生的。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-collectorImpl&quot;&gt;&lt;a href=&quot;#1-collectorImpl&quot; class=&quot;headerlink&quot; title=&quot;1   collectorImpl&quot;&gt;&lt;/a&gt;1   collectorImpl&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Collectors&lt;/code&gt; 中的 的基础 &lt;code&gt;collectorImpl&lt;/code&gt; 两个构造方法一个有 &lt;code&gt;finisher()&lt;/code&gt;, 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 &lt;code&gt;finisher()&lt;/code&gt; 方法&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
+    
+  </entry>
   
   <entry>
     <title>new start</title>
