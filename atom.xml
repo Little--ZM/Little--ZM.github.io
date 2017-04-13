@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-13T13:33:19.000Z</updated>
+  <updated>2017-04-13T13:35:54.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/04/13/jdk8-31-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%94%B6%E9%9B%86%E5%99%A8Collectors%E7%9A%84%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/</id>
     <published>2017-04-13T13:28:28.000Z</published>
-    <updated>2017-04-13T13:33:19.000Z</updated>
+    <updated>2017-04-13T13:35:54.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-collectorImpl"><a href="#1-collectorImpl" class="headerlink" title="1   collectorImpl"></a>1   collectorImpl</h3><ul>
 <li><code>Collectors</code> 中的 的基础 <code>collectorImpl</code> 两个构造方法一个有 <code>finisher()</code>, 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 <code>finisher()</code> 方法</li>
@@ -43,7 +43,7 @@
 <h4 id="3）-mapping"><a href="#3）-mapping" class="headerlink" title="3）  mapping()"></a>3）  <code>mapping()</code></h4><ul>
 <li><code>mapping()</code> 将输入元素转换成输出元素</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; lastNamesByCity= people.stream().collect(groupingBy(</div><div class="line">Person::getCity,</div><div class="line">mapping(Person::getLastName, toSet()) <span class="comment">// Mapping , 将Person 转换成String , 提供给下游 Collector 使用</span></div><div class="line">));</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; lastNamesByCity= people.stream().collect(groupingBy(</div><div class="line">Person::getCity,</div><div class="line">mapping(Person::getLastName, toSet()) // Mapping , 将Person 转换成String , 提供给下游 Collector 使用</div><div class="line">));</div></pre></td></tr></table></figure>
 <h4 id="4）-collectingAndThen"><a href="#4）-collectingAndThen" class="headerlink" title="4）  collectingAndThen()"></a>4）  <code>collectingAndThen()</code></h4><ul>
 <li><p><code>collectingAndThen(Collector&lt;T,A,R&gt; downstream, Function&lt;R,RR&gt; finisher)</code>  先过完上层收集器 <code>downstream</code> ，在进行一次 <code>finisher()</code> 转换结果</p>
 <p> 比如说，你在 <code>toList()</code> 之后，想将它转换成一个 <code>immutableList()</code> 就可以如下使用</p>
