@@ -136,6 +136,56 @@
   </entry>
   
   <entry>
+    <title>jdk8-1.1-方法引用：lambda表达式的语法糖</title>
+    <link href="http://yoursite.com/2017/02/12/jdk8-1-1-%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8%EF%BC%9Alambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%AF%AD%E6%B3%95%E7%B3%96/"/>
+    <id>http://yoursite.com/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/</id>
+    <published>2017-02-12T07:31:46.000Z</published>
+    <updated>2017-04-14T07:33:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>方法应用其实是 jdk 8 中的对于  <em>lambda</em> 表达式给予的一种 <strong>语法糖</strong></p>
+</blockquote>
+<p>而方法引用一共分为 4 种；</p>
+<ul>
+<li>1 <code>类名::静态方法名</code></li>
+<li>2 <code>对象名::方法名</code></li>
+<li>3 <code>类名::实例方法名</code></li>
+<li>4 <code>构造方法引用::new</code></li>
+</ul>
+<a id="more"></a>
+<p>我们有intellj 编写 lambda 表达式的时候，编译器总是标黄来告诉你，这里可以使用方法引用的方法来进行代码的简化</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/6sl7hr28156h9kmv9jsmstb6/image_1b7k0qtepmls15v3rjv19691om39.png" alt="image_1b7k0qtepmls15v3rjv19691om39.png-86kB"></p>
+<p>而方法引用，<strong><em>method reference</em></strong> 其实就是lambda表达式一种语法糖<br>但是 </p>
+<blockquote>
+<p><strong>不是所有的 lambda 表达式，都可以用方法引用的方式来编写</strong><br>复杂的 lambda 表达式还是需要老老实实写相关代码</p>
+</blockquote>
+<p>我们通过一个例子来分别讲解这四种方法引用的方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">// 第一种</span></div><div class="line"></div><div class="line">        Student student1 = <span class="keyword">new</span> Student(<span class="string">"zhumin1"</span>,<span class="number">10</span>);</div><div class="line">        Student student2 = <span class="keyword">new</span> Student(<span class="string">"zhumin2"</span>,<span class="number">20</span>);</div><div class="line">        Student student3 = <span class="keyword">new</span> Student(<span class="string">"zhumin3"</span>,<span class="number">40</span>);</div><div class="line">        Student student4 = <span class="keyword">new</span> Student(<span class="string">"zhumin4"</span>,<span class="number">80</span>);</div><div class="line"></div><div class="line">        List&lt;Student&gt; students = Arrays.asList(student1, student2, student3, student4);</div><div class="line"></div><div class="line">        <span class="comment">// jdk 1.8 的新方法  List 中新增加了 sort 方法</span></div><div class="line">        <span class="comment">// 传统的 lambda 表达式</span></div><div class="line">        students.sort((studentP1, studentP2) -&gt; Student.compareByScore(studentP1, studentP2));</div><div class="line">        <span class="comment">// 第一种方法引用的方式 类名::静态方法名</span></div><div class="line">        <span class="comment">// 不需要传参数，因为可以自动推断出 Student 类型</span></div><div class="line">        students.sort(Student::compareByScore);</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 第二种 对象名称::方法名称</span></div><div class="line">        <span class="comment">// 其实和第一种很类似</span></div><div class="line">        StudentComparator studentComparator = <span class="keyword">new</span> StudentComparator();</div><div class="line"></div><div class="line">        students.sort((studentP1, studentP2) -&gt; studentComparator.comparator(studentP1, studentP2));</div><div class="line">        <span class="comment">// 对象名称::方法名称 (方法引用的第二种方式)</span></div><div class="line">        students.sort(studentComparator::comparator);</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 第三种方法 类名::实例方法</span></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 比较难理解的的地方是，你会看到调用的函数，和 lambda 表达式需要的参数个数不一致， 会少一个</div><div class="line">         * 而且类名是没法调用方法名的</div><div class="line">         * 而理解方式是：调用方法的实例，就是传入lambda 表达式的第一个参数，而剩下所有参数，都作为 调用的实例方法 的参数</div><div class="line">         * 我们看下面的例子 ， Student 类调用的是其的实例方法 compare（Student） 只有一个参数</div><div class="line">         * 而 List 的默认方法需要的 Comparator 的函数式接口需要两个参数，看似对应不上，而且，类名也无法调用实例方法</div><div class="line">         * 实际是，传入的第一参数就是 comare（student）这个函数的调用者，而第二个参数以及后续所有的参数（如果有跟多也是一样），是作为实例方法的参数传入</div><div class="line">         * 所以少一个参数也没什么</div><div class="line">         * 而更为关键的是这个就是一个语法糖，为了简化代码而生。理解就好</div><div class="line">         * 如此一来； 这个第三种方式就很好理解了</div><div class="line">         *</div><div class="line">         * 类名::实例方法</div><div class="line">         * 即 lambda 表达式的第一参数就是 实例方法 的调用者，后续所有的参数就是 实例方法的传入参数</div><div class="line">         */</div><div class="line">        students.sort(Student::compare);</div><div class="line"></div><div class="line">        <span class="comment">// 再看一个例子</span></div><div class="line">        List&lt;String&gt; cities = Arrays.asList(<span class="string">"haha"</span>,<span class="string">"lala"</span>,<span class="string">"nihao"</span>,<span class="string">"memeda"</span>);</div><div class="line">        <span class="comment">// 对比二者</span></div><div class="line">        Collections.sort(cities, (city1, city2) -&gt; city1.compareToIgnoreCase(city2));</div><div class="line">        Collections.sort(cities, String::compareToIgnoreCase);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 对于第四种，构造方法引用，对于带参数和不带参数的都可以，编译器会自动的进行腿短</span></div><div class="line">        MethodRefrenceTest methodRefrenceTest = <span class="keyword">new</span> MethodRefrenceTest();</div><div class="line">        <span class="comment">// 点击 new 看看会跳到那个方法里去</span></div><div class="line">        methodRefrenceTest.getName(String::<span class="keyword">new</span>);</div><div class="line">        <span class="comment">// 点击 new 看看会跳到那个方法里去</span></div><div class="line">        methodRefrenceTest.getName2(<span class="string">"haa"</span>, String::<span class="keyword">new</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">(Supplier&lt;String&gt; supplier)</span>  </span>&#123;</div><div class="line">        <span class="keyword">return</span> supplier.get() + <span class="string">"haha"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName2</span><span class="params">(String name, Function&lt;String ,String&gt; stringFunction)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> stringFunction.apply(name);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;方法应用其实是 jdk 8 中的对于  &lt;em&gt;lambda&lt;/em&gt; 表达式给予的一种 &lt;strong&gt;语法糖&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;而方法引用一共分为 4 种；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1 &lt;code&gt;类名::静态方法名&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;2 &lt;code&gt;对象名::方法名&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;3 &lt;code&gt;类名::实例方法名&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;4 &lt;code&gt;构造方法引用::new&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+  </entry>
+  
+  <entry>
     <title>jdk8-1-函数式接口&amp;lambda表达式</title>
     <link href="http://yoursite.com/2017/02/11/jdk8-1-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     <id>http://yoursite.com/2017/02/11/jdk8-1-函数式接口-lambda表达式/</id>

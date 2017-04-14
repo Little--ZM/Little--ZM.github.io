@@ -91,22 +91,19 @@
 
 
 
-<meta name="description" content="1   collectorImpl Collectors 中的 的基础 collectorImpl 两个构造方法一个有 finisher(), 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 finisher() 方法">
+<meta name="description" content="方法应用其实是 jdk 8 中的对于  lambda 表达式给予的一种 语法糖  而方法引用一共分为 4 种；  1 类名::静态方法名 2 对象名::方法名 3 类名::实例方法名 4 构造方法引用::new">
 <meta name="keywords" content="java8,coding life">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jdk8-31-工厂方法收集器Collectors的中的常用函数">
-<meta property="og:url" content="http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/index.html">
+<meta property="og:title" content="jdk8-1.1-方法引用：lambda表达式的语法糖">
+<meta property="og:url" content="http://yoursite.com/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="1   collectorImpl Collectors 中的 的基础 collectorImpl 两个构造方法一个有 finisher(), 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 finisher() 方法">
-<meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918251558881.jpg">
-<meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918263223655.jpg">
-<meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918267966242.jpg">
-<meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918270760778.jpg">
-<meta property="og:updated_time" content="2017-04-14T07:07:24.000Z">
+<meta property="og:description" content="方法应用其实是 jdk 8 中的对于  lambda 表达式给予的一种 语法糖  而方法引用一共分为 4 种；  1 类名::静态方法名 2 对象名::方法名 3 类名::实例方法名 4 构造方法引用::new">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/6sl7hr28156h9kmv9jsmstb6/image_1b7k0qtepmls15v3rjv19691om39.png">
+<meta property="og:updated_time" content="2017-04-14T07:33:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jdk8-31-工厂方法收集器Collectors的中的常用函数">
-<meta name="twitter:description" content="1   collectorImpl Collectors 中的 的基础 collectorImpl 两个构造方法一个有 finisher(), 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 finisher() 方法">
-<meta name="twitter:image" content="http://ooapi4q4v.bkt.clouddn.com/14918251558881.jpg">
+<meta name="twitter:title" content="jdk8-1.1-方法引用：lambda表达式的语法糖">
+<meta name="twitter:description" content="方法应用其实是 jdk 8 中的对于  lambda 表达式给予的一种 语法糖  而方法引用一共分为 4 种；  1 类名::静态方法名 2 对象名::方法名 3 类名::实例方法名 4 构造方法引用::new">
+<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/6sl7hr28156h9kmv9jsmstb6/image_1b7k0qtepmls15v3rjv19691om39.png">
 
 
 
@@ -134,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/"/>
 
 
 
 
 
-  <title> jdk8-31-工厂方法收集器Collectors的中的常用函数 | 待葡萄嗖透 </title>
+  <title> jdk8-1.1-方法引用：lambda表达式的语法糖 | 待葡萄嗖透 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -312,7 +309,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="朱老师&敏哥">
@@ -333,7 +330,7 @@
             
             
               
-                jdk8-31-工厂方法收集器Collectors的中的常用函数
+                jdk8-1.1-方法引用：lambda表达式的语法糖
               
             
           </h1>
@@ -348,8 +345,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-13T21:28:28+08:00">
-                2017-04-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-12T15:31:46+08:00">
+                2017-02-12
               </time>
             
 
@@ -367,7 +364,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -399,51 +396,25 @@
       
 
       
-        <h3 id="1-collectorImpl"><a href="#1-collectorImpl" class="headerlink" title="1   collectorImpl"></a>1   collectorImpl</h3><ul>
-<li><code>Collectors</code> 中的 的基础 <code>collectorImpl</code> 两个构造方法一个有 <code>finisher()</code>, 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 <code>finisher()</code> 方法</li>
+        <blockquote>
+<p>方法应用其实是 jdk 8 中的对于  <em>lambda</em> 表达式给予的一种 <strong>语法糖</strong></p>
+</blockquote>
+<p>而方法引用一共分为 4 种；</p>
+<ul>
+<li>1 <code>类名::静态方法名</code></li>
+<li>2 <code>对象名::方法名</code></li>
+<li>3 <code>类名::实例方法名</code></li>
+<li>4 <code>构造方法引用::new</code></li>
 </ul>
 <a id="more"></a>
-<h3 id="2-两种实现方式"><a href="#2-两种实现方式" class="headerlink" title="2  两种实现方式"></a>2  两种实现方式</h3><p>对于工厂类 两种实现方式</p>
-<ol>
-<li><code>CollectorImpl</code> 来实现。</li>
-<li><code>reduceing</code> 来实现， 而 <code>reducing</code> 方法归根还是用的是 <code>CollectorImpl</code> 方法来实现</li>
-</ol>
-<h3 id="3-常见函数"><a href="#3-常见函数" class="headerlink" title="3  常见函数"></a>3  常见函数</h3><h4 id="1）-toList-amp-toCollection"><a href="#1）-toList-amp-toCollection" class="headerlink" title="1）  toList() &amp; toCollection"></a>1）  <code>toList()</code> &amp; <code>toCollection</code></h4><ul>
-<li><p>两个最常用的方法 <code>toList()</code> &amp; <code>toCollection</code><br><img src="http://ooapi4q4v.bkt.clouddn.com/14918251558881.jpg" alt=""></p>
-</li>
-<li><p><code>toSet()</code> 方法是也是 <code>toCollection</code> 的特化。</p>
-</li>
-</ul>
-<h4 id="2）-joining"><a href="#2）-joining" class="headerlink" title="2）  joining()"></a>2）  <code>joining()</code></h4><ul>
-<li><code>joining</code> 三种重载方法</li>
-</ul>
-<h4 id="3）-mapping"><a href="#3）-mapping" class="headerlink" title="3）  mapping()"></a>3）  <code>mapping()</code></h4><ul>
-<li><code>mapping()</code> 将输入元素转换成输出元素</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; lastNamesByCity= people.stream().collect(groupingBy(</div><div class="line">Person::getCity,</div><div class="line">mapping(Person::getLastName, toSet()) <span class="comment">// Mapping , 将Person 转换成String , 提供给下游 Collector 使用</span></div><div class="line">));</div></pre></td></tr></table></figure>
-<h4 id="4）-collectingAndThen"><a href="#4）-collectingAndThen" class="headerlink" title="4）  collectingAndThen()"></a>4）  <code>collectingAndThen()</code></h4><ul>
-<li><p><code>collectingAndThen(Collector&lt;T,A,R&gt; downstream, Function&lt;R,RR&gt; finisher)</code>  先过完上层收集器 <code>downstream</code> ，在进行一次 <code>finisher()</code> 转换结果</p>
-<p> 比如说，你在 <code>toList()</code> 之后，想将它转换成一个 <code>immutableList()</code> 就可以如下使用</p>
-</li>
-</ul>
-<pre><code class="java">List&lt;String&gt; people = people.stream().collect(collectingAndThen(toList(), Collections::unmodifiableList));
-</code></pre>
-<p>实现其实很有意思<br><img src="http://ooapi4q4v.bkt.clouddn.com/14918263223655.jpg" alt=""></p>
-<h4 id="5）-counting-minBy-maxBy"><a href="#5）-counting-minBy-maxBy" class="headerlink" title="5）  counting() , minBy() , maxBy()"></a>5）  <code>counting()</code> , <code>minBy()</code> , <code>maxBy()</code></h4><ul>
-<li><code>counting()</code> , <code>minBy()</code> , <code>maxBy()</code> 用 <code>reducing()</code> 实现, <code>reducing()</code> 又是基于 <code>CollectorImpl</code> 实现</li>
-</ul>
-<h4 id="6）-summingInt-averagingInt-averagingDouble"><a href="#6）-summingInt-averagingInt-averagingDouble" class="headerlink" title="6）  summingInt() , averagingInt() , averagingDouble()"></a>6）  <code>summingInt()</code> , <code>averagingInt()</code> , <code>averagingDouble()</code></h4><ul>
-<li><code>summingInt()</code> 对每一个元素使用 <code>toIntFunction</code> 在累加，实现很有意思</li>
-</ul>
-<p><img src="http://ooapi4q4v.bkt.clouddn.com/14918267966242.jpg" alt=""></p>
-<p><code>Supplier()</code> 采用生成了一个 长度为1 的 <code>int</code> 数组，而不是直接使用的整形数字？<br>因为数字是一个 <code>值</code>， 值是无法传递的，而数组是一个 <code>引用</code>， 引用是可以传递的。</p>
-<ul>
-<li><code>averagingInt()</code> 求平均值</li>
-</ul>
-<p><img src="http://ooapi4q4v.bkt.clouddn.com/14918270760778.jpg" alt=""></p>
-<ul>
-<li>对于<code>averagingDouble()</code> 的实现可以再去看一下，他的初始数组长度为4，他们视为浮点数计算的补偿产生的。</li>
-</ul>
+<p>我们有intellj 编写 lambda 表达式的时候，编译器总是标黄来告诉你，这里可以使用方法引用的方法来进行代码的简化</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/6sl7hr28156h9kmv9jsmstb6/image_1b7k0qtepmls15v3rjv19691om39.png" alt="image_1b7k0qtepmls15v3rjv19691om39.png-86kB"></p>
+<p>而方法引用，<strong><em>method reference</em></strong> 其实就是lambda表达式一种语法糖<br>但是 </p>
+<blockquote>
+<p><strong>不是所有的 lambda 表达式，都可以用方法引用的方式来编写</strong><br>复杂的 lambda 表达式还是需要老老实实写相关代码</p>
+</blockquote>
+<p>我们通过一个例子来分别讲解这四种方法引用的方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">// 第一种</span></div><div class="line"></div><div class="line">        Student student1 = <span class="keyword">new</span> Student(<span class="string">"zhumin1"</span>,<span class="number">10</span>);</div><div class="line">        Student student2 = <span class="keyword">new</span> Student(<span class="string">"zhumin2"</span>,<span class="number">20</span>);</div><div class="line">        Student student3 = <span class="keyword">new</span> Student(<span class="string">"zhumin3"</span>,<span class="number">40</span>);</div><div class="line">        Student student4 = <span class="keyword">new</span> Student(<span class="string">"zhumin4"</span>,<span class="number">80</span>);</div><div class="line"></div><div class="line">        List&lt;Student&gt; students = Arrays.asList(student1, student2, student3, student4);</div><div class="line"></div><div class="line">        <span class="comment">// jdk 1.8 的新方法  List 中新增加了 sort 方法</span></div><div class="line">        <span class="comment">// 传统的 lambda 表达式</span></div><div class="line">        students.sort((studentP1, studentP2) -&gt; Student.compareByScore(studentP1, studentP2));</div><div class="line">        <span class="comment">// 第一种方法引用的方式 类名::静态方法名</span></div><div class="line">        <span class="comment">// 不需要传参数，因为可以自动推断出 Student 类型</span></div><div class="line">        students.sort(Student::compareByScore);</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 第二种 对象名称::方法名称</span></div><div class="line">        <span class="comment">// 其实和第一种很类似</span></div><div class="line">        StudentComparator studentComparator = <span class="keyword">new</span> StudentComparator();</div><div class="line"></div><div class="line">        students.sort((studentP1, studentP2) -&gt; studentComparator.comparator(studentP1, studentP2));</div><div class="line">        <span class="comment">// 对象名称::方法名称 (方法引用的第二种方式)</span></div><div class="line">        students.sort(studentComparator::comparator);</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 第三种方法 类名::实例方法</span></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 比较难理解的的地方是，你会看到调用的函数，和 lambda 表达式需要的参数个数不一致， 会少一个</div><div class="line">         * 而且类名是没法调用方法名的</div><div class="line">         * 而理解方式是：调用方法的实例，就是传入lambda 表达式的第一个参数，而剩下所有参数，都作为 调用的实例方法 的参数</div><div class="line">         * 我们看下面的例子 ， Student 类调用的是其的实例方法 compare（Student） 只有一个参数</div><div class="line">         * 而 List 的默认方法需要的 Comparator 的函数式接口需要两个参数，看似对应不上，而且，类名也无法调用实例方法</div><div class="line">         * 实际是，传入的第一参数就是 comare（student）这个函数的调用者，而第二个参数以及后续所有的参数（如果有跟多也是一样），是作为实例方法的参数传入</div><div class="line">         * 所以少一个参数也没什么</div><div class="line">         * 而更为关键的是这个就是一个语法糖，为了简化代码而生。理解就好</div><div class="line">         * 如此一来； 这个第三种方式就很好理解了</div><div class="line">         *</div><div class="line">         * 类名::实例方法</div><div class="line">         * 即 lambda 表达式的第一参数就是 实例方法 的调用者，后续所有的参数就是 实例方法的传入参数</div><div class="line">         */</div><div class="line">        students.sort(Student::compare);</div><div class="line"></div><div class="line">        <span class="comment">// 再看一个例子</span></div><div class="line">        List&lt;String&gt; cities = Arrays.asList(<span class="string">"haha"</span>,<span class="string">"lala"</span>,<span class="string">"nihao"</span>,<span class="string">"memeda"</span>);</div><div class="line">        <span class="comment">// 对比二者</span></div><div class="line">        Collections.sort(cities, (city1, city2) -&gt; city1.compareToIgnoreCase(city2));</div><div class="line">        Collections.sort(cities, String::compareToIgnoreCase);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 对于第四种，构造方法引用，对于带参数和不带参数的都可以，编译器会自动的进行腿短</span></div><div class="line">        MethodRefrenceTest methodRefrenceTest = <span class="keyword">new</span> MethodRefrenceTest();</div><div class="line">        <span class="comment">// 点击 new 看看会跳到那个方法里去</span></div><div class="line">        methodRefrenceTest.getName(String::<span class="keyword">new</span>);</div><div class="line">        <span class="comment">// 点击 new 看看会跳到那个方法里去</span></div><div class="line">        methodRefrenceTest.getName2(<span class="string">"haa"</span>, String::<span class="keyword">new</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">(Supplier&lt;String&gt; supplier)</span>  </span>&#123;</div><div class="line">        <span class="keyword">return</span> supplier.get() + <span class="string">"haha"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName2</span><span class="params">(String name, Function&lt;String ,String&gt; stringFunction)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> stringFunction.apply(name);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -514,14 +485,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/14/jdk8-2-流初步以及Function详解/" rel="next" title="jdk8-2-流初步以及Function详解">
+                <i class="fa fa-chevron-left"></i> jdk8-2-流初步以及Function详解
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/14/jdk8-2-流初步以及Function详解/" rel="prev" title="jdk8-2-流初步以及Function详解">
-                jdk8-2-流初步以及Function详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/11/jdk8-1-函数式接口-lambda表达式/" rel="prev" title="jdk8-1-函数式接口&lambda表达式">
+                jdk8-1-函数式接口&lambda表达式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -571,17 +546,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/user.jpg"
@@ -684,22 +650,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-collectorImpl"><span class="nav-number">1.</span> <span class="nav-text">1   collectorImpl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-两种实现方式"><span class="nav-number">2.</span> <span class="nav-text">2  两种实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-常见函数"><span class="nav-number">3.</span> <span class="nav-text">3  常见函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）-toList-amp-toCollection"><span class="nav-number">3.1.</span> <span class="nav-text">1）  toList() & toCollection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）-joining"><span class="nav-number">3.2.</span> <span class="nav-text">2）  joining()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）-mapping"><span class="nav-number">3.3.</span> <span class="nav-text">3）  mapping()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4）-collectingAndThen"><span class="nav-number">3.4.</span> <span class="nav-text">4）  collectingAndThen()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5）-counting-minBy-maxBy"><span class="nav-number">3.5.</span> <span class="nav-text">5）  counting() , minBy() , maxBy()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6）-summingInt-averagingInt-averagingDouble"><span class="nav-number">3.6.</span> <span class="nav-text">6）  summingInt() , averagingInt() , averagingDouble()</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
