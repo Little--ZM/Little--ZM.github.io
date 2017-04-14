@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-13T13:35:54.000Z</updated>
+  <updated>2017-04-14T07:01:41.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/04/13/jdk8-31-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%94%B6%E9%9B%86%E5%99%A8Collectors%E7%9A%84%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/</id>
     <published>2017-04-13T13:28:28.000Z</published>
-    <updated>2017-04-13T13:35:54.000Z</updated>
+    <updated>2017-04-14T07:01:41.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-collectorImpl"><a href="#1-collectorImpl" class="headerlink" title="1   collectorImpl"></a>1   collectorImpl</h3><ul>
 <li><code>Collectors</code> 中的 的基础 <code>collectorImpl</code> 两个构造方法一个有 <code>finisher()</code>, 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 <code>finisher()</code> 方法</li>
@@ -79,6 +79,8 @@
     
       <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
     
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
   </entry>
   
   <entry>
@@ -86,7 +88,7 @@
     <link href="http://yoursite.com/2017/02/14/jdk8-2-%E6%B5%81%E5%88%9D%E6%AD%A5%E4%BB%A5%E5%8F%8AFunction%E8%AF%A6%E8%A7%A3/"/>
     <id>http://yoursite.com/2017/02/14/jdk8-2-流初步以及Function详解/</id>
     <published>2017-02-14T06:56:17.000Z</published>
-    <updated>2017-04-14T06:59:29.000Z</updated>
+    <updated>2017-04-14T07:01:32.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一-流初步"><a href="#一-流初步" class="headerlink" title="一 流初步"></a>一 流初步</h3><p>java 8提供一种更加方便的操作集合方式，即流~ <code>Stream</code><br>Stream的概念其实类似于 <em>liunx</em> 操作系统的中的 <code>PipeLine</code> 的概念，可以将数据传输；</p>
 <a id="more"></a>
@@ -127,6 +129,58 @@
     
     
       <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jdk8-1-函数式接口&amp;lambda表达式</title>
+    <link href="http://yoursite.com/2017/02/11/jdk8-1-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>http://yoursite.com/2017/02/11/jdk8-1-函数式接口-lambda表达式/</id>
+    <published>2017-02-11T07:00:25.000Z</published>
+    <updated>2017-04-14T07:01:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="1-lmabda表达式"><a href="#1-lmabda表达式" class="headerlink" title="1 lmabda表达式"></a>1 lmabda表达式</h4><p>首先看两段对比代码:<br>为jbutton 添加一个时间监听器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 老写法: 匿名内部类</span></div><div class="line">jButton.addActionListener(<span class="keyword">new</span> AbstractAction() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"Hello Button"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">        </div><div class="line"><span class="comment">// lambda 表达式写法</span></div><div class="line">jButton.addActionListener(e -&gt; System.out.println(<span class="string">"Hello Button"</span>));</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>对比两个写法，lambda表达式的写法会简单很多，如果你有多行处理逻辑：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 加个大括号</span></div><div class="line">jButton.addActionListener(e -&gt;&#123;</div><div class="line">    System.out.println(<span class="string">"Hello Button!!!!"</span>);</div><div class="line">    System.out.println(<span class="string">"Hello Button2!!!!"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>这里的e，没有声明类型，并不是表示java 不是一个静态语言了，而是，编译器的类型推断告诉可以推断出来这个 <code>e</code> 的类型肯定是一个 <code>AbstractAction</code>, 所以无需去写，当然如写上也没有问题，需要加上括号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">jButton.addActionListener((AbstractAction e) -&gt;&#123;</div><div class="line">    System.out.println(<span class="string">"Hello Button!!!!"</span>);</div><div class="line">    System.out.println(<span class="string">"Hello Button2!!!!"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>所以 <strong>lambda</strong> 表达式的基本结构如下（根据单个参数和单个操作可以有一定的省略）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(event e1, event e2 ...) -&gt; &#123;</div><div class="line">    action1;</div><div class="line">    action2;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>一开始可能不是特别好理解，我们可以结合 <strong>java8</strong> 新增的另一个特性 <strong>函数式接口</strong> 来一起理解为何我们可以如此编写代码</p>
+<h3 id="2-函数式接口"><a href="#2-函数式接口" class="headerlink" title="2 函数式接口"></a>2 函数式接口</h3><p>什么叫函数式接口呢？ 函数式接口是 <code>jdk1.8</code> 中新增的一个接口类型，为此还新增了一个注解 <code>@FunctionalInterface</code> 用于标注函数接口；我们通过阅读 <code>@FunctionalInterface</code> 的 <em>jdk</em> 文档来进行概念认知。总结起来：</p>
+<ul>
+<li>当一个接口 有且只有一个抽象方法，并且这个抽象方法不是继承自 <code>Object</code> 的方法，就会被当做一个 <strong>函数式接口</strong></li>
+<li>当一个接口被  <code>@FunctionalInterface</code> 注解时，可以当做一个函数式接口</li>
+<li>当一个接口被  <code>@FunctionalInterface</code> 注解，但不满足第一个条件的时候，编译器会报错。</li>
+<li>当一个接口 没有被 <code>@FunctionalInterface</code> 注解标注，但是满足函数式接口的条件，也会被当做函数式接口</li>
+</ul>
+<blockquote>
+<p>这里的第一条后半部分很重要，如果一个接口，有两个抽象方法，但是其中一个是继承自 <code>Object</code> 类（因为其实万类师祖）, 他仍然是一个函数式接口。</p>
+</blockquote>
+<p>例如以下实例就是一个完整的函数式接口，即使他有2个抽象方法，但是toString是继承自 <code>Object</code> 的方法，所以不会算作函数式接口的抽象方法，所以其中的 <code>test()</code> 方法, 是函数式接口认定的唯一的抽象方法。<br>同理，如果下面的例子只有 <code>toString()</code> 方法，而没有 <code>test()</code> 方法，同时又有  <code>@FunctionalInterface</code> 注解的话，那么编译器会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@FunctionalInterface</div><div class="line">interface MyInterface &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 函数式接口，只能有唯一的抽象方法</div><div class="line">     */</div><div class="line">    void test();</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 因为改抽象方法，继承自 Object，所以不算函数式接口的抽象方法</div><div class="line">     * 故而，接口可以算作一个函数式接口</div><div class="line">     */</div><div class="line">    String toString();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们可以看一下  <code>@FunctionalInterface</code> 的jdk文档，里面有一句: </p>
+<center><img src="http://static.zybuluo.com/zhumin1990719/xgz9c76x5q7q1fa3fyvrzilz/image_1b4cpml3c13mn1cju14uurjun9v9.png" alt="image_1b4cpml3c13mn1cju14uurjun9v9.png-24.9kB"></center>
+
+<p>意思就是说，函数式接口的实现，可以通过 <code>lambda</code> 表达式 <strong>方法引用</strong> 以及 <strong>构造方法引用</strong> 的方式来实现。其实我们上面的 <code>lambda</code> 表达式的例子，就是实现的函数式接口。我们来新写一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class Test2 &#123;</div><div class="line">    public void testInterface(MyInterface myInterface) &#123;</div><div class="line">        System.out.println(&quot;start ------------------&quot;);</div><div class="line">        myInterface.test();</div><div class="line">        System.out.println(&quot;end --------------------&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Test2 test2 = new Test2();</div><div class="line">        /*</div><div class="line">         * 因为函数式接口的里唯一的抽象方法test里面，没有参数</div><div class="line">         * 但是（）不能省略</div><div class="line">         * 参考Test1 程序里面的Jframe 里的ActionListener</div><div class="line">         */</div><div class="line">        test2.testInterface(() -&gt; &#123;</div><div class="line">            System.out.println(&quot;函数式接口接口实现&quot;);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以看到，<code>testInterface</code> 方法需要传递一个 <code>testInterface</code><br>的接口，而我们使用的方式就是 <code>lambda</code> 表达式来实现了一个函数式接口。 可以运用下面的形式来理解。</p>
+<blockquote>
+<p>(函数式接口唯一的抽象方法的参数列表) -&gt; {唯一抽象函数的实现}</p>
+</blockquote>
+<p>这个时候，我们看一下最开始的那个给 <strong>button</strong> 加 action 的例子。<br>其实实现就是 <code>ActionListener</code> 这个函数式接口的唯一的抽象方法：<br><img src="http://static.zybuluo.com/zhumin1990719/uy91dk519fbykpnmbovocu5h/image_1b4cq5u2j1548e4eif0l1t1t48m.png" alt="image_1b4cq5u2j1548e4eif0l1t1t48m.png-35.9kB"><br>虽然该类没有 <code>@FunctionalInterface</code> 注解，但是满足条件，只有一个抽象方法，所以他也是一个函数式接口，所以我们可以去使用 <code>lambda</code> 表达式去实现他。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;1-lmabda表达式&quot;&gt;&lt;a href=&quot;#1-lmabda表达式&quot; class=&quot;headerlink&quot; title=&quot;1 lmabda表达式&quot;&gt;&lt;/a&gt;1 lmabda表达式&lt;/h4&gt;&lt;p&gt;首先看两段对比代码:&lt;br&gt;为jbutton 添加一个时间监听器&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 老写法: 匿名内部类&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;jButton.addActionListener(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; AbstractAction() &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;actionPerformed&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(ActionEvent e)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        System.out.println(&lt;span class=&quot;string&quot;&gt;&quot;Hello Button&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// lambda 表达式写法&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;jButton.addActionListener(e -&amp;gt; System.out.println(&lt;span class=&quot;string&quot;&gt;&quot;Hello Button&quot;&lt;/span&gt;));&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
     
   </entry>
   
