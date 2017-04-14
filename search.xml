@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+    
+    <entry>
+      <title><![CDATA[jdk8-31-工厂方法收集器Collectors的中的常用函数]]></title>
+      <url>%2F2017%2F04%2F13%2Fjdk8-31-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%94%B6%E9%9B%86%E5%99%A8Collectors%E7%9A%84%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%2F</url>
+      <content type="text"><![CDATA[1 collectorImpl Collectors 中的 的基础 collectorImpl 两个构造方法一个有 finisher(), 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 finisher() 方法 2 两种实现方式对于工厂类 两种实现方式 CollectorImpl 来实现。 reduceing 来实现， 而 reducing 方法归根还是用的是 CollectorImpl 方法来实现 3 常见函数1） toList() &amp; toCollection 两个最常用的方法 toList() &amp; toCollection toSet() 方法是也是 toCollection 的特化。 2） joining() joining 三种重载方法 3） mapping() mapping() 将输入元素转换成输出元素 1234Map&lt;City, Set&lt;String&gt;&gt; lastNamesByCity= people.stream().collect(groupingBy(Person::getCity,mapping(Person::getLastName, toSet()) // Mapping , 将Person 转换成String , 提供给下游 Collector 使用)); 4） collectingAndThen() collectingAndThen(Collector&lt;T,A,R&gt; downstream, Function&lt;R,RR&gt; finisher) 先过完上层收集器 downstream ，在进行一次 finisher() 转换结果 比如说，你在 toList() 之后，想将它转换成一个 immutableList() 就可以如下使用 List&lt;String&gt; people = people.stream().collect(collectingAndThen(toList(), Collections::unmodifiableList)); 实现其实很有意思 5） counting() , minBy() , maxBy() counting() , minBy() , maxBy() 用 reducing() 实现, reducing() 又是基于 CollectorImpl 实现 6） summingInt() , averagingInt() , averagingDouble() summingInt() 对每一个元素使用 toIntFunction 在累加，实现很有意思 Supplier() 采用生成了一个 长度为1 的 int 数组，而不是直接使用的整形数字？因为数字是一个 值， 值是无法传递的，而数组是一个 引用， 引用是可以传递的。 averagingInt() 求平均值 对于averagingDouble() 的实现可以再去看一下，他的初始数组长度为4，他们视为浮点数计算的补偿产生的。]]></content>
+    </entry>
+
+    
+    <entry>
+      <title><![CDATA[new start]]></title>
+      <url>%2F2017%2F04%2F12%2Fnew-start%2F</url>
+      <content type="text"><![CDATA[重新开始维护这个网站。让自己配得上这个不错的域名 movingon.cn! 我14年买了这个域名，本来想自己要好好做，实在不行，这域名也是一个不错的督促。 然而，自己维护了一段时间之后，就忘记了要去维护。 但是这一次，我用这里记录自己的技术成长以及个人感悟，作为自己的成长的记录。]]></content>
+    </entry>
+
+    
+  
+  
+</search>
