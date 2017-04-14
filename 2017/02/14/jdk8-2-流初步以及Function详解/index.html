@@ -91,19 +91,19 @@
 
 
 
-<meta name="description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；流 分为两种：  中间流：数据通过后还返回一个流，不是数据的终点 节点流：数据流入后不再返回流，操作结束，没有返回  使用java8 中的 List 来写一个例子，这个例子是将集合中的所有元素，全部变为大写，而后将元素逐一输出">
+<meta name="description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；">
 <meta name="keywords" content="java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jdk8-2-流初步以及Function详解">
 <meta property="og:url" content="http://yoursite.com/2017/02/14/jdk8-2-流初步以及Function详解/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；流 分为两种：  中间流：数据通过后还返回一个流，不是数据的终点 节点流：数据流入后不再返回流，操作结束，没有返回  使用java8 中的 List 来写一个例子，这个例子是将集合中的所有元素，全部变为大写，而后将元素逐一输出">
+<meta property="og:description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/a0gnbt50hdkjtfdk2ug54yws/image_1b5ng26f4el33qb92s1itsgpl9.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/o6nkgv0l1c4kjmaot2r0hd9u/image_1b5ngi5f21mha13p0uu4d06851m.png">
-<meta property="og:updated_time" content="2017-04-14T06:57:11.000Z">
+<meta property="og:updated_time" content="2017-04-14T06:59:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk8-2-流初步以及Function详解">
-<meta name="twitter:description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；流 分为两种：  中间流：数据通过后还返回一个流，不是数据的终点 节点流：数据流入后不再返回流，操作结束，没有返回  使用java8 中的 List 来写一个例子，这个例子是将集合中的所有元素，全部变为大写，而后将元素逐一输出">
+<meta name="twitter:description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；">
 <meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/a0gnbt50hdkjtfdk2ug54yws/image_1b5ng26f4el33qb92s1itsgpl9.png">
 
 
@@ -397,7 +397,9 @@
       
 
       
-        <h3 id="一-流初步"><a href="#一-流初步" class="headerlink" title="一 流初步"></a>一 流初步</h3><p>java 8提供一种更加方便的操作集合方式，即流~ <code>Stream</code><br>Stream的概念其实类似于 <em>liunx</em> 操作系统的中的 <code>PipeLine</code> 的概念，可以将数据传输；<br>流 分为两种：</p>
+        <h3 id="一-流初步"><a href="#一-流初步" class="headerlink" title="一 流初步"></a>一 流初步</h3><p>java 8提供一种更加方便的操作集合方式，即流~ <code>Stream</code><br>Stream的概念其实类似于 <em>liunx</em> 操作系统的中的 <code>PipeLine</code> 的概念，可以将数据传输；</p>
+<a id="more"></a>
+<p>流 分为两种：</p>
 <ol>
 <li>中间流：数据通过后还返回一个流，不是数据的终点</li>
 <li>节点流：数据流入后不再返回流，操作结束，没有返回</li>

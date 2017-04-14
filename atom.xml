@@ -86,9 +86,11 @@
     <link href="http://yoursite.com/2017/02/14/jdk8-2-%E6%B5%81%E5%88%9D%E6%AD%A5%E4%BB%A5%E5%8F%8AFunction%E8%AF%A6%E8%A7%A3/"/>
     <id>http://yoursite.com/2017/02/14/jdk8-2-流初步以及Function详解/</id>
     <published>2017-02-14T06:56:17.000Z</published>
-    <updated>2017-04-14T06:57:11.000Z</updated>
+    <updated>2017-04-14T06:59:29.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="一-流初步"><a href="#一-流初步" class="headerlink" title="一 流初步"></a>一 流初步</h3><p>java 8提供一种更加方便的操作集合方式，即流~ <code>Stream</code><br>Stream的概念其实类似于 <em>liunx</em> 操作系统的中的 <code>PipeLine</code> 的概念，可以将数据传输；<br>流 分为两种：</p>
+    <content type="html"><![CDATA[<h3 id="一-流初步"><a href="#一-流初步" class="headerlink" title="一 流初步"></a>一 流初步</h3><p>java 8提供一种更加方便的操作集合方式，即流~ <code>Stream</code><br>Stream的概念其实类似于 <em>liunx</em> 操作系统的中的 <code>PipeLine</code> 的概念，可以将数据传输；</p>
+<a id="more"></a>
+<p>流 分为两种：</p>
 <ol>
 <li>中间流：数据通过后还返回一个流，不是数据的终点</li>
 <li>节点流：数据流入后不再返回流，操作结束，没有返回</li>
@@ -119,7 +121,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;一-流初步&quot;&gt;&lt;a href=&quot;#一-流初步&quot; class=&quot;headerlink&quot; title=&quot;一 流初步&quot;&gt;&lt;/a&gt;一 流初步&lt;/h3&gt;&lt;p&gt;java 8提供一种更加方便的操作集合方式，即流~ &lt;code&gt;Stream&lt;/code&gt;&lt;br&gt;Stream的概念
+      &lt;h3 id=&quot;一-流初步&quot;&gt;&lt;a href=&quot;#一-流初步&quot; class=&quot;headerlink&quot; title=&quot;一 流初步&quot;&gt;&lt;/a&gt;一 流初步&lt;/h3&gt;&lt;p&gt;java 8提供一种更加方便的操作集合方式，即流~ &lt;code&gt;Stream&lt;/code&gt;&lt;br&gt;Stream的概念其实类似于 &lt;em&gt;liunx&lt;/em&gt; 操作系统的中的 &lt;code&gt;PipeLine&lt;/code&gt; 的概念，可以将数据传输；&lt;/p&gt;
     
     </summary>
     
