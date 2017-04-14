@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java8," />
 
 
 
@@ -91,15 +91,20 @@
 
 
 
-<meta name="description" content="朱老师的鸡汤和敏哥装逼的日常">
-<meta property="og:type" content="website">
-<meta property="og:title" content="待葡萄嗖透">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；流 分为两种：  中间流：数据通过后还返回一个流，不是数据的终点 节点流：数据流入后不再返回流，操作结束，没有返回  使用java8 中的 List 来写一个例子，这个例子是将集合中的所有元素，全部变为大写，而后将元素逐一输出">
+<meta name="keywords" content="java8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jdk8-2-流初步以及Function详解">
+<meta property="og:url" content="http://yoursite.com/2017/02/14/jdk8-2-流初步以及Function详解/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="朱老师的鸡汤和敏哥装逼的日常">
+<meta property="og:description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；流 分为两种：  中间流：数据通过后还返回一个流，不是数据的终点 节点流：数据流入后不再返回流，操作结束，没有返回  使用java8 中的 List 来写一个例子，这个例子是将集合中的所有元素，全部变为大写，而后将元素逐一输出">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/a0gnbt50hdkjtfdk2ug54yws/image_1b5ng26f4el33qb92s1itsgpl9.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/o6nkgv0l1c4kjmaot2r0hd9u/image_1b5ngi5f21mha13p0uu4d06851m.png">
+<meta property="og:updated_time" content="2017-04-14T06:57:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="待葡萄嗖透">
-<meta name="twitter:description" content="朱老师的鸡汤和敏哥装逼的日常">
+<meta name="twitter:title" content="jdk8-2-流初步以及Function详解">
+<meta name="twitter:description" content="一 流初步java 8提供一种更加方便的操作集合方式，即流~ StreamStream的概念其实类似于 liunx 操作系统的中的 PipeLine 的概念，可以将数据传输；流 分为两种：  中间流：数据通过后还返回一个流，不是数据的终点 节点流：数据流入后不再返回流，操作结束，没有返回  使用java8 中的 List 来写一个例子，这个例子是将集合中的所有元素，全部变为大写，而后将元素逐一输出">
+<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/a0gnbt50hdkjtfdk2ug54yws/image_1b5ng26f4el33qb92s1itsgpl9.png">
 
 
 
@@ -127,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/14/jdk8-2-流初步以及Function详解/"/>
 
 
 
 
 
-  <title> 待葡萄嗖透 </title>
+  <title> jdk8-2-流初步以及Function详解 | 待葡萄嗖透 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -167,9 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -296,261 +299,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="朱老师&敏哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="待葡萄嗖透">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/" itemprop="url">
-                  jdk8-31-工厂方法收集器Collectors的中的常用函数
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-13T21:28:28+08:00">
-                2017-04-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-collectorImpl"><a href="#1-collectorImpl" class="headerlink" title="1   collectorImpl"></a>1   collectorImpl</h3><ul>
-<li><code>Collectors</code> 中的 的基础 <code>collectorImpl</code> 两个构造方法一个有 <code>finisher()</code>, 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 <code>finisher()</code> 方法</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/new-start/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="朱老师&敏哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/user.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="待葡萄嗖透">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/12/new-start/" itemprop="url">
-                  new start
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-12T21:42:13+08:00">
-                2017-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>重新开始维护这个网站。让自己配得上这个不错的域名 <code>movingon.cn!</code></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/12/new-start/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
 
   
 
@@ -580,10 +331,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/02/14/jdk8-2-流初步以及Function详解/" itemprop="url">
-                  jdk8-2-流初步以及Function详解
-                </a>
+                jdk8-2-流初步以及Function详解
               
             
           </h1>
@@ -612,11 +360,26 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/02/14/jdk8-2-流初步以及Function详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
           
 
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"> 被偷窥 👀</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
           
 
           
@@ -634,9 +397,7 @@
       
 
       
-        
-          
-            <h3 id="一-流初步"><a href="#一-流初步" class="headerlink" title="一 流初步"></a>一 流初步</h3><p>java 8提供一种更加方便的操作集合方式，即流~ <code>Stream</code><br>Stream的概念其实类似于 <em>liunx</em> 操作系统的中的 <code>PipeLine</code> 的概念，可以将数据传输；<br>流 分为两种：</p>
+        <h3 id="一-流初步"><a href="#一-流初步" class="headerlink" title="一 流初步"></a>一 流初步</h3><p>java 8提供一种更加方便的操作集合方式，即流~ <code>Stream</code><br>Stream的概念其实类似于 <em>liunx</em> 操作系统的中的 <code>PipeLine</code> 的概念，可以将数据传输；<br>流 分为两种：</p>
 <ol>
 <li>中间流：数据通过后还返回一个流，不是数据的终点</li>
 <li>节点流：数据流入后不再返回流，操作结束，没有返回</li>
@@ -664,42 +425,98 @@
 <p><code>compose</code> 和 <code>andThen</code> 的功能可以从例子中很好的看出来，例子中还有一个新的接口叫 <code>BiFunction</code>, 这个函数式接口是给定两个输入，返回一个输出，解决了有两个参数的函数的问题，对应的，其实 <code>Comsumer</code> 接口也还有一个对应的 <code>BiConsumer</code> 接口。</p>
 <p>而当我们去观察这俩 <code>Bi</code> 的接口，都只有一个 <code>andThen</code> 的接口，为啥没有 <code>compose</code> 方法呢？<br>给读者自己思考吧~</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/gongzhonghao.jpeg" alt="朱老师&敏哥 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>有惊喜，朋友🙄</div>
+</div>
+
+
       
     </div>
 
     <div>
       
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>我要拿铁不加糖.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.png" alt="朱老师&敏哥 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.png" alt="朱老师&敏哥 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
     </div>
+  </div>
 
-    <div>
+
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/java8/" rel="tag"># java8</a>
+          
+        </div>
       
 
       
+        
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/12/new-start/" rel="next" title="new start">
+                <i class="fa fa-chevron-left"></i> new start
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -707,6 +524,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -726,8 +549,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/user.jpg"
@@ -830,6 +662,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-流初步"><span class="nav-number">1.</span> <span class="nav-text">一 流初步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-Functon-接口-以及-BiFunction简介"><span class="nav-number">2.</span> <span class="nav-text">二 Functon 接口 以及 BiFunction简介</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -947,6 +795,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
