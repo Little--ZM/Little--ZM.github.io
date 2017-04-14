@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918263223655.jpg">
 <meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918267966242.jpg">
 <meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918270760778.jpg">
-<meta property="og:updated_time" content="2017-04-14T07:01:41.000Z">
+<meta property="og:updated_time" content="2017-04-14T07:07:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk8-31-工厂方法收集器Collectors的中的常用函数">
 <meta name="twitter:description" content="1   collectorImpl Collectors 中的 的基础 collectorImpl 两个构造方法一个有 finisher(), 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 finisher() 方法">
@@ -420,14 +420,15 @@
 <h4 id="3）-mapping"><a href="#3）-mapping" class="headerlink" title="3）  mapping()"></a>3）  <code>mapping()</code></h4><ul>
 <li><code>mapping()</code> 将输入元素转换成输出元素</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; lastNamesByCity= people.stream().collect(groupingBy(</div><div class="line">Person::getCity,</div><div class="line">mapping(Person::getLastName, toSet()) // Mapping , 将Person 转换成String , 提供给下游 Collector 使用</div><div class="line">));</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; lastNamesByCity= people.stream().collect(groupingBy(</div><div class="line">Person::getCity,</div><div class="line">mapping(Person::getLastName, toSet()) <span class="comment">// Mapping , 将Person 转换成String , 提供给下游 Collector 使用</span></div><div class="line">));</div></pre></td></tr></table></figure>
 <h4 id="4）-collectingAndThen"><a href="#4）-collectingAndThen" class="headerlink" title="4）  collectingAndThen()"></a>4）  <code>collectingAndThen()</code></h4><ul>
 <li><p><code>collectingAndThen(Collector&lt;T,A,R&gt; downstream, Function&lt;R,RR&gt; finisher)</code>  先过完上层收集器 <code>downstream</code> ，在进行一次 <code>finisher()</code> 转换结果</p>
 <p> 比如说，你在 <code>toList()</code> 之后，想将它转换成一个 <code>immutableList()</code> 就可以如下使用</p>
 </li>
 </ul>
-<pre><code>List&lt;String&gt; people = people.stream().collect(collectingAndThen(toList(), Collections::unmodifiableList));
-</code></pre><p>实现其实很有意思<br><img src="http://ooapi4q4v.bkt.clouddn.com/14918263223655.jpg" alt=""></p>
+<pre><code class="java">List&lt;String&gt; people = people.stream().collect(collectingAndThen(toList(), Collections::unmodifiableList));
+</code></pre>
+<p>实现其实很有意思<br><img src="http://ooapi4q4v.bkt.clouddn.com/14918263223655.jpg" alt=""></p>
 <h4 id="5）-counting-minBy-maxBy"><a href="#5）-counting-minBy-maxBy" class="headerlink" title="5）  counting() , minBy() , maxBy()"></a>5）  <code>counting()</code> , <code>minBy()</code> , <code>maxBy()</code></h4><ul>
 <li><code>counting()</code> , <code>minBy()</code> , <code>maxBy()</code> 用 <code>reducing()</code> 实现, <code>reducing()</code> 又是基于 <code>CollectorImpl</code> 实现</li>
 </ul>
