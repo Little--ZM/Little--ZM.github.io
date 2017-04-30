@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-30T08:59:27.000Z</updated>
+  <updated>2017-04-30T09:02:32.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,13 +20,14 @@
     <link href="http://yoursite.com/2017/04/30/jdk8-32-groupingBy-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     <id>http://yoursite.com/2017/04/30/jdk8-32-groupingBy-源码分析/</id>
     <published>2017-04-30T08:58:34.000Z</published>
-    <updated>2017-04-30T08:59:27.000Z</updated>
+    <updated>2017-04-30T09:02:32.000Z</updated>
     
     <content type="html"><![CDATA[<p>jdk8 集合的工厂类 <code>Collectors</code> 提供了两个很好用的静态函数。</p>
 <ul>
 <li>groupingBy</li>
 <li>partitioningBy</li>
 </ul>
+<a id="more"></a>
 <p><code>groupingBy</code> 实现类似 Mysql 中分分组功能。返回一个 Map; 而 <code>partitioningBy</code>可以看做是 <code>groupingBy</code> 的特殊形式。我们后面会接着介绍。 使用的是比如统计每个城市人的“姓”，可以这么写</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; namesByCity = people.stream().collect(groupingBy(Person::getCity,                                            mapping(Person::getLastName, toSet())));</div></pre></td></tr></table></figure>
 <p>那么，他到底如何利用 <code>Collector</code> 的各个接口来实现的呢？下面我们将深入 JDK 的 <code>Collectors</code> 的源码中，分析一下他是如何工作的。 </p>
@@ -79,7 +80,6 @@
 &lt;li&gt;groupingBy&lt;/li&gt;
 &lt;li&gt;partitioningBy&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;groupingBy&lt;/code&gt; 
     
     </summary>
     

@@ -91,21 +91,21 @@
 
 
 
-<meta name="description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy  groupingBy 实现类似 Mysql 中分分组功能。返回一个 Map; 而 partitioningBy可以看做是 groupingBy 的特殊形式。我们后面会接着介绍。 使用的是比如统计每个城市人的“姓”，可以这么写 1Map&amp;lt;City, Set&amp;lt;">
+<meta name="description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy">
 <meta name="keywords" content="java8,coding life">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jdk8-32-groupingBy 源码分析">
 <meta property="og:url" content="http://yoursite.com/2017/04/30/jdk8-32-groupingBy-源码分析/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy  groupingBy 实现类似 Mysql 中分分组功能。返回一个 Map; 而 partitioningBy可以看做是 groupingBy 的特殊形式。我们后面会接着介绍。 使用的是比如统计每个城市人的“姓”，可以这么写 1Map&amp;lt;City, Set&amp;lt;">
+<meta property="og:description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/r9lzmhqejhu4poxfa65jrwg0/image_1be34fqkpdosrnqo8317uhcnc9.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/9aw6m36vtunxhzintfqzhw8x/image_1be351ek7187m19721kb3vijudj13.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/lqq4sk8y37vbchc9m7ajs0cn/image_1be353p451uuhvefd57r2u16ad1g.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/sqtr5d56vcc4y5qtm6yhv271/image_1be35m758itj1grmlc71nu81rrm1t.png">
-<meta property="og:updated_time" content="2017-04-30T08:59:27.000Z">
+<meta property="og:updated_time" content="2017-04-30T09:02:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk8-32-groupingBy 源码分析">
-<meta name="twitter:description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy  groupingBy 实现类似 Mysql 中分分组功能。返回一个 Map; 而 partitioningBy可以看做是 groupingBy 的特殊形式。我们后面会接着介绍。 使用的是比如统计每个城市人的“姓”，可以这么写 1Map&amp;lt;City, Set&amp;lt;">
+<meta name="twitter:description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy">
 <meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/r9lzmhqejhu4poxfa65jrwg0/image_1be34fqkpdosrnqo8317uhcnc9.png">
 
 
@@ -404,6 +404,7 @@
 <li>groupingBy</li>
 <li>partitioningBy</li>
 </ul>
+<a id="more"></a>
 <p><code>groupingBy</code> 实现类似 Mysql 中分分组功能。返回一个 Map; 而 <code>partitioningBy</code>可以看做是 <code>groupingBy</code> 的特殊形式。我们后面会接着介绍。 使用的是比如统计每个城市人的“姓”，可以这么写</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; namesByCity = people.stream().collect(groupingBy(Person::getCity,                                            mapping(Person::getLastName, toSet())));</div></pre></td></tr></table></figure>
 <p>那么，他到底如何利用 <code>Collector</code> 的各个接口来实现的呢？下面我们将深入 JDK 的 <code>Collectors</code> 的源码中，分析一下他是如何工作的。 </p>
