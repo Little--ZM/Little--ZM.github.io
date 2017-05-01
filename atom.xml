@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-30T09:02:32.000Z</updated>
+  <updated>2017-05-01T15:13:34.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,80 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra</title>
+    <link href="http://yoursite.com/2017/05/01/%E8%80%81%E7%89%88%E6%9C%ACMacBookPro-%E5%8E%9A%E7%9A%84-%E6%A0%BC%E5%BC%8F%E5%8C%96-U%E7%9B%98%E5%AE%89%E8%A3%85-MacOS-Sierra/"/>
+    <id>http://yoursite.com/2017/05/01/老版本MacBookPro-厚的-格式化-U盘安装-MacOS-Sierra/</id>
+    <published>2017-05-01T15:12:25.000Z</published>
+    <updated>2017-05-01T15:13:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>主要写的点是：U 盘安装盘的制作，以及，为什么会有 </p>
+<ul>
+<li>can’t be verified</li>
+<li>已损坏，重新下载</li>
+</ul>
+<p>这些问题，即使你是从 app store 中下载的完整版本。</p>
+<a id="more"></a>
+<p>前两天，我一个朋友拿了一台很老的 <code>MacBook pro</code> , 说他不小心格式化了硬盘，要我重装系统。。</p>
+<p>电脑图如下。。<br><img src="http://static.zybuluo.com/zhumin1990719/ky6nya8775sxhivrqgdiqq7c/image_1bf10mmqp1ifr1lgpklstgs1h9o9.png" alt="image_1bf10mmqp1ifr1lgpklstgs1h9o9.png-308.8kB"></p>
+<p>有点洁癖的我看到了想说说，要不你砸了吧（当然我没说。。）<br>但是碍于面子（毕竟我是程序员，外界都说是搞电脑的，约等于 修电脑的，近似于你是修电脑的，也就是说电脑相关的你全都会，不会就是大傻逼）。。</p>
+<blockquote>
+<p>我当然是很愤怒的，之所以没有发作是因为他是我老师。。</p>
+</blockquote>
+<h2 id="如何制作安装盘"><a href="#如何制作安装盘" class="headerlink" title="如何制作安装盘"></a>如何制作安装盘</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>你需要一下物品：</p>
+<blockquote>
+<ul>
+<li>一个只要8G的U盘</li>
+<li>一台工作良好的 macbook pro</li>
+<li>良好的网络</li>
+<li>我（你没戏了）</li>
+</ul>
+</blockquote>
+<p>言归正传：</p>
+<h3 id="步骤一-：-在App-Store-中下载最新的-macos"><a href="#步骤一-：-在App-Store-中下载最新的-macos" class="headerlink" title="步骤一 ： 在App Store 中下载最新的 macos"></a>步骤一 ： 在App Store 中下载最新的 macos</h3><p>连接如下 <a href="https://itunes.apple.com/cn/app/macos-sierra/id1127487414?mt=12" target="_blank" rel="external">下载地址</a><br>她会跳转到 app store. 点击下载即可。它会弹出提示让你更新啥的，不用管它，直接下载</p>
+<p>下载好了之后，你在你的 <code>应用程序</code> 文件夹，你就可以看到这个了</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/y0agrs81opqu504ydcxb59nl/image_1bf1226d41kb315mb1ja21bi6fkbm.png" alt="image_1bf1226d41kb315mb1ja21bi6fkbm.png-253.8kB"></p>
+<p>至此，你的第一任务完成。</p>
+<h3 id="步骤二-：用磁盘工具格式化你的U盘"><a href="#步骤二-：用磁盘工具格式化你的U盘" class="headerlink" title="步骤二 ：用磁盘工具格式化你的U盘"></a>步骤二 ：用磁盘工具格式化你的U盘</h3><p>打开 “应用程序 → 实用工具 → 磁盘工具”，将U盘「抹掉」(格式化) 成「Mac OS X 扩展（日志式）」格式、GUID 分区图，并将U盘命名为<br>「Sierra」。(注意：这个盘符名称将会与后面的命令一一对应，如果你改了这盘符的名字，必须保证后面的命令里的名称也要一致。)</p>
+<blockquote>
+<p>如果不成功，你就多试几次</p>
+</blockquote>
+<h3 id="步骤三-：-制作安装盘"><a href="#步骤三-：-制作安装盘" class="headerlink" title="步骤三 ： 制作安装盘"></a>步骤三 ： 制作安装盘</h3><p>打开你的终端，输入如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/Sierra --applicationpath /Applications/Install\ macOS\ Sierra.app --nointeraction</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意空格前面需要有 <code>\</code> 进行转义</p>
+</blockquote>
+<p><img src="http://static.zybuluo.com/zhumin1990719/wx8yijvchu5smsimltbdgl9p/image_1bf28fv4l1uph1cvgv581u0uecs13.png" alt="image_1bf28fv4l1uph1cvgv581u0uecs13.png-51.3kB"></p>
+<p>耐心得到 <code>done</code>,  你就可以拿着 U 盘去安装了</p>
+<h2 id="无法验证？or-已经损坏？"><a href="#无法验证？or-已经损坏？" class="headerlink" title="无法验证？or 已经损坏？"></a>无法验证？or 已经损坏？</h2><p>重装的步骤简单，插入u盘，开机按住 <code>option</code>, 选择u 盘的安装盘。接下来选择安装就可以了。</p>
+<p>但是，大部分情况下，都会遇到类似</p>
+<blockquote>
+<p> This copy of the Install OS X El Capitan application can’t be verified. It may have been corrupted or tampered with during downloading</p>
+</blockquote>
+<p><img src="http://static.zybuluo.com/zhumin1990719/v32y8u4lwltu78uco91rnee0/image_1bf28oaj5122pbej121d1nfgq831g.png" alt="image_1bf28oaj5122pbej121d1nfgq831g.png-57.5kB"></p>
+<p>或者，直接告诉你损坏了，让你再去下载完整版本。</p>
+<p>导致这个的原因是，当你决定将一台mac格式化后，在重装系统的时候，系统的时间已经被改变了。这个时候安装程序就会爆出各种错误。你可以通过 终端输入 date 进行查看，时间应该变成了 2001 年。</p>
+<p>这个时候， 你只要通过 <code>date</code> 命令重置时间，就可以解决这个问题。<br>他的参数如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">date MMDDHHmmYY replacing the letters as follows.</div><div class="line">MM - 2 digit month  01 - 12</div><div class="line">DD - 2 digit date   01 - 31</div><div class="line">HH - 2 digit hour   01 - 24</div><div class="line">mm - 2 digit minute 01 - 59</div><div class="line">YY - 2 digit year   &gt; 15</div></pre></td></tr></table></figure>
+<p>你将时间设置成，你要安装的系统发布之后的一个时间后，退出终端，再次点击操作，就不会有问题。</p>
+<p>你也可以看做这个视频 <a href="https://www.youtube.com/watch?v=LRPiynS15_U" target="_blank" rel="external">土逼视频</a> ，需要翻墙。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;引子&quot;&gt;&lt;a href=&quot;#引子&quot; class=&quot;headerlink&quot; title=&quot;引子&quot;&gt;&lt;/a&gt;引子&lt;/h2&gt;&lt;p&gt;主要写的点是：U 盘安装盘的制作，以及，为什么会有 &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;can’t be verified&lt;/li&gt;
+&lt;li&gt;已损坏，重新下载&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些问题，即使你是从 app store 中下载的完整版本。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="mac" scheme="http://yoursite.com/tags/mac/"/>
+    
+  </entry>
   
   <entry>
     <title>jdk8-32-groupingBy 源码分析</title>
