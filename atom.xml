@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-02T04:18:27.000Z</updated>
+  <updated>2017-05-02T09:50:05.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,117 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>jdk8 Stream 解析2 - Spliterator分割迭代器</title>
+    <link href="http://yoursite.com/2017/05/02/jdk8-Stream-%E8%A7%A3%E6%9E%902-Spliterator%E5%88%86%E5%89%B2%E8%BF%AD%E4%BB%A3%E5%99%A8/"/>
+    <id>http://yoursite.com/2017/05/02/jdk8-Stream-解析2-Spliterator分割迭代器/</id>
+    <published>2017-05-02T09:48:43.000Z</published>
+    <updated>2017-05-02T09:50:05.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>说完<code>Stream</code> 的一些源码解析。我们看下我们的 <code>Stream</code> 是如何产生的。我们最为常见的流的产生方式是 <code>collection.stream()</code>, 你点开<code>Stream()</code>方法, 他是通过 <code>Collection</code> 这个上层接口两个java8 新增特性 <code>default method</code> 进行实现。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png" alt="image_1bf3u1l911o5rf825gv39aqe9.png-41.3kB"></p>
+<p>这就牵扯到一个关键要点 <code>Spliterator</code> 分割迭代器。本文主要描述 <code>Spliterator</code> 的作用，大部分来源于你不愿意读的 <code>JavaDoc</code>。<br>以及 <code>Spliterators</code> 这个工厂方法的作用。 </p>
+<p><code>Spliterator</code> 是 <code>jdk8</code> 非常重要的概念。里面的细节很值得学习玩味。</p>
+<a id="more"></a>
+<h2 id="Spliterator-冗长的JavaDoc-说了什么？"><a href="#Spliterator-冗长的JavaDoc-说了什么？" class="headerlink" title="Spliterator 冗长的JavaDoc 说了什么？"></a>Spliterator 冗长的JavaDoc 说了什么？</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p><code>Spliterator</code> 是一个对源（数组，集合，io流等等）中元素进行遍历和分区的类。</p>
+<p>可以通过 <code>tryAdvance()</code> 方法逐个遍历，也可以按照 <code>forEachRemaining()</code> 方法进行按 <em>bulk</em> 逐块的遍历。（内部调用的还是<em>tryAdvance</em>）</p>
+<p><code>Spliterator</code> 有类似 <code>Collector</code> 中的 <code>characteristics</code> , 但都是由十六进制来表示的。</p>
+<blockquote>
+<ul>
+<li>SIZED :表示大小固定, Collection常用</li>
+<li>DISTINCT : 去重, Set常用</li>
+<li>SORTED : 有顺序的 SortedSet 会用<br>等等</li>
+</ul>
+</blockquote>
+<h3 id="原生类型的特化版本"><a href="#原生类型的特化版本" class="headerlink" title="原生类型的特化版本"></a>原生类型的特化版本</h3><p>特化分割迭代器也被提供，和Stream类似。减少装箱和拆箱的操作<br><img src="http://static.zybuluo.com/zhumin1990719/fdux697e4pizzdyhgfsb51lx/image_1bf3vbfdl10r5vl7ef8t47kium.png" alt="image_1bf3vbfdl10r5vl7ef8t47kium.png-128.9kB"></p>
+<h3 id="比迭代器Iterator-更加高效的遍历元素的方式"><a href="#比迭代器Iterator-更加高效的遍历元素的方式" class="headerlink" title="比迭代器Iterator 更加高效的遍历元素的方式"></a>比迭代器Iterator 更加高效的遍历元素的方式</h3><p>提供更加高效的方法，进行数据的迭代。<br><code>Iterator</code> 的使用需要调用两个组合方法 <code>hasNext()</code> 以及 <code>next()</code> ，同事在多线程访问的情况下还会出现竞争，你需要去同步。<br>而分割迭代器 <code>Spliterator</code> 使用函数式编程的方式，只用一个方法就可以做到这个两个函数动作。就避免了竞争 ，就是 <code>tryAdvance()</code> 方法。后面会介绍</p>
+<h2 id="Spliterator的接口方法"><a href="#Spliterator的接口方法" class="headerlink" title="Spliterator的接口方法"></a>Spliterator的接口方法</h2><h3 id="tryAdvance"><a href="#tryAdvance" class="headerlink" title="tryAdvance()"></a>tryAdvance()</h3><p>同时做了  <code>hasNext()</code> 以及 <code>next()</code> 的工作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 对给定的元素进行判断，如果满足条件就会执行 Action</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">tryAdvance</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span></span>;</div></pre></td></tr></table></figure>
+<h3 id="forEachRemaining"><a href="#forEachRemaining" class="headerlink" title="forEachRemaining()"></a>forEachRemaining()</h3><p>是一个<code>默认方法</code>，对余下的元素进行操作，直到元素全部被遍历完<br>一般情况下回直接调用上面的<code>tryAdvance()</code> 方法，但是也可以更具需要进行重写。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 对余下的元素进行操作，直到元素全部被遍历完</div><div class="line">* 如果源是有序的，遍历也是有序的</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</div><div class="line">        <span class="keyword">do</span> &#123; &#125; <span class="keyword">while</span> (tryAdvance(action));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里有一点很值得注意，方法体中的 <code>do {}</code> 是空的，这个是因为 <code>tryAdvance()</code> 方法本身就完成了两个操作 <code>hasNext()</code> 以及 <code>next()</code>，所以方法体中不需要有任何操作了。这个是 函数式编程带来的好处。以及与命令式编程的区别。</p>
+</blockquote>
+<h3 id="trySplit"><a href="#trySplit" class="headerlink" title="trySplit()"></a>trySplit()</h3><p>尝试切分源来的 <code>Spliterator</code>， 返回的是（注意！！！）返回的是 <strong><code>分割出来的那一部分</code></strong> 数据，原有的数据集将不在包含这部分数据集合。两者 <code>没有交集</code>。剩下的可以继续分割，也许不可以继续分割了</p>
+<blockquote>
+<p>举个例子，我原来有 100个元素，我通过 <code>trySplit</code> 切分出 <code>30</code> 个，作为一个新的 <code>分割迭代器</code> 返回，原有的，就还剩下 <code>70</code> 个。</p>
+</blockquote>
+<ul>
+<li>如果是原有数据集合是 <code>ORDERD</code> 的，分出来的也是有序的。</li>
+<li>除非元素数量是无穷的，否则，最后一定会出现不能在分割的情况，这种情况下，返回的结果是 <code>null</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">Spliterator&lt;T&gt; <span class="title">trySplit</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<h3 id="estimateSize"><a href="#estimateSize" class="headerlink" title="estimateSize()"></a>estimateSize()</h3><p>估算集合剩余给<code>forEachRemaining</code>大小，不一定精确。<br>但是如果这个 <code>Spliterator</code> 是 <code>SIZED</code>，没有被遍历或者 split， 或是 <code>SUBSIZED</code>的，没有被遍历，那么他这个值一定是准确的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">long</span> <span class="title">estimateSize</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<p>还有个与之相关的默认方法，就是利用这个特性。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">long</span> <span class="title">getExactSizeIfKnown</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (characteristics() &amp; SIZED) == <span class="number">0</span> ? -<span class="number">1L</span> : estimateSize();</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="characteristics"><a href="#characteristics" class="headerlink" title="characteristics()"></a>characteristics()</h3><p>表示集合的特性，一共8个。</p>
+<ul>
+<li>分割之前，返回的结果都是一致的</li>
+</ul>
+<blockquote>
+<p>如果返回结果不一致，则操作是不受保证的</p>
+</blockquote>
+<ul>
+<li>而分割之后，不保证一致</li>
+</ul>
+<p>有一个默认方法用于判断 <code>Spliterator</code> 是否包含这个特性<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">hasCharacteristics</span><span class="params">(<span class="keyword">int</span> characteristics)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (characteristics() &amp; characteristics) == characteristics;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="getComparator"><a href="#getComparator" class="headerlink" title="getComparator"></a>getComparator</h3><p>如果源是<code>SORTED</code> 类型的，且有比较器 <code>Comparator</code> 的话，则返回这个 <code>Comparator</code>，如果是<code>SORTED</code> 类型的，但是没有比较器，则返回 <code>null</code> , 除此之外，都抛出异常</p>
+<p>接口的默认方法里，就是抛出了异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">default Comparator&lt;? super T&gt; getComparator() &#123;</div><div class="line">        throw new IllegalStateException();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="Spliterator的8个Characteristics-特性"><a href="#Spliterator的8个Characteristics-特性" class="headerlink" title="Spliterator的8个Characteristics 特性"></a>Spliterator的8个Characteristics 特性</h2><h3 id="ORDERED"><a href="#ORDERED" class="headerlink" title="ORDERED"></a>ORDERED</h3><p>源的元素有序，<code>tryAdvance</code> ，<code>forEachRemaining</code>和 <code>trySplit</code> 都会保证有序的进行元素的处理</p>
+<ul>
+<li>需要注意 <code>hashSet</code> 这类 <code>Collection</code> 是不保证有序的</li>
+<li>有<code>ORDERED</code> 特性的数据，在并发计算的时候客户端也要做顺序限制的保证</li>
+</ul>
+<h3 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h3><p>太简单，唯一性。 类似 <code>Set</code> 这样的传入集合会拥有这样的特性</p>
+<h3 id="SORTED"><a href="#SORTED" class="headerlink" title="SORTED"></a>SORTED</h3><p>有这种特性的 <code>Spliterator</code> ，有一个特定的顺序。或者是所有元素都是可比较的，或者是有特定的比较器。</p>
+<ul>
+<li>有 <code>SORTED</code> 一定会有 <code>ORDERED</code></li>
+</ul>
+<h3 id="SIZED"><a href="#SIZED" class="headerlink" title="SIZED"></a>SIZED</h3><p>有这种属性的 <code>Spliterator</code> 在遍历和分割之前，<code>estimateSize()</code> 返回的大小是固定的，并且是准确的。</p>
+<h3 id="NONNULL"><a href="#NONNULL" class="headerlink" title="NONNULL"></a>NONNULL</h3><p>不为 <code>NULL</code>, 大部分并发的集合，队列，Map 都可能会有这样的特性。</p>
+<h3 id="IMMUTABLE"><a href="#IMMUTABLE" class="headerlink" title="IMMUTABLE"></a>IMMUTABLE</h3><p>不可变的。元素遍历期间不可以被 添加，替换，删除（cannot be added, replaced, or removed）<br>否则，应该抛出异常。</p>
+<h3 id="CONCURRENT"><a href="#CONCURRENT" class="headerlink" title="CONCURRENT"></a>CONCURRENT</h3><p>支持并发操作的。 </p>
+<ul>
+<li>顶层的 <code>Spliterator</code> 不可以 <code>CONCURRENT</code> 与 <code>SIZED</code>。 这两者是相互冲突的。</li>
+<li>但是分割之后的 <code>Spliterator</code> ， 可能是 <code>SIZED</code>， 顶层不能决定底层</li>
+</ul>
+<h3 id="SUBSIZED"><a href="#SUBSIZED" class="headerlink" title="SUBSIZED"></a>SUBSIZED</h3><p>从<code>trySplit()</code>被分割后的所有分割迭代器都是 <code>SIZED</code> 以及 <code>SUBSIZED</code> 的。<br>如果分割后，没有按照要求返回<code>SIZED</code> 以及 <code>SUBSIZED</code> 属性，那么操作是不被保证的，也就是结果不可预测。</p>
+<blockquote>
+<p>这个属性和 <code>SIZED</code> 的区别就是， <code>SIZED</code> 不保证 <code>SUBSIZED</code>。而 <code>SUBSIZED</code> 会要求保证 <code>SIZED</code></p>
+</blockquote>
+<h2 id="内部特化而做的函数式接口-OfPrimitive"><a href="#内部特化而做的函数式接口-OfPrimitive" class="headerlink" title="内部特化而做的函数式接口 (OfPrimitive)"></a>内部特化而做的函数式接口 (OfPrimitive)</h2><p>除了上面的函数，以及特性，<code>Spliterator</code> 迭代器中，还有几个定义在内部的接口。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/ai9cdxr36s7o0zv3bdb67d1r/image_1bf4821k2kft1nsq13981l5j1h1d13.png" alt="image_1bf4821k2kft1nsq13981l5j1h1d13.png-207.1kB"></p>
+<p><code>OfPrimitive</code> 重载了（overloads）了 <code>Spliterator</code> 的方法。用于实现特化的分割迭代器。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/gj8uepdtipdysdlreaypan5n/image_1bf487rnqvk11cpuoeve911ss81g.png" alt="image_1bf487rnqvk11cpuoeve911ss81g.png-41.2kB"></p>
+<blockquote>
+<p><strong>overloads</strong>：返回类型名称一致，参数不一致。<br>注意与 <code>override</code> 的区别</p>
+</blockquote>
+<h3 id="一个颠覆面向对象编程常识的现象"><a href="#一个颠覆面向对象编程常识的现象" class="headerlink" title="一个颠覆面向对象编程常识的现象"></a>一个颠覆面向对象编程常识的现象</h3><p>请大家看图<br><img src="http://static.zybuluo.com/zhumin1990719/tr2zzp41rvb62w9t2xo1lb38/image_1bf48rn8nbi1lrs1hgq1f72ass1t.png" alt="image_1bf48rn8nbi1lrs1hgq1f72ass1t.png-236.6kB"></p>
+<p>这两次类型转换奇怪的地方是：</p>
+<p><code>IntConsumer</code> 与 <code>Consumer</code> 两个接口，没有继承关系，两个接口是平行的。那为什么还能转换成功呢？ 你可以等我下一篇文章~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;说完&lt;code&gt;Stream&lt;/code&gt; 的一些源码解析。我们看下我们的 &lt;code&gt;Stream&lt;/code&gt; 是如何产生的。我们最为常见的流的产生方式是 &lt;code&gt;collection.stream()&lt;/code&gt;, 你点开&lt;code&gt;Stream()&lt;/code&gt;方法, 他是通过 &lt;code&gt;Collection&lt;/code&gt; 这个上层接口两个java8 新增特性 &lt;code&gt;default method&lt;/code&gt; 进行实现。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png&quot; alt=&quot;image_1bf3u1l911o5rf825gv39aqe9.png-41.3kB&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这就牵扯到一个关键要点 &lt;code&gt;Spliterator&lt;/code&gt; 分割迭代器。本文主要描述 &lt;code&gt;Spliterator&lt;/code&gt; 的作用，大部分来源于你不愿意读的 &lt;code&gt;JavaDoc&lt;/code&gt;。&lt;br&gt;以及 &lt;code&gt;Spliterators&lt;/code&gt; 这个工厂方法的作用。 &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Spliterator&lt;/code&gt; 是 &lt;code&gt;jdk8&lt;/code&gt; 非常重要的概念。里面的细节很值得学习玩味。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>jdk8 Stream &amp; BaseStream 源码难点浅析1</title>
     <link href="http://yoursite.com/2017/05/02/jdk8-Stream-BaseStream-%E6%BA%90%E7%A0%81%E9%9A%BE%E7%82%B9%E6%B5%85%E6%9E%901/"/>
     <id>http://yoursite.com/2017/05/02/jdk8-Stream-BaseStream-源码难点浅析1/</id>
     <published>2017-05-02T04:15:00.000Z</published>
-    <updated>2017-05-02T04:18:27.000Z</updated>
+    <updated>2017-05-02T04:27:32.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
 <li>简要介绍 <code>Stream</code> 的 javadoc，与集合的关系以及区别，一些重要的注意事项</li>

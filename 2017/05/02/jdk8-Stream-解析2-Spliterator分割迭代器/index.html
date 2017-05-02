@@ -1,0 +1,1063 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="BTgFOfs30XTIqnhxtU99eC0CyqZEzQWQXu5MB1WrwL0" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="coding life,java8," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="待葡萄嗖透" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator 分割迭代器。本文主要描述 Spliterator 的作">
+<meta name="keywords" content="coding life,java8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jdk8 Stream 解析2 - Spliterator分割迭代器">
+<meta property="og:url" content="http://yoursite.com/2017/05/02/jdk8-Stream-解析2-Spliterator分割迭代器/index.html">
+<meta property="og:site_name" content="待葡萄嗖透">
+<meta property="og:description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator 分割迭代器。本文主要描述 Spliterator 的作">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/fdux697e4pizzdyhgfsb51lx/image_1bf3vbfdl10r5vl7ef8t47kium.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/ai9cdxr36s7o0zv3bdb67d1r/image_1bf4821k2kft1nsq13981l5j1h1d13.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/gj8uepdtipdysdlreaypan5n/image_1bf487rnqvk11cpuoeve911ss81g.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/tr2zzp41rvb62w9t2xo1lb38/image_1bf48rn8nbi1lrs1hgq1f72ass1t.png">
+<meta property="og:updated_time" content="2017-05-02T09:50:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jdk8 Stream 解析2 - Spliterator分割迭代器">
+<meta name="twitter:description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator 分割迭代器。本文主要描述 Spliterator 的作">
+<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/02/jdk8-Stream-解析2-Spliterator分割迭代器/"/>
+
+
+
+
+
+  <title> jdk8 Stream 解析2 - Spliterator分割迭代器 | 待葡萄嗖透 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61700030";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">待葡萄嗖透</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">你说啥？</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/02/jdk8-Stream-解析2-Spliterator分割迭代器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="朱老师&敏哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="待葡萄嗖透">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                jdk8 Stream 解析2 - Spliterator分割迭代器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-02T17:48:43+08:00">
+                2017-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/05/02/jdk8-Stream-解析2-Spliterator分割迭代器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"> 被偷窥 👀</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>说完<code>Stream</code> 的一些源码解析。我们看下我们的 <code>Stream</code> 是如何产生的。我们最为常见的流的产生方式是 <code>collection.stream()</code>, 你点开<code>Stream()</code>方法, 他是通过 <code>Collection</code> 这个上层接口两个java8 新增特性 <code>default method</code> 进行实现。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png" alt="image_1bf3u1l911o5rf825gv39aqe9.png-41.3kB"></p>
+<p>这就牵扯到一个关键要点 <code>Spliterator</code> 分割迭代器。本文主要描述 <code>Spliterator</code> 的作用，大部分来源于你不愿意读的 <code>JavaDoc</code>。<br>以及 <code>Spliterators</code> 这个工厂方法的作用。 </p>
+<p><code>Spliterator</code> 是 <code>jdk8</code> 非常重要的概念。里面的细节很值得学习玩味。</p>
+<a id="more"></a>
+<h2 id="Spliterator-冗长的JavaDoc-说了什么？"><a href="#Spliterator-冗长的JavaDoc-说了什么？" class="headerlink" title="Spliterator 冗长的JavaDoc 说了什么？"></a>Spliterator 冗长的JavaDoc 说了什么？</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p><code>Spliterator</code> 是一个对源（数组，集合，io流等等）中元素进行遍历和分区的类。</p>
+<p>可以通过 <code>tryAdvance()</code> 方法逐个遍历，也可以按照 <code>forEachRemaining()</code> 方法进行按 <em>bulk</em> 逐块的遍历。（内部调用的还是<em>tryAdvance</em>）</p>
+<p><code>Spliterator</code> 有类似 <code>Collector</code> 中的 <code>characteristics</code> , 但都是由十六进制来表示的。</p>
+<blockquote>
+<ul>
+<li>SIZED :表示大小固定, Collection常用</li>
+<li>DISTINCT : 去重, Set常用</li>
+<li>SORTED : 有顺序的 SortedSet 会用<br>等等</li>
+</ul>
+</blockquote>
+<h3 id="原生类型的特化版本"><a href="#原生类型的特化版本" class="headerlink" title="原生类型的特化版本"></a>原生类型的特化版本</h3><p>特化分割迭代器也被提供，和Stream类似。减少装箱和拆箱的操作<br><img src="http://static.zybuluo.com/zhumin1990719/fdux697e4pizzdyhgfsb51lx/image_1bf3vbfdl10r5vl7ef8t47kium.png" alt="image_1bf3vbfdl10r5vl7ef8t47kium.png-128.9kB"></p>
+<h3 id="比迭代器Iterator-更加高效的遍历元素的方式"><a href="#比迭代器Iterator-更加高效的遍历元素的方式" class="headerlink" title="比迭代器Iterator 更加高效的遍历元素的方式"></a>比迭代器Iterator 更加高效的遍历元素的方式</h3><p>提供更加高效的方法，进行数据的迭代。<br><code>Iterator</code> 的使用需要调用两个组合方法 <code>hasNext()</code> 以及 <code>next()</code> ，同事在多线程访问的情况下还会出现竞争，你需要去同步。<br>而分割迭代器 <code>Spliterator</code> 使用函数式编程的方式，只用一个方法就可以做到这个两个函数动作。就避免了竞争 ，就是 <code>tryAdvance()</code> 方法。后面会介绍</p>
+<h2 id="Spliterator的接口方法"><a href="#Spliterator的接口方法" class="headerlink" title="Spliterator的接口方法"></a>Spliterator的接口方法</h2><h3 id="tryAdvance"><a href="#tryAdvance" class="headerlink" title="tryAdvance()"></a>tryAdvance()</h3><p>同时做了  <code>hasNext()</code> 以及 <code>next()</code> 的工作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 对给定的元素进行判断，如果满足条件就会执行 Action</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">tryAdvance</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span></span>;</div></pre></td></tr></table></figure>
+<h3 id="forEachRemaining"><a href="#forEachRemaining" class="headerlink" title="forEachRemaining()"></a>forEachRemaining()</h3><p>是一个<code>默认方法</code>，对余下的元素进行操作，直到元素全部被遍历完<br>一般情况下回直接调用上面的<code>tryAdvance()</code> 方法，但是也可以更具需要进行重写。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 对余下的元素进行操作，直到元素全部被遍历完</div><div class="line">* 如果源是有序的，遍历也是有序的</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</div><div class="line">        <span class="keyword">do</span> &#123; &#125; <span class="keyword">while</span> (tryAdvance(action));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里有一点很值得注意，方法体中的 <code>do {}</code> 是空的，这个是因为 <code>tryAdvance()</code> 方法本身就完成了两个操作 <code>hasNext()</code> 以及 <code>next()</code>，所以方法体中不需要有任何操作了。这个是 函数式编程带来的好处。以及与命令式编程的区别。</p>
+</blockquote>
+<h3 id="trySplit"><a href="#trySplit" class="headerlink" title="trySplit()"></a>trySplit()</h3><p>尝试切分源来的 <code>Spliterator</code>， 返回的是（注意！！！）返回的是 <strong><code>分割出来的那一部分</code></strong> 数据，原有的数据集将不在包含这部分数据集合。两者 <code>没有交集</code>。剩下的可以继续分割，也许不可以继续分割了</p>
+<blockquote>
+<p>举个例子，我原来有 100个元素，我通过 <code>trySplit</code> 切分出 <code>30</code> 个，作为一个新的 <code>分割迭代器</code> 返回，原有的，就还剩下 <code>70</code> 个。</p>
+</blockquote>
+<ul>
+<li>如果是原有数据集合是 <code>ORDERD</code> 的，分出来的也是有序的。</li>
+<li>除非元素数量是无穷的，否则，最后一定会出现不能在分割的情况，这种情况下，返回的结果是 <code>null</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">Spliterator&lt;T&gt; <span class="title">trySplit</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<h3 id="estimateSize"><a href="#estimateSize" class="headerlink" title="estimateSize()"></a>estimateSize()</h3><p>估算集合剩余给<code>forEachRemaining</code>大小，不一定精确。<br>但是如果这个 <code>Spliterator</code> 是 <code>SIZED</code>，没有被遍历或者 split， 或是 <code>SUBSIZED</code>的，没有被遍历，那么他这个值一定是准确的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">long</span> <span class="title">estimateSize</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<p>还有个与之相关的默认方法，就是利用这个特性。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">long</span> <span class="title">getExactSizeIfKnown</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (characteristics() &amp; SIZED) == <span class="number">0</span> ? -<span class="number">1L</span> : estimateSize();</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="characteristics"><a href="#characteristics" class="headerlink" title="characteristics()"></a>characteristics()</h3><p>表示集合的特性，一共8个。</p>
+<ul>
+<li>分割之前，返回的结果都是一致的</li>
+</ul>
+<blockquote>
+<p>如果返回结果不一致，则操作是不受保证的</p>
+</blockquote>
+<ul>
+<li>而分割之后，不保证一致</li>
+</ul>
+<p>有一个默认方法用于判断 <code>Spliterator</code> 是否包含这个特性<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">hasCharacteristics</span><span class="params">(<span class="keyword">int</span> characteristics)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (characteristics() &amp; characteristics) == characteristics;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="getComparator"><a href="#getComparator" class="headerlink" title="getComparator"></a>getComparator</h3><p>如果源是<code>SORTED</code> 类型的，且有比较器 <code>Comparator</code> 的话，则返回这个 <code>Comparator</code>，如果是<code>SORTED</code> 类型的，但是没有比较器，则返回 <code>null</code> , 除此之外，都抛出异常</p>
+<p>接口的默认方法里，就是抛出了异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">default Comparator&lt;? super T&gt; getComparator() &#123;</div><div class="line">        throw new IllegalStateException();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="Spliterator的8个Characteristics-特性"><a href="#Spliterator的8个Characteristics-特性" class="headerlink" title="Spliterator的8个Characteristics 特性"></a>Spliterator的8个Characteristics 特性</h2><h3 id="ORDERED"><a href="#ORDERED" class="headerlink" title="ORDERED"></a>ORDERED</h3><p>源的元素有序，<code>tryAdvance</code> ，<code>forEachRemaining</code>和 <code>trySplit</code> 都会保证有序的进行元素的处理</p>
+<ul>
+<li>需要注意 <code>hashSet</code> 这类 <code>Collection</code> 是不保证有序的</li>
+<li>有<code>ORDERED</code> 特性的数据，在并发计算的时候客户端也要做顺序限制的保证</li>
+</ul>
+<h3 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h3><p>太简单，唯一性。 类似 <code>Set</code> 这样的传入集合会拥有这样的特性</p>
+<h3 id="SORTED"><a href="#SORTED" class="headerlink" title="SORTED"></a>SORTED</h3><p>有这种特性的 <code>Spliterator</code> ，有一个特定的顺序。或者是所有元素都是可比较的，或者是有特定的比较器。</p>
+<ul>
+<li>有 <code>SORTED</code> 一定会有 <code>ORDERED</code></li>
+</ul>
+<h3 id="SIZED"><a href="#SIZED" class="headerlink" title="SIZED"></a>SIZED</h3><p>有这种属性的 <code>Spliterator</code> 在遍历和分割之前，<code>estimateSize()</code> 返回的大小是固定的，并且是准确的。</p>
+<h3 id="NONNULL"><a href="#NONNULL" class="headerlink" title="NONNULL"></a>NONNULL</h3><p>不为 <code>NULL</code>, 大部分并发的集合，队列，Map 都可能会有这样的特性。</p>
+<h3 id="IMMUTABLE"><a href="#IMMUTABLE" class="headerlink" title="IMMUTABLE"></a>IMMUTABLE</h3><p>不可变的。元素遍历期间不可以被 添加，替换，删除（cannot be added, replaced, or removed）<br>否则，应该抛出异常。</p>
+<h3 id="CONCURRENT"><a href="#CONCURRENT" class="headerlink" title="CONCURRENT"></a>CONCURRENT</h3><p>支持并发操作的。 </p>
+<ul>
+<li>顶层的 <code>Spliterator</code> 不可以 <code>CONCURRENT</code> 与 <code>SIZED</code>。 这两者是相互冲突的。</li>
+<li>但是分割之后的 <code>Spliterator</code> ， 可能是 <code>SIZED</code>， 顶层不能决定底层</li>
+</ul>
+<h3 id="SUBSIZED"><a href="#SUBSIZED" class="headerlink" title="SUBSIZED"></a>SUBSIZED</h3><p>从<code>trySplit()</code>被分割后的所有分割迭代器都是 <code>SIZED</code> 以及 <code>SUBSIZED</code> 的。<br>如果分割后，没有按照要求返回<code>SIZED</code> 以及 <code>SUBSIZED</code> 属性，那么操作是不被保证的，也就是结果不可预测。</p>
+<blockquote>
+<p>这个属性和 <code>SIZED</code> 的区别就是， <code>SIZED</code> 不保证 <code>SUBSIZED</code>。而 <code>SUBSIZED</code> 会要求保证 <code>SIZED</code></p>
+</blockquote>
+<h2 id="内部特化而做的函数式接口-OfPrimitive"><a href="#内部特化而做的函数式接口-OfPrimitive" class="headerlink" title="内部特化而做的函数式接口 (OfPrimitive)"></a>内部特化而做的函数式接口 (OfPrimitive)</h2><p>除了上面的函数，以及特性，<code>Spliterator</code> 迭代器中，还有几个定义在内部的接口。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/ai9cdxr36s7o0zv3bdb67d1r/image_1bf4821k2kft1nsq13981l5j1h1d13.png" alt="image_1bf4821k2kft1nsq13981l5j1h1d13.png-207.1kB"></p>
+<p><code>OfPrimitive</code> 重载了（overloads）了 <code>Spliterator</code> 的方法。用于实现特化的分割迭代器。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/gj8uepdtipdysdlreaypan5n/image_1bf487rnqvk11cpuoeve911ss81g.png" alt="image_1bf487rnqvk11cpuoeve911ss81g.png-41.2kB"></p>
+<blockquote>
+<p><strong>overloads</strong>：返回类型名称一致，参数不一致。<br>注意与 <code>override</code> 的区别</p>
+</blockquote>
+<h3 id="一个颠覆面向对象编程常识的现象"><a href="#一个颠覆面向对象编程常识的现象" class="headerlink" title="一个颠覆面向对象编程常识的现象"></a>一个颠覆面向对象编程常识的现象</h3><p>请大家看图<br><img src="http://static.zybuluo.com/zhumin1990719/tr2zzp41rvb62w9t2xo1lb38/image_1bf48rn8nbi1lrs1hgq1f72ass1t.png" alt="image_1bf48rn8nbi1lrs1hgq1f72ass1t.png-236.6kB"></p>
+<p>这两次类型转换奇怪的地方是：</p>
+<p><code>IntConsumer</code> 与 <code>Consumer</code> 两个接口，没有继承关系，两个接口是平行的。那为什么还能转换成功呢？ 你可以等我下一篇文章~</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/gongzhonghao.jpeg" alt="朱老师&敏哥 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>有惊喜，朋友🙄</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>我要拿铁不加糖.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.png" alt="朱老师&敏哥 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.png" alt="朱老师&敏哥 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/coding-life/" rel="tag"># coding life</a>
+          
+            <a href="/tags/java8/" rel="tag"># java8</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/02/jdk8-Stream-BaseStream-源码难点浅析1/" rel="prev" title="jdk8 Stream & BaseStream 源码难点浅析1">
+                jdk8 Stream & BaseStream 源码难点浅析1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/user.jpg"
+               alt="朱老师&敏哥" />
+          <p class="site-author-name" itemprop="name">朱老师&敏哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">朱老师的鸡汤和敏哥装逼的日常</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Little--ZM" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/zm1990719" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/charlsez" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dianping.com/" title="dianping" target="_blank">dianping</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spliterator-冗长的JavaDoc-说了什么？"><span class="nav-number">2.</span> <span class="nav-text">Spliterator 冗长的JavaDoc 说了什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本介绍"><span class="nav-number">2.1.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生类型的特化版本"><span class="nav-number">2.2.</span> <span class="nav-text">原生类型的特化版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比迭代器Iterator-更加高效的遍历元素的方式"><span class="nav-number">2.3.</span> <span class="nav-text">比迭代器Iterator 更加高效的遍历元素的方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spliterator的接口方法"><span class="nav-number">3.</span> <span class="nav-text">Spliterator的接口方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tryAdvance"><span class="nav-number">3.1.</span> <span class="nav-text">tryAdvance()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forEachRemaining"><span class="nav-number">3.2.</span> <span class="nav-text">forEachRemaining()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#trySplit"><span class="nav-number">3.3.</span> <span class="nav-text">trySplit()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#estimateSize"><span class="nav-number">3.4.</span> <span class="nav-text">estimateSize()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#characteristics"><span class="nav-number">3.5.</span> <span class="nav-text">characteristics()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getComparator"><span class="nav-number">3.6.</span> <span class="nav-text">getComparator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spliterator的8个Characteristics-特性"><span class="nav-number">4.</span> <span class="nav-text">Spliterator的8个Characteristics 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ORDERED"><span class="nav-number">4.1.</span> <span class="nav-text">ORDERED</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DISTINCT"><span class="nav-number">4.2.</span> <span class="nav-text">DISTINCT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SORTED"><span class="nav-number">4.3.</span> <span class="nav-text">SORTED</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SIZED"><span class="nav-number">4.4.</span> <span class="nav-text">SIZED</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NONNULL"><span class="nav-number">4.5.</span> <span class="nav-text">NONNULL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IMMUTABLE"><span class="nav-number">4.6.</span> <span class="nav-text">IMMUTABLE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CONCURRENT"><span class="nav-number">4.7.</span> <span class="nav-text">CONCURRENT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUBSIZED"><span class="nav-number">4.8.</span> <span class="nav-text">SUBSIZED</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部特化而做的函数式接口-OfPrimitive"><span class="nav-number">5.</span> <span class="nav-text">内部特化而做的函数式接口 (OfPrimitive)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个颠覆面向对象编程常识的现象"><span class="nav-number">5.1.</span> <span class="nav-text">一个颠覆面向对象编程常识的现象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱老师&敏哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e4781449fa44af29373d0e3b4bdf733",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
