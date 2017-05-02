@@ -91,20 +91,20 @@
 
 
 
-<meta name="description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用  Stream的javadocStream 的作用与特化版本Stream 是对一个序列做 串行 或者 并行 聚合操作。他继承自 StreamStream 同时还有几个特化的版本 ，IntStream , LongStream,">
+<meta name="description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用">
 <meta name="keywords" content="coding life,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jdk8 Stream & BaseStream 源码难点浅析1">
 <meta property="og:url" content="http://yoursite.com/2017/05/02/jdk8-Stream-BaseStream-源码难点浅析1/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用  Stream的javadocStream 的作用与特化版本Stream 是对一个序列做 串行 或者 并行 聚合操作。他继承自 StreamStream 同时还有几个特化的版本 ，IntStream , LongStream,">
+<meta property="og:description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/m1x94rwz2ygkwzgfwbap4prp/image_1bf3j7bv61mi710k61td11d8l5o79.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/p8cudj4reir8u8t9eenmtrct/image_1bf3kmgk61641d2k1euk992t28m.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/qzz76okwh4vyzc62m1u0ibuj/image_1bf3lgle8tfjq0nqm2jjd17hk13.png">
-<meta property="og:updated_time" content="2017-05-02T04:18:09.000Z">
+<meta property="og:updated_time" content="2017-05-02T04:18:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk8 Stream & BaseStream 源码难点浅析1">
-<meta name="twitter:description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用  Stream的javadocStream 的作用与特化版本Stream 是对一个序列做 串行 或者 并行 聚合操作。他继承自 StreamStream 同时还有几个特化的版本 ，IntStream , LongStream,">
+<meta name="twitter:description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用">
 <meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/m1x94rwz2ygkwzgfwbap4prp/image_1bf3j7bv61mi710k61td11d8l5o79.png">
 
 
@@ -402,6 +402,7 @@
 <li>简要介绍 <code>Stream</code> 的 javadoc，与集合的关系以及区别，一些重要的注意事项</li>
 <li>难懂的 <code>Stream</code> 类的声明，介绍比较难懂的 <code>onClose()</code> 方法的调用</li>
 </ul>
+<a id="more"></a>
 <h2 id="Stream的javadoc"><a href="#Stream的javadoc" class="headerlink" title="Stream的javadoc"></a>Stream的javadoc</h2><h3 id="Stream-的作用与特化版本"><a href="#Stream-的作用与特化版本" class="headerlink" title="Stream 的作用与特化版本"></a>Stream 的作用与特化版本</h3><p>Stream 是对一个序列做 <code>串行</code> 或者 <code>并行</code> 聚合操作。他继承自 <code>Stream</code><br>Stream 同时还有几个特化的版本 ，<code>IntStream</code> , <code>LongStream</code>, <code>DoubleStream</code>. 他们为了减少流操作的时候一些不必要的装箱和拆箱的操作。</p>
 <blockquote>
 <p>需要注意的是，以上四个 <code>Stream</code> 是平行关系，他们都是继承自 <code>BaseStream</code></p>
