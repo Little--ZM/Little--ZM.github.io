@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-02T09:51:36.000Z</updated>
+  <updated>2017-05-02T09:57:25.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/05/02/jdk8-Stream-%E8%A7%A3%E6%9E%902-Spliterator%E5%88%86%E5%89%B2%E8%BF%AD%E4%BB%A3%E5%99%A8/"/>
     <id>http://yoursite.com/2017/05/02/jdk8-Stream-解析2-Spliterator分割迭代器/</id>
     <published>2017-05-02T09:48:43.000Z</published>
-    <updated>2017-05-02T09:51:36.000Z</updated>
+    <updated>2017-05-02T09:57:25.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>说完<code>Stream</code> 的一些源码解析。我们看下我们的 <code>Stream</code> 是如何产生的。我们最为常见的流的产生方式是 <code>collection.stream()</code>, 你点开<code>Stream()</code>方法, 他是通过 <code>Collection</code> 这个上层接口两个java8 新增特性 <code>default method</code> 进行实现。</p>
 <p><img src="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png" alt="image_1bf3u1l911o5rf825gv39aqe9.png-41.3kB"></p>
@@ -103,7 +103,11 @@
 </blockquote>
 <h3 id="一个颠覆面向对象编程常识的现象"><a href="#一个颠覆面向对象编程常识的现象" class="headerlink" title="一个颠覆面向对象编程常识的现象"></a>一个颠覆面向对象编程常识的现象</h3><p>请大家看图<br><img src="http://static.zybuluo.com/zhumin1990719/tr2zzp41rvb62w9t2xo1lb38/image_1bf48rn8nbi1lrs1hgq1f72ass1t.png" alt="image_1bf48rn8nbi1lrs1hgq1f72ass1t.png-236.6kB"></p>
 <p>这两次类型转换奇怪的地方是：</p>
-<p><code>IntConsumer</code> 与 <code>Consumer</code> 两个接口，没有继承关系，两个接口是平行的。那为什么还能转换成功呢？ 你可以等我下一篇文章~</p>
+<p><code>IntConsumer</code> 与 <code>Consumer</code> 两个接口，没有继承关系，两个接口是平行的。 这样的转换，在之前是不可能成功的。 简直是颠覆认知啊！</p>
+<blockquote>
+<p>我悄悄说啊（并没有。。你也基本不会关心不是么。。）</p>
+</blockquote>
+<p>但是在函数式编程中能转换成功呢？ 你可以等我下一篇文章~</p>
 ]]></content>
     
     <summary type="html">
