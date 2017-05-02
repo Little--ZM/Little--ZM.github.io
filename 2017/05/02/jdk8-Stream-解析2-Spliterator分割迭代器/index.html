@@ -91,22 +91,22 @@
 
 
 
-<meta name="description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator 分割迭代器。本文主要描述 Spliterator 的作">
+<meta name="description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator ：分割迭代器。 本文主要描述 Spliterator">
 <meta name="keywords" content="coding life,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jdk8 Stream 解析2 - Spliterator分割迭代器">
 <meta property="og:url" content="http://yoursite.com/2017/05/02/jdk8-Stream-解析2-Spliterator分割迭代器/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator 分割迭代器。本文主要描述 Spliterator 的作">
+<meta property="og:description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator ：分割迭代器。 本文主要描述 Spliterator">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/fdux697e4pizzdyhgfsb51lx/image_1bf3vbfdl10r5vl7ef8t47kium.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/ai9cdxr36s7o0zv3bdb67d1r/image_1bf4821k2kft1nsq13981l5j1h1d13.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/gj8uepdtipdysdlreaypan5n/image_1bf487rnqvk11cpuoeve911ss81g.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/tr2zzp41rvb62w9t2xo1lb38/image_1bf48rn8nbi1lrs1hgq1f72ass1t.png">
-<meta property="og:updated_time" content="2017-05-02T09:50:05.000Z">
+<meta property="og:updated_time" content="2017-05-02T09:51:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk8 Stream 解析2 - Spliterator分割迭代器">
-<meta name="twitter:description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator 分割迭代器。本文主要描述 Spliterator 的作">
+<meta name="twitter:description" content="概述说完Stream 的一些源码解析。我们看下我们的 Stream 是如何产生的。我们最为常见的流的产生方式是 collection.stream(), 你点开Stream()方法, 他是通过 Collection 这个上层接口两个java8 新增特性 default method 进行实现。  这就牵扯到一个关键要点 Spliterator ：分割迭代器。 本文主要描述 Spliterator">
 <meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png">
 
 
@@ -402,7 +402,8 @@
       
         <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>说完<code>Stream</code> 的一些源码解析。我们看下我们的 <code>Stream</code> 是如何产生的。我们最为常见的流的产生方式是 <code>collection.stream()</code>, 你点开<code>Stream()</code>方法, 他是通过 <code>Collection</code> 这个上层接口两个java8 新增特性 <code>default method</code> 进行实现。</p>
 <p><img src="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png" alt="image_1bf3u1l911o5rf825gv39aqe9.png-41.3kB"></p>
-<p>这就牵扯到一个关键要点 <code>Spliterator</code> 分割迭代器。本文主要描述 <code>Spliterator</code> 的作用，大部分来源于你不愿意读的 <code>JavaDoc</code>。<br>以及 <code>Spliterators</code> 这个工厂方法的作用。 </p>
+<p>这就牵扯到一个关键要点 <code>Spliterator</code> ：分割迭代器。</p>
+<p>本文主要描述 <code>Spliterator</code> 的作用，大部分来源于你不愿意读的 <code>JavaDoc</code>。</p>
 <p><code>Spliterator</code> 是 <code>jdk8</code> 非常重要的概念。里面的细节很值得学习玩味。</p>
 <a id="more"></a>
 <h2 id="Spliterator-冗长的JavaDoc-说了什么？"><a href="#Spliterator-冗长的JavaDoc-说了什么？" class="headerlink" title="Spliterator 冗长的JavaDoc 说了什么？"></a>Spliterator 冗长的JavaDoc 说了什么？</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p><code>Spliterator</code> 是一个对源（数组，集合，io流等等）中元素进行遍历和分区的类。</p>

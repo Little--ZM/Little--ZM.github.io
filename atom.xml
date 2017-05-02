@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-02T09:50:05.000Z</updated>
+  <updated>2017-05-02T09:51:36.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,11 +20,12 @@
     <link href="http://yoursite.com/2017/05/02/jdk8-Stream-%E8%A7%A3%E6%9E%902-Spliterator%E5%88%86%E5%89%B2%E8%BF%AD%E4%BB%A3%E5%99%A8/"/>
     <id>http://yoursite.com/2017/05/02/jdk8-Stream-解析2-Spliterator分割迭代器/</id>
     <published>2017-05-02T09:48:43.000Z</published>
-    <updated>2017-05-02T09:50:05.000Z</updated>
+    <updated>2017-05-02T09:51:36.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>说完<code>Stream</code> 的一些源码解析。我们看下我们的 <code>Stream</code> 是如何产生的。我们最为常见的流的产生方式是 <code>collection.stream()</code>, 你点开<code>Stream()</code>方法, 他是通过 <code>Collection</code> 这个上层接口两个java8 新增特性 <code>default method</code> 进行实现。</p>
 <p><img src="http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png" alt="image_1bf3u1l911o5rf825gv39aqe9.png-41.3kB"></p>
-<p>这就牵扯到一个关键要点 <code>Spliterator</code> 分割迭代器。本文主要描述 <code>Spliterator</code> 的作用，大部分来源于你不愿意读的 <code>JavaDoc</code>。<br>以及 <code>Spliterators</code> 这个工厂方法的作用。 </p>
+<p>这就牵扯到一个关键要点 <code>Spliterator</code> ：分割迭代器。</p>
+<p>本文主要描述 <code>Spliterator</code> 的作用，大部分来源于你不愿意读的 <code>JavaDoc</code>。</p>
 <p><code>Spliterator</code> 是 <code>jdk8</code> 非常重要的概念。里面的细节很值得学习玩味。</p>
 <a id="more"></a>
 <h2 id="Spliterator-冗长的JavaDoc-说了什么？"><a href="#Spliterator-冗长的JavaDoc-说了什么？" class="headerlink" title="Spliterator 冗长的JavaDoc 说了什么？"></a>Spliterator 冗长的JavaDoc 说了什么？</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p><code>Spliterator</code> 是一个对源（数组，集合，io流等等）中元素进行遍历和分区的类。</p>
@@ -109,7 +110,8 @@
     
       &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;说完&lt;code&gt;Stream&lt;/code&gt; 的一些源码解析。我们看下我们的 &lt;code&gt;Stream&lt;/code&gt; 是如何产生的。我们最为常见的流的产生方式是 &lt;code&gt;collection.stream()&lt;/code&gt;, 你点开&lt;code&gt;Stream()&lt;/code&gt;方法, 他是通过 &lt;code&gt;Collection&lt;/code&gt; 这个上层接口两个java8 新增特性 &lt;code&gt;default method&lt;/code&gt; 进行实现。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://static.zybuluo.com/zhumin1990719/x7mirnxozw9czo58sgxezv03/image_1bf3u1l911o5rf825gv39aqe9.png&quot; alt=&quot;image_1bf3u1l911o5rf825gv39aqe9.png-41.3kB&quot;&gt;&lt;/p&gt;
-&lt;p&gt;这就牵扯到一个关键要点 &lt;code&gt;Spliterator&lt;/code&gt; 分割迭代器。本文主要描述 &lt;code&gt;Spliterator&lt;/code&gt; 的作用，大部分来源于你不愿意读的 &lt;code&gt;JavaDoc&lt;/code&gt;。&lt;br&gt;以及 &lt;code&gt;Spliterators&lt;/code&gt; 这个工厂方法的作用。 &lt;/p&gt;
+&lt;p&gt;这就牵扯到一个关键要点 &lt;code&gt;Spliterator&lt;/code&gt; ：分割迭代器。&lt;/p&gt;
+&lt;p&gt;本文主要描述 &lt;code&gt;Spliterator&lt;/code&gt; 的作用，大部分来源于你不愿意读的 &lt;code&gt;JavaDoc&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Spliterator&lt;/code&gt; 是 &lt;code&gt;jdk8&lt;/code&gt; 非常重要的概念。里面的细节很值得学习玩味。&lt;/p&gt;
     
     </summary>
