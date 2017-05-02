@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-02T01:14:42.000Z</updated>
+  <updated>2017-05-02T01:53:49.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://yoursite.com/2017/05/02/jdk1-7%E6%96%B0%E5%A2%9E%E8%87%AA%E5%8A%A8%E5%85%B3%E9%97%AD%E6%8E%A5%E5%8F%A3AutoCloseable/"/>
     <id>http://yoursite.com/2017/05/02/jdk1-7新增自动关闭接口AutoCloseable/</id>
     <published>2017-05-02T01:13:09.000Z</published>
-    <updated>2017-05-02T01:14:42.000Z</updated>
+    <updated>2017-05-02T01:53:49.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-AutoCloseable-接口"><a href="#1-AutoCloseable-接口" class="headerlink" title="1 AutoCloseable 接口"></a>1 AutoCloseable 接口</h3><p>这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口<br><img src="http://static.zybuluo.com/zhumin1990719/rydvwpav6zkm6jhel6244jxl/image_1bf3bdg6r6da1bha17s9cm81bej13.png" alt="image_1bf3bdg6r6da1bha17s9cm81bej13.png-90.6kB"></p>
+<a id="more"></a>
 <p>JDK8 中就在很多地方应用了这个接口，比如 <code>Stream</code> 继承了 <code>BaseStream</code>，而 <code>BaseStream</code> 则继承了 <code>AutoCloseable</code> 这个接口。</p>
 <p><img src="http://static.zybuluo.com/zhumin1990719/tmv8f7uvw289fjrfibxcr77y/image_1bf3avqeh1sjr8061aa9kr1bpc9.png" alt="image_1bf3avqeh1sjr8061aa9kr1bpc9.png-45.6kB"></p>
 <p>这个接口的说明很清楚，当你在使用 <code>try-with-resources block</code> 这种语法调用来进行资源获取的时候，在 <code>block</code> 退出之后自动关闭</p>
@@ -34,7 +35,7 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;1-AutoCloseable-接口&quot;&gt;&lt;a href=&quot;#1-AutoCloseable-接口&quot; class=&quot;headerlink&quot; title=&quot;1 AutoCloseable 接口&quot;&gt;&lt;/a&gt;1 AutoCloseable 接口&lt;/h3&gt;&lt;p&gt;这是JDK1
+      &lt;h3 id=&quot;1-AutoCloseable-接口&quot;&gt;&lt;a href=&quot;#1-AutoCloseable-接口&quot; class=&quot;headerlink&quot; title=&quot;1 AutoCloseable 接口&quot;&gt;&lt;/a&gt;1 AutoCloseable 接口&lt;/h3&gt;&lt;p&gt;这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口&lt;br&gt;&lt;img src=&quot;http://static.zybuluo.com/zhumin1990719/rydvwpav6zkm6jhel6244jxl/image_1bf3bdg6r6da1bha17s9cm81bej13.png&quot; alt=&quot;image_1bf3bdg6r6da1bha17s9cm81bej13.png-90.6kB&quot;&gt;&lt;/p&gt;
     
     </summary>
     
