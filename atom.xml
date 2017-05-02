@@ -218,7 +218,7 @@
     <link href="http://yoursite.com/2017/05/02/jdk1-7%E6%96%B0%E5%A2%9E%E8%87%AA%E5%8A%A8%E5%85%B3%E9%97%AD%E6%8E%A5%E5%8F%A3AutoCloseable/"/>
     <id>http://yoursite.com/2017/05/02/jdk1-7新增自动关闭接口AutoCloseable/</id>
     <published>2017-05-02T01:13:09.000Z</published>
-    <updated>2017-05-02T01:55:40.000Z</updated>
+    <updated>2017-05-02T09:54:04.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-AutoCloseable-接口"><a href="#1-AutoCloseable-接口" class="headerlink" title="1 AutoCloseable 接口"></a>1 AutoCloseable 接口</h3><p>这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口<br><img src="http://static.zybuluo.com/zhumin1990719/rydvwpav6zkm6jhel6244jxl/image_1bf3bdg6r6da1bha17s9cm81bej13.png" alt="image_1bf3bdg6r6da1bha17s9cm81bej13.png-90.6kB"></p>
 <a id="more"></a>
@@ -226,6 +226,9 @@
 <p>JDK8 中就在很多地方应用了这个接口，比如 <code>Stream</code> 继承了 <code>BaseStream</code>，而 <code>BaseStream</code> 则继承了 <code>AutoCloseable</code> 这个接口。</p>
 <p><img src="http://static.zybuluo.com/zhumin1990719/tmv8f7uvw289fjrfibxcr77y/image_1bf3avqeh1sjr8061aa9kr1bpc9.png" alt="image_1bf3avqeh1sjr8061aa9kr1bpc9.png-45.6kB"></p>
 <p>这个接口的说明很清楚，当你在使用 <code>try-with-resources block</code> 这种语法调用来进行资源获取的时候，在 <code>block</code> 退出之后自动关闭</p>
+<blockquote>
+<p> <code>try-with-resources block</code>  代码块，就是将资源的声明，放在 <code>try</code> 里面； 可以看后面的代码示例</p>
+</blockquote>
 <p>你不用像之前写 <code>finally{}</code> 代码那样的进行关闭。就不会有资源未被释放的问题。</p>
 <h3 id="2-测试代码"><a href="#2-测试代码" class="headerlink" title="2 测试代码"></a>2 测试代码</h3><p>简单测试代码如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by charleszhu on 2017/5/2.</div><div class="line"> */</div><div class="line">public class AutoCloseAbleTest implements AutoCloseable&#123;</div><div class="line"></div><div class="line">    public void doSth() &#123;</div><div class="line">        System.out.println(&quot;doStm&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void close() throws Exception &#123;</div><div class="line">        System.out.println(&quot;Close() 看到没，我被吊了&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        /**</div><div class="line">         * try-with-resources 语法块</div><div class="line">         */</div><div class="line">        try(AutoCloseAbleTest autoCloseAbleTest = new AutoCloseAbleTest()) &#123;</div><div class="line">            autoCloseAbleTest.doSth();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
