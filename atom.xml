@@ -270,7 +270,7 @@
     <link href="http://yoursite.com/2017/04/12/jdk8-28-30-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%94%B6%E9%9B%86%E5%99%A8-%E5%9D%91/"/>
     <id>http://yoursite.com/2017/04/12/jdk8-28-30-自定义收集器-坑/</id>
     <published>2017-04-12T00:32:03.000Z</published>
-    <updated>2017-05-02T00:50:36.000Z</updated>
+    <updated>2017-05-02T01:57:38.000Z</updated>
     
     <content type="html"><![CDATA[<p>收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。</p>
 <a id="more"></a>
@@ -298,12 +298,12 @@
 <h3 id="3-并发与并行的区别-并行时候的一些坑"><a href="#3-并发与并行的区别-并行时候的一些坑" class="headerlink" title="3 并发与并行的区别-并行时候的一些坑"></a>3 并发与并行的区别-并行时候的一些坑</h3><p>这里，有另外一个很要命的坑。</p>
 <blockquote>
 <p>在说这个概念之前，先说一下收集器中 <code>parallel</code> 和 <code>concurrent</code> 的区别</p>
-<ol>
-<li><code>parallel</code> 是<strong>并行</strong>，会将产生多个集合，多个线程操作，最后合并，也就是会调用 <code>combiner()</code> 方法<ol>
+<ul>
+<li><code>parallel</code> 是<strong>并行</strong>，会将产生多个集合，多个线程操作，最后合并，也就是会调用 <code>combiner()</code> 方法</li>
+</ul>
+<ul>
 <li><code>concurrent</code> 是<strong>并发</strong>， 是多个线程对同一个集合进行操作，首先 <code>combiner()</code> 函数不会被执行，而同时，如果你在 <code>accumulator()</code> 函数中进行累加操作，又进行遍历操作，就会抛出并发异常。</li>
-</ol>
-</li>
-</ol>
+</ul>
 </blockquote>
 <p>用例子说话，首先我们必须采用 <code>并行流</code> ， 在 <code>accumulator()</code> 函数中遍历 <code>set</code>, 同时将 <code>characteristics()</code> 函数中加入 <code>CONCURRENT</code> 这个属性，你执行100次，基本都会抛出异常</p>
 <p><img src="http://static.zybuluo.com/zhumin1990719/2bpiqnuxu4atmod39o4v090m/14914633115993.jpg" alt="14914633115993.jpg-397.3kB"></p>
