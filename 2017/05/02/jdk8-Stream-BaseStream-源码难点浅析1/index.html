@@ -91,22 +91,21 @@
 
 
 
-<meta name="description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy">
+<meta name="description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用  Stream的javadocStream 的作用与特化版本Stream 是对一个序列做 串行 或者 并行 聚合操作。他继承自 StreamStream 同时还有几个特化的版本 ，IntStream , LongStream,">
 <meta name="keywords" content="coding life,java8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jdk8-32-groupingBy 源码分析">
-<meta property="og:url" content="http://yoursite.com/2017/04/30/jdk8-32-groupingBy-源码分析/index.html">
+<meta property="og:title" content="jdk8 Stream & BaseStream 源码难点浅析1">
+<meta property="og:url" content="http://yoursite.com/2017/05/02/jdk8-Stream-BaseStream-源码难点浅析1/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy">
-<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/r9lzmhqejhu4poxfa65jrwg0/image_1be34fqkpdosrnqo8317uhcnc9.png">
-<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/9aw6m36vtunxhzintfqzhw8x/image_1be351ek7187m19721kb3vijudj13.png">
-<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/lqq4sk8y37vbchc9m7ajs0cn/image_1be353p451uuhvefd57r2u16ad1g.png">
-<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/sqtr5d56vcc4y5qtm6yhv271/image_1be35m758itj1grmlc71nu81rrm1t.png">
-<meta property="og:updated_time" content="2017-04-30T09:02:32.000Z">
+<meta property="og:description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用  Stream的javadocStream 的作用与特化版本Stream 是对一个序列做 串行 或者 并行 聚合操作。他继承自 StreamStream 同时还有几个特化的版本 ，IntStream , LongStream,">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/m1x94rwz2ygkwzgfwbap4prp/image_1bf3j7bv61mi710k61td11d8l5o79.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/p8cudj4reir8u8t9eenmtrct/image_1bf3kmgk61641d2k1euk992t28m.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/qzz76okwh4vyzc62m1u0ibuj/image_1bf3lgle8tfjq0nqm2jjd17hk13.png">
+<meta property="og:updated_time" content="2017-05-02T04:18:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jdk8-32-groupingBy 源码分析">
-<meta name="twitter:description" content="jdk8 集合的工厂类 Collectors 提供了两个很好用的静态函数。  groupingBy partitioningBy">
-<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/r9lzmhqejhu4poxfa65jrwg0/image_1be34fqkpdosrnqo8317uhcnc9.png">
+<meta name="twitter:title" content="jdk8 Stream & BaseStream 源码难点浅析1">
+<meta name="twitter:description" content="概述 简要介绍 Stream 的 javadoc，与集合的关系以及区别，一些重要的注意事项 难懂的 Stream 类的声明，介绍比较难懂的 onClose() 方法的调用  Stream的javadocStream 的作用与特化版本Stream 是对一个序列做 串行 或者 并行 聚合操作。他继承自 StreamStream 同时还有几个特化的版本 ，IntStream , LongStream,">
+<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/m1x94rwz2ygkwzgfwbap4prp/image_1bf3j7bv61mi710k61td11d8l5o79.png">
 
 
 
@@ -134,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/30/jdk8-32-groupingBy-源码分析/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/02/jdk8-Stream-BaseStream-源码难点浅析1/"/>
 
 
 
 
 
-  <title> jdk8-32-groupingBy 源码分析 | 待葡萄嗖透 </title>
+  <title> jdk8 Stream & BaseStream 源码难点浅析1 | 待葡萄嗖透 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -312,7 +311,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/30/jdk8-32-groupingBy-源码分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/02/jdk8-Stream-BaseStream-源码难点浅析1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="朱老师&敏哥">
@@ -333,7 +332,7 @@
             
             
               
-                jdk8-32-groupingBy 源码分析
+                jdk8 Stream & BaseStream 源码难点浅析1
               
             
           </h1>
@@ -348,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-30T16:58:34+08:00">
-                2017-04-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-02T12:15:00+08:00">
+                2017-05-02
               </time>
             
 
@@ -367,7 +366,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/04/30/jdk8-32-groupingBy-源码分析/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/05/02/jdk8-Stream-BaseStream-源码难点浅析1/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -399,54 +398,69 @@
       
 
       
-        <p>jdk8 集合的工厂类 <code>Collectors</code> 提供了两个很好用的静态函数。</p>
-<ul>
-<li>groupingBy</li>
-<li>partitioningBy</li>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li>简要介绍 <code>Stream</code> 的 javadoc，与集合的关系以及区别，一些重要的注意事项</li>
+<li>难懂的 <code>Stream</code> 类的声明，介绍比较难懂的 <code>onClose()</code> 方法的调用</li>
 </ul>
-<a id="more"></a>
-<p><code>groupingBy</code> 实现类似 Mysql 中分分组功能。返回一个 Map; 而 <code>partitioningBy</code>可以看做是 <code>groupingBy</code> 的特殊形式。我们后面会接着介绍。 使用的是比如统计每个城市人的“姓”，可以这么写</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; namesByCity = people.stream().collect(groupingBy(Person::getCity,                                            mapping(Person::getLastName, toSet())));</div></pre></td></tr></table></figure>
-<p>那么，他到底如何利用 <code>Collector</code> 的各个接口来实现的呢？下面我们将深入 JDK 的 <code>Collectors</code> 的源码中，分析一下他是如何工作的。 </p>
-<h2 id="groupingBy"><a href="#groupingBy" class="headerlink" title="groupingBy"></a>groupingBy</h2><h3 id="1-第一个重载方法-要简单就别那么多要求，给你个List不错了"><a href="#1-第一个重载方法-要简单就别那么多要求，给你个List不错了" class="headerlink" title="1 第一个重载方法, 要简单就别那么多要求，给你个List不错了"></a>1 第一个重载方法, 要简单就别那么多要求，给你个List不错了</h3><p>分组 <code>groupingBy</code> 有三个重载方法。一个比一复杂。</p>
-<p>先看最简单的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> &lt;T&gt; the type of the input elements</div><div class="line">     * <span class="doctag">@param</span> &lt;K&gt; the type of the keys</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T, K&gt; Collector&lt;T, ?, Map&lt;K, List&lt;T&gt;&gt;&gt;</div><div class="line">    groupingBy(Function&lt;? <span class="keyword">super</span> T, ? extends K&gt; classifier) &#123;</div><div class="line">        <span class="keyword">return</span> groupingBy(classifier, toList());</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>这里 <code>T</code> 是输入集合的元素类型， <code>K</code> 是最后产生的 Map 的主键key 的类型。</p>
-<p>函数需要传入一个 <code>Function</code> 的函数式接口，<code>Function</code> 的中作就是分类器，比如传入的类型是<code>T</code> 是一个 <code>Person</code>类型 ， 通过 <code>apply()</code> 方法，返回 <code>Person</code> 的属性 <code>name</code>；因为我们要按照 <code>name</code> 来分组。</p>
-<p>所以，如果 <code>name</code> 的类型是 <code>String</code> ； 那么 <code>K</code> 就是 <code>String</code></p>
-<p>故而，这个 <code>groupingBy(function)</code> 的功能就很清晰了，就是通过 <code>function</code> 对传入的 <code>T</code> 类型进行分类。然后调用 <code>toList()</code> 方法，也就是说每个分类的<code>Person</code> 会放进一个 <code>List&lt;Person&gt;</code> 中</p>
-<p>最终返回的类型就是 <code>Map&lt;String, List&lt;Person&gt;&gt;</code>.</p>
-<p>而如果你不想返回的是一个<code>List</code> , 希望是一个 <code>Set</code>. 你就要使用第二个重载方法~ 他允许你定义最后的输出函数。</p>
-<h3 id="2-第二个重载方法：我要输出Set"><a href="#2-第二个重载方法：我要输出Set" class="headerlink" title="2 第二个重载方法：我要输出Set"></a>2 第二个重载方法：我要输出Set</h3><p>看一下函数的定义：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> &lt;T&gt; the type of the input elements</div><div class="line">     * <span class="doctag">@param</span> &lt;K&gt; the type of the keys</div><div class="line">     * <span class="doctag">@param</span> &lt;A&gt; the intermediate accumulation type of the downstream collector</div><div class="line">     * <span class="doctag">@param</span> &lt;D&gt; the result type of the downstream reduction</div><div class="line">     * <span class="doctag">@param</span> classifier a classifier function mapping input elements to keys</div><div class="line">     * <span class="doctag">@param</span> downstream a &#123;<span class="doctag">@code</span> Collector&#125; implementing the downstream reduction</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T, K, A, D&gt;</div><div class="line">    Collector&lt;T, ?, Map&lt;K, D&gt;&gt; groupingBy(Function&lt;? <span class="keyword">super</span> T, ? extends K&gt; classifier,</div><div class="line">                                          Collector&lt;? <span class="keyword">super</span> T, A, D&gt; downstream) &#123;</div><div class="line">        <span class="keyword">return</span> groupingBy(classifier, HashMap::<span class="keyword">new</span>, downstream);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>这个函数，明显比上一个要复杂，可以看到，多了一个 <code>Collector</code> 的 <code>downstream</code> , 可以自定义输出的集合。上面那个简单版本的函数是是写死的 <code>List</code></p>
-<p>这个函数有四个泛型。</p>
-<ul>
-<li><code>T</code> 原始元素类型，比如我们这是 <code>Person</code></li>
-<li><code>K</code> 返回 Map 的 key, 即最终返回的Map 的建的类型。如果你想按照人的名字分类，那T就是 <code>String</code>, 如果按照年龄分类，那就是 <code>Interger</code></li>
-<li><code>A</code> 是 downstream 的 accumulation 的中间结果类型</li>
-<li><code>D</code> 是最终输出 Map 的 Value 的类型。比如 <code>List</code> 或者 <code>Set</code> </li>
-</ul>
-<p>这个方法会调用第三个重载函数，比第二个函数，多了中间的 <code>HashMap::new</code>； 这个是最终返回的 Map 的类型，这里写死的是 HashMap, 如果你想用其他类型，就需要使用最终的也是最复杂的第三个重载函数。</p>
-<p>越是你用起来简单的函数，背后的实现就越来越复杂。</p>
-<h3 id="3-第三个重载方法-能看懂就随便你怎么玩"><a href="#3-第三个重载方法-能看懂就随便你怎么玩" class="headerlink" title="3 第三个重载方法: 能看懂就随便你怎么玩"></a>3 第三个重载方法: 能看懂就随便你怎么玩</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">* <span class="doctag">@param</span> &lt;T&gt; the type of the input elements</div><div class="line">* <span class="doctag">@param</span> &lt;K&gt; the type of the keys</div><div class="line">* <span class="doctag">@param</span> &lt;A&gt; the intermediate accumulation type of the downstream collector</div><div class="line">* <span class="doctag">@param</span> &lt;D&gt; the result type of the downstream reduction</div><div class="line">* <span class="doctag">@param</span> &lt;M&gt; the type of the resulting &#123;<span class="doctag">@code</span> Map&#125;</div><div class="line">* <span class="doctag">@param</span> classifier a classifier function mapping input elements to keys</div><div class="line">* <span class="doctag">@param</span> downstream a &#123;<span class="doctag">@code</span> Collector&#125; implementing the downstream reduction</div><div class="line">* <span class="doctag">@param</span> mapFactory a function which, when called, produces a new empty</div><div class="line">*                   &#123;<span class="doctag">@code</span> Map&#125; of the desired type</div><div class="line">*/</div><div class="line"></div><div class="line"> <span class="keyword">public</span> <span class="keyword">static</span> &lt;T, K, D, A, M extends Map&lt;K, D&gt;&gt;</div><div class="line">    Collector&lt;T, ?, M&gt; groupingBy(Function&lt;? <span class="keyword">super</span> T, ? extends K&gt; classifier,</div><div class="line">                                  Supplier&lt;M&gt; mapFactory,</div><div class="line">                                  Collector&lt;? <span class="keyword">super</span> T, A, D&gt; downstream) &#123;</div><div class="line">        Supplier&lt;A&gt; downstreamSupplier = downstream.supplier();</div><div class="line">        BiConsumer&lt;A, ? <span class="keyword">super</span> T&gt; downstreamAccumulator = downstream.accumulator();</div><div class="line">        BiConsumer&lt;Map&lt;K, A&gt;, T&gt; accumulator = (m, t) -&gt; &#123;</div><div class="line">            K key = Objects.requireNonNull(classifier.apply(t), <span class="string">"element cannot be mapped to a null key"</span>);</div><div class="line">            A container = m.computeIfAbsent(key, k -&gt; downstreamSupplier.get());</div><div class="line">            downstreamAccumulator.accept(container, t);</div><div class="line">        &#125;;</div><div class="line">        BinaryOperator&lt;Map&lt;K, A&gt;&gt; merger = Collectors.&lt;K, A, Map&lt;K, A&gt;&gt;mapMerger(downstream.combiner());</div><div class="line">        <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">        Supplier&lt;Map&lt;K, A&gt;&gt; mangledFactory = (Supplier&lt;Map&lt;K, A&gt;&gt;) mapFactory;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (downstream.characteristics().contains(Collector.Characteristics.IDENTITY_FINISH)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> CollectorImpl&lt;&gt;(mangledFactory, accumulator, merger, CH_ID);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">            Function&lt;A, A&gt; downstreamFinisher = (Function&lt;A, A&gt;) downstream.finisher();</div><div class="line">            Function&lt;Map&lt;K, A&gt;, M&gt; finisher = intermediate -&gt; &#123;</div><div class="line">                intermediate.replaceAll((k, v) -&gt; downstreamFinisher.apply(v));</div><div class="line">                <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">                M castResult = (M) intermediate;</div><div class="line">                <span class="keyword">return</span> castResult;</div><div class="line">            &#125;;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> CollectorImpl&lt;&gt;(mangledFactory, accumulator, merger, finisher, CH_NOID);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>这个函数有5个泛型，除去上面说的 <code>T</code>，<code>K</code>，<code>A</code>，<code>D</code><br>多了一个 mapFactory 的 Supplier() , 用于得到最终返回的 Map 的类型，第二个重载函数写死的 HashMap，这就可以进行自定义。</p>
-<p>这个函数有连个值得注意的点：</p>
-<ul>
-<li>所有的Collectors 中函数，如果函数内部还要做集合处理的，都是使用 <code>downstream</code> 这种模式，利用 <code>downstream</code> 的各种已有的的 <code>Supplier</code> <code>Accumulator</code>等，修改来实现自己的功能。比如在 <code>groupingBy</code> 这个函数，一开始就获取了 <code>downstream</code> 的各个组件，组合成自己需要的收集器，进而用于完成分类的行为。（你还可以去看一看 <code>collectingAndThen()</code> 这个函数）</li>
-</ul>
-<p><img src="http://static.zybuluo.com/zhumin1990719/r9lzmhqejhu4poxfa65jrwg0/image_1be34fqkpdosrnqo8317uhcnc9.png" alt="image_1be34fqkpdosrnqo8317uhcnc9.png-228kB"></p>
-<ul>
-<li><code>groupingBy</code> 函数中有有两处强制类型转换。这里其实很难理解，为何可以直接成功的转换呢？</li>
-</ul>
-<p>第一处<br><img src="http://static.zybuluo.com/zhumin1990719/9aw6m36vtunxhzintfqzhw8x/image_1be351ek7187m19721kb3vijudj13.png" alt="image_1be351ek7187m19721kb3vijudj13.png-186.2kB"></p>
-<p>第二处<br><img src="http://static.zybuluo.com/zhumin1990719/lqq4sk8y37vbchc9m7ajs0cn/image_1be353p451uuhvefd57r2u16ad1g.png" alt="image_1be353p451uuhvefd57r2u16ad1g.png-161.3kB"></p>
-<p>两处其实都是将最终结果泛型 <code>D</code> 转成 中间结果 <code>A</code>。<br>对于第一处， mapFactory 是作为一个 <code>Supplier</code> 出现，而他的目的是提供中间结果类型，而他上面的 <code>accumulator</code> 的中间结果类型，就是<strong>K,A</strong>， 所以这样的强转是一定可以成功的</p>
-<p><img src="http://static.zybuluo.com/zhumin1990719/sqtr5d56vcc4y5qtm6yhv271/image_1be35m758itj1grmlc71nu81rrm1t.png" alt="image_1be35m758itj1grmlc71nu81rrm1t.png-139.5kB"></p>
-<p>第二处也是一样的，因为全称都使用了 <code>A</code>，其实 <code>A</code> 和 <code>D</code> 在这里，是等价的。所以转换都可以成功。</p>
-<p>你去可以从这么一个角度思考问题：</p>
+<h2 id="Stream的javadoc"><a href="#Stream的javadoc" class="headerlink" title="Stream的javadoc"></a>Stream的javadoc</h2><h3 id="Stream-的作用与特化版本"><a href="#Stream-的作用与特化版本" class="headerlink" title="Stream 的作用与特化版本"></a>Stream 的作用与特化版本</h3><p>Stream 是对一个序列做 <code>串行</code> 或者 <code>并行</code> 聚合操作。他继承自 <code>Stream</code><br>Stream 同时还有几个特化的版本 ，<code>IntStream</code> , <code>LongStream</code>, <code>DoubleStream</code>. 他们为了减少流操作的时候一些不必要的装箱和拆箱的操作。</p>
 <blockquote>
-<p>你最终需要生成 <code>D</code> 类型，为何中间要给自己生成一个不一样的 <code>A</code> 类型添堵呢？ 你 4 不 4 sa？</p>
+<p>需要注意的是，以上四个 <code>Stream</code> 是平行关系，他们都是继承自 <code>BaseStream</code></p>
+</blockquote>
+<p>举个简单的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 将集合 widgets 中的元素中红色的元素的重量求和</div><div class="line">* 第一步 filter() 过滤红色</div><div class="line">* 第二步 mapToInt() 拿出所有的Red的重量，生成一个 IntStream</div><div class="line">* 第三步 sum() 求和，并返回</div><div class="line">*/</div><div class="line"><span class="keyword">int</span> sum = widgets.stream()</div><div class="line">                      .filter(w -&gt; w.getColor() == RED)</div><div class="line">                      .mapToInt(w -&gt; w.getWeight())</div><div class="line">                      .sum();</div></pre></td></tr></table></figure>
+<h3 id="Stream-的组成与特点"><a href="#Stream-的组成与特点" class="headerlink" title="Stream 的组成与特点"></a>Stream 的组成与特点</h3><p>要想实现计算，所有操作，都会被放入一个 <code>pipeline</code> 当中（类似liunx）中的操作。</p>
+<p>而一个流管道（pipeline）包含：</p>
+<blockquote>
+<ul>
+<li>source(源)： 数组，集合，迭代器，I/O 操作等等</li>
+<li>0个或者多个中间操作： 将一个流转成另外一个流</li>
+<li>1个终止操作 : 产生一个结果(比如上面的例子中的求和) or 或者修改传入对象的属性。</li>
+</ul>
+</blockquote>
+<p>流是Lazy的懒惰的！！ 你不加 <code>终止操作</code> 流的操作，就不会被执行。<br>如上面的例子，没有最后的 <code>Sum()</code> 函数，前面的操作是不会被执行的。</p>
+<h3 id="集合和Stream-的区别"><a href="#集合和Stream-的区别" class="headerlink" title="集合和Stream 的区别"></a>集合和Stream 的区别</h3><p>集合： 注重存储，主要考虑元素的访问与管理<br>Stream ：注重计算，主要考虑以一种<code>描述性</code> 的语言来对源进行一系列的操作，并将操作聚合起来。</p>
+<h3 id="流的注意事项"><a href="#流的注意事项" class="headerlink" title="流的注意事项"></a>流的注意事项</h3><p>1 流中的操作，都应是函数式接口（lambda表达式或者方法引用）<br>2 流不能被重用，每个流只能应用一次。想再次操作你需要重新生成一个流</p>
+<p>3 流虽然实现了 <code>AutoCloseable</code> 接口，但是几乎所有的流都是不用关闭的，因为他的源大部分情况下都是集合，而集合是不用关闭的。</p>
+<blockquote>
+<p>除非源是一个 <code>I/O Channel</code>。 比如 Files.lines() 方法。<br>如果是这样，Stream 就可以申明在 <code>try-with-resources block</code> 中。<br>关于这个 <code>j7</code> 新接口的使用，可以看我之前的一篇关于 <code>AutoCloseable</code> 的介绍 <a href="http://movingon.cn/2017/05/02/jdk1-7%E6%96%B0%E5%A2%9E%E8%87%AA%E5%8A%A8%E5%85%B3%E9%97%AD%E6%8E%A5%E5%8F%A3AutoCloseable/" target="_blank" rel="external">jdk1.7新增自动关闭接口AutoCloseable</a></p>
+</blockquote>
+<p>多说一句，<code>Files.lines()</code> 是 j8 中新增的方法，有点类似 <code>python</code> 中 <code>readlines()</code> 方法。很好用。</p>
+<h2 id="Stream-amp-BaseStream-解析"><a href="#Stream-amp-BaseStream-解析" class="headerlink" title="Stream &amp; BaseStream 解析"></a>Stream &amp; BaseStream 解析</h2><h3 id="看不懂的声明"><a href="#看不懂的声明" class="headerlink" title="看不懂的声明"></a>看不懂的声明</h3><p>我们可以看一下 <code>Stream</code> 以及 <code>BaseStream</code> 的类的声明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//Stream</div><div class="line">public interface Stream&lt;T&gt; extends BaseStream&lt;T, Stream&lt;T&gt;&gt; </div><div class="line">//BaseStream</div><div class="line">public interface BaseStream&lt;T, S extends BaseStream&lt;T, S&gt;&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>BaseStream</code> 中，第二个泛型是 <code>S extends BaseStream&lt;T, S&gt;</code> ，而 <code>Stream</code> 中，第二个泛型是 <code>Stream&lt;T&gt;</code>， 正好是满足 <code>extends BaseStream&lt;T, S&gt;</code> 的条件的，所以可以这么写。</p>
+</blockquote>
+<p>两个泛型有没有感觉有点晕。其实比较好理解。</p>
+<ul>
+<li><code>T</code> 这个泛型很好理解，就是流中元素的类型</li>
+<li><code>S</code> ？</li>
+</ul>
+<p>如果你看过javadoc的描述，流的所有中间操作，都会返回一个流，而这个<code>S</code> 就代表着中间操作返回的流的类型。<br>比如我们看一下这个在 <code>Stream</code> 中的方法（其他方法与其一致）</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/m1x94rwz2ygkwzgfwbap4prp/image_1bf3j7bv61mi710k61td11d8l5o79.png" alt="image_1bf3j7bv61mi710k61td11d8l5o79.png-124.2kB"></p>
+<h3 id="难懂的-onClose-方法"><a href="#难懂的-onClose-方法" class="headerlink" title="难懂的 onClose() 方法"></a>难懂的 onClose() 方法</h3><p>上面我们知道 <code>BaseStream</code> 实现了 <code>AutoCloseable</code> 接口，也就是 <code>Close()</code> 方法可以得到调用。但是 <code>BaseStream</code> 中，给我们提供了要给<code>OnClose()</code> 方法。我们看下截图</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/p8cudj4reir8u8t9eenmtrct/image_1bf3kmgk61641d2k1euk992t28m.png" alt="image_1bf3kmgk61641d2k1euk992t28m.png-165.3kB"></p>
+<p>这个方法，就是当 <code>Close()</code> 方法被调用的时候 <code>onClose()</code>会被调用。但是有几个注意的点</p>
+<blockquote>
+<ul>
+<li><code>onColse()</code> 方法也返回一个流，也就是说可以多次调用。</li>
+<li>如果你写了多个<code>onClose()</code> 方法，它会按照顺序调用。</li>
+<li>前一个 <code>onClose()</code> 方法除了异常不影响后续 <code>onClose</code> 方法的使用</li>
+<li>如果多个 <code>onClose()</code> 方法都抛出异常，只展示第一个异常的堆栈，而其他异常会被压缩，只展示部分信息</li>
+</ul>
+</blockquote>
+<p>上代码！！！！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by charleszhu on 2017/5/2.</div><div class="line"> */</div><div class="line">public class StreamTestOnCloseTest &#123;</div><div class="line">    </div><div class="line">    public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">        List&lt;String&gt; testString = Arrays.asList(&quot;min&quot;, &quot;ge&quot;, &quot;da&quot;, &quot;shuaibi&quot;);</div><div class="line"></div><div class="line">        /**</div><div class="line">         * 两次关闭</div><div class="line">         * 两次异常</div><div class="line">         * 预期：两次关闭输出依次打出；两次关闭异常只打印一次堆栈，另外一次只展示</div><div class="line">         */</div><div class="line">        try(Stream&lt;String&gt; stream = testString.stream()) &#123;</div><div class="line">            stream.onClose(() -&gt;&#123;</div><div class="line">                System.out.println(&quot;closing 1&quot;); //</div><div class="line">                throw new NullPointerException(&quot;exception 1&quot;);</div><div class="line">            &#125;).onClose(() -&gt; &#123;</div><div class="line">                System.out.println(&quot;closing 2&quot;);</div><div class="line">                throw new NullPointerException(&quot;exception 2&quot;);</div><div class="line">            &#125;).forEach(System.out::println);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结果如下图：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/qzz76okwh4vyzc62m1u0ibuj/image_1bf3lgle8tfjq0nqm2jjd17hk13.png" alt="image_1bf3lgle8tfjq0nqm2jjd17hk13.png-149.2kB"></p>
+<p>你们明白了吧（我是天才）</p>
+<h3 id="好懂的其他方法"><a href="#好懂的其他方法" class="headerlink" title="好懂的其他方法"></a>好懂的其他方法</h3><p><code>BaseStream</code> 中有的一些其他方法，除了<strong><em>分割迭代器</em></strong>(后面会单独说，因为太重要)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Spliterator&lt;T&gt; spliterator();</div></pre></td></tr></table></figure>
+<p>其他都比较好懂。值得一说的是以下两个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">S sequential(); // 返回串行流</div><div class="line">S parallel(); // 返回并行流</div></pre></td></tr></table></figure>
+<p>你可以看到他们都返回流对象，也就是可以继续调用 <code>sequential</code> 或者 <code>parallel</code> 方法。但是！！！</p>
+<blockquote>
+<p>无论你中间怎么调用 ，比如 sequential.parallel.parallel.sequential…. </p>
+<p><strong>只以最后一个为最终流的类型！！！</strong></p>
 </blockquote>
 
       
@@ -518,18 +532,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/01/老版本MacBookPro-厚的-格式化-U盘安装-MacOS-Sierra/" rel="next" title="老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra">
-                <i class="fa fa-chevron-left"></i> 老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/" rel="prev" title="jdk8-31-工厂方法收集器Collectors的中的常用函数">
-                jdk8-31-工厂方法收集器Collectors的中的常用函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/02/jdk1-7新增自动关闭接口AutoCloseable/" rel="prev" title="jdk1.7新增自动关闭接口AutoCloseable">
+                jdk1.7新增自动关闭接口AutoCloseable <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -702,7 +712,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#groupingBy"><span class="nav-number">1.</span> <span class="nav-text">groupingBy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-第一个重载方法-要简单就别那么多要求，给你个List不错了"><span class="nav-number">1.1.</span> <span class="nav-text">1 第一个重载方法, 要简单就别那么多要求，给你个List不错了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-第二个重载方法：我要输出Set"><span class="nav-number">1.2.</span> <span class="nav-text">2 第二个重载方法：我要输出Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-第三个重载方法-能看懂就随便你怎么玩"><span class="nav-number">1.3.</span> <span class="nav-text">3 第三个重载方法: 能看懂就随便你怎么玩</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream的javadoc"><span class="nav-number">2.</span> <span class="nav-text">Stream的javadoc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-的作用与特化版本"><span class="nav-number">2.1.</span> <span class="nav-text">Stream 的作用与特化版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-的组成与特点"><span class="nav-number">2.2.</span> <span class="nav-text">Stream 的组成与特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合和Stream-的区别"><span class="nav-number">2.3.</span> <span class="nav-text">集合和Stream 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流的注意事项"><span class="nav-number">2.4.</span> <span class="nav-text">流的注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream-amp-BaseStream-解析"><span class="nav-number">3.</span> <span class="nav-text">Stream & BaseStream 解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#看不懂的声明"><span class="nav-number">3.1.</span> <span class="nav-text">看不懂的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#难懂的-onClose-方法"><span class="nav-number">3.2.</span> <span class="nav-text">难懂的 onClose() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好懂的其他方法"><span class="nav-number">3.3.</span> <span class="nav-text">好懂的其他方法</span></a></li></ol></li></ol></div>
             
 
           </div>

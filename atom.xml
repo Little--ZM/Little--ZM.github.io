@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-02T01:55:40.000Z</updated>
+  <updated>2017-05-02T04:18:09.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,94 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jdk8 Stream &amp; BaseStream 源码难点浅析1</title>
+    <link href="http://yoursite.com/2017/05/02/jdk8-Stream-BaseStream-%E6%BA%90%E7%A0%81%E9%9A%BE%E7%82%B9%E6%B5%85%E6%9E%901/"/>
+    <id>http://yoursite.com/2017/05/02/jdk8-Stream-BaseStream-源码难点浅析1/</id>
+    <published>2017-05-02T04:15:00.000Z</published>
+    <updated>2017-05-02T04:18:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li>简要介绍 <code>Stream</code> 的 javadoc，与集合的关系以及区别，一些重要的注意事项</li>
+<li>难懂的 <code>Stream</code> 类的声明，介绍比较难懂的 <code>onClose()</code> 方法的调用</li>
+</ul>
+<h2 id="Stream的javadoc"><a href="#Stream的javadoc" class="headerlink" title="Stream的javadoc"></a>Stream的javadoc</h2><h3 id="Stream-的作用与特化版本"><a href="#Stream-的作用与特化版本" class="headerlink" title="Stream 的作用与特化版本"></a>Stream 的作用与特化版本</h3><p>Stream 是对一个序列做 <code>串行</code> 或者 <code>并行</code> 聚合操作。他继承自 <code>Stream</code><br>Stream 同时还有几个特化的版本 ，<code>IntStream</code> , <code>LongStream</code>, <code>DoubleStream</code>. 他们为了减少流操作的时候一些不必要的装箱和拆箱的操作。</p>
+<blockquote>
+<p>需要注意的是，以上四个 <code>Stream</code> 是平行关系，他们都是继承自 <code>BaseStream</code></p>
+</blockquote>
+<p>举个简单的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 将集合 widgets 中的元素中红色的元素的重量求和</div><div class="line">* 第一步 filter() 过滤红色</div><div class="line">* 第二步 mapToInt() 拿出所有的Red的重量，生成一个 IntStream</div><div class="line">* 第三步 sum() 求和，并返回</div><div class="line">*/</div><div class="line"><span class="keyword">int</span> sum = widgets.stream()</div><div class="line">                      .filter(w -&gt; w.getColor() == RED)</div><div class="line">                      .mapToInt(w -&gt; w.getWeight())</div><div class="line">                      .sum();</div></pre></td></tr></table></figure>
+<h3 id="Stream-的组成与特点"><a href="#Stream-的组成与特点" class="headerlink" title="Stream 的组成与特点"></a>Stream 的组成与特点</h3><p>要想实现计算，所有操作，都会被放入一个 <code>pipeline</code> 当中（类似liunx）中的操作。</p>
+<p>而一个流管道（pipeline）包含：</p>
+<blockquote>
+<ul>
+<li>source(源)： 数组，集合，迭代器，I/O 操作等等</li>
+<li>0个或者多个中间操作： 将一个流转成另外一个流</li>
+<li>1个终止操作 : 产生一个结果(比如上面的例子中的求和) or 或者修改传入对象的属性。</li>
+</ul>
+</blockquote>
+<p>流是Lazy的懒惰的！！ 你不加 <code>终止操作</code> 流的操作，就不会被执行。<br>如上面的例子，没有最后的 <code>Sum()</code> 函数，前面的操作是不会被执行的。</p>
+<h3 id="集合和Stream-的区别"><a href="#集合和Stream-的区别" class="headerlink" title="集合和Stream 的区别"></a>集合和Stream 的区别</h3><p>集合： 注重存储，主要考虑元素的访问与管理<br>Stream ：注重计算，主要考虑以一种<code>描述性</code> 的语言来对源进行一系列的操作，并将操作聚合起来。</p>
+<h3 id="流的注意事项"><a href="#流的注意事项" class="headerlink" title="流的注意事项"></a>流的注意事项</h3><p>1 流中的操作，都应是函数式接口（lambda表达式或者方法引用）<br>2 流不能被重用，每个流只能应用一次。想再次操作你需要重新生成一个流</p>
+<p>3 流虽然实现了 <code>AutoCloseable</code> 接口，但是几乎所有的流都是不用关闭的，因为他的源大部分情况下都是集合，而集合是不用关闭的。</p>
+<blockquote>
+<p>除非源是一个 <code>I/O Channel</code>。 比如 Files.lines() 方法。<br>如果是这样，Stream 就可以申明在 <code>try-with-resources block</code> 中。<br>关于这个 <code>j7</code> 新接口的使用，可以看我之前的一篇关于 <code>AutoCloseable</code> 的介绍 <a href="http://movingon.cn/2017/05/02/jdk1-7%E6%96%B0%E5%A2%9E%E8%87%AA%E5%8A%A8%E5%85%B3%E9%97%AD%E6%8E%A5%E5%8F%A3AutoCloseable/" target="_blank" rel="external">jdk1.7新增自动关闭接口AutoCloseable</a></p>
+</blockquote>
+<p>多说一句，<code>Files.lines()</code> 是 j8 中新增的方法，有点类似 <code>python</code> 中 <code>readlines()</code> 方法。很好用。</p>
+<h2 id="Stream-amp-BaseStream-解析"><a href="#Stream-amp-BaseStream-解析" class="headerlink" title="Stream &amp; BaseStream 解析"></a>Stream &amp; BaseStream 解析</h2><h3 id="看不懂的声明"><a href="#看不懂的声明" class="headerlink" title="看不懂的声明"></a>看不懂的声明</h3><p>我们可以看一下 <code>Stream</code> 以及 <code>BaseStream</code> 的类的声明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//Stream</div><div class="line">public interface Stream&lt;T&gt; extends BaseStream&lt;T, Stream&lt;T&gt;&gt; </div><div class="line">//BaseStream</div><div class="line">public interface BaseStream&lt;T, S extends BaseStream&lt;T, S&gt;&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>BaseStream</code> 中，第二个泛型是 <code>S extends BaseStream&lt;T, S&gt;</code> ，而 <code>Stream</code> 中，第二个泛型是 <code>Stream&lt;T&gt;</code>， 正好是满足 <code>extends BaseStream&lt;T, S&gt;</code> 的条件的，所以可以这么写。</p>
+</blockquote>
+<p>两个泛型有没有感觉有点晕。其实比较好理解。</p>
+<ul>
+<li><code>T</code> 这个泛型很好理解，就是流中元素的类型</li>
+<li><code>S</code> ？</li>
+</ul>
+<p>如果你看过javadoc的描述，流的所有中间操作，都会返回一个流，而这个<code>S</code> 就代表着中间操作返回的流的类型。<br>比如我们看一下这个在 <code>Stream</code> 中的方法（其他方法与其一致）</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/m1x94rwz2ygkwzgfwbap4prp/image_1bf3j7bv61mi710k61td11d8l5o79.png" alt="image_1bf3j7bv61mi710k61td11d8l5o79.png-124.2kB"></p>
+<h3 id="难懂的-onClose-方法"><a href="#难懂的-onClose-方法" class="headerlink" title="难懂的 onClose() 方法"></a>难懂的 onClose() 方法</h3><p>上面我们知道 <code>BaseStream</code> 实现了 <code>AutoCloseable</code> 接口，也就是 <code>Close()</code> 方法可以得到调用。但是 <code>BaseStream</code> 中，给我们提供了要给<code>OnClose()</code> 方法。我们看下截图</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/p8cudj4reir8u8t9eenmtrct/image_1bf3kmgk61641d2k1euk992t28m.png" alt="image_1bf3kmgk61641d2k1euk992t28m.png-165.3kB"></p>
+<p>这个方法，就是当 <code>Close()</code> 方法被调用的时候 <code>onClose()</code>会被调用。但是有几个注意的点</p>
+<blockquote>
+<ul>
+<li><code>onColse()</code> 方法也返回一个流，也就是说可以多次调用。</li>
+<li>如果你写了多个<code>onClose()</code> 方法，它会按照顺序调用。</li>
+<li>前一个 <code>onClose()</code> 方法除了异常不影响后续 <code>onClose</code> 方法的使用</li>
+<li>如果多个 <code>onClose()</code> 方法都抛出异常，只展示第一个异常的堆栈，而其他异常会被压缩，只展示部分信息</li>
+</ul>
+</blockquote>
+<p>上代码！！！！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by charleszhu on 2017/5/2.</div><div class="line"> */</div><div class="line">public class StreamTestOnCloseTest &#123;</div><div class="line">    </div><div class="line">    public static void main(String[] args) &#123;</div><div class="line"></div><div class="line">        List&lt;String&gt; testString = Arrays.asList(&quot;min&quot;, &quot;ge&quot;, &quot;da&quot;, &quot;shuaibi&quot;);</div><div class="line"></div><div class="line">        /**</div><div class="line">         * 两次关闭</div><div class="line">         * 两次异常</div><div class="line">         * 预期：两次关闭输出依次打出；两次关闭异常只打印一次堆栈，另外一次只展示</div><div class="line">         */</div><div class="line">        try(Stream&lt;String&gt; stream = testString.stream()) &#123;</div><div class="line">            stream.onClose(() -&gt;&#123;</div><div class="line">                System.out.println(&quot;closing 1&quot;); //</div><div class="line">                throw new NullPointerException(&quot;exception 1&quot;);</div><div class="line">            &#125;).onClose(() -&gt; &#123;</div><div class="line">                System.out.println(&quot;closing 2&quot;);</div><div class="line">                throw new NullPointerException(&quot;exception 2&quot;);</div><div class="line">            &#125;).forEach(System.out::println);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结果如下图：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/qzz76okwh4vyzc62m1u0ibuj/image_1bf3lgle8tfjq0nqm2jjd17hk13.png" alt="image_1bf3lgle8tfjq0nqm2jjd17hk13.png-149.2kB"></p>
+<p>你们明白了吧（我是天才）</p>
+<h3 id="好懂的其他方法"><a href="#好懂的其他方法" class="headerlink" title="好懂的其他方法"></a>好懂的其他方法</h3><p><code>BaseStream</code> 中有的一些其他方法，除了<strong><em>分割迭代器</em></strong>(后面会单独说，因为太重要)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Spliterator&lt;T&gt; spliterator();</div></pre></td></tr></table></figure>
+<p>其他都比较好懂。值得一说的是以下两个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">S sequential(); // 返回串行流</div><div class="line">S parallel(); // 返回并行流</div></pre></td></tr></table></figure>
+<p>你可以看到他们都返回流对象，也就是可以继续调用 <code>sequential</code> 或者 <code>parallel</code> 方法。但是！！！</p>
+<blockquote>
+<p>无论你中间怎么调用 ，比如 sequential.parallel.parallel.sequential…. </p>
+<p><strong>只以最后一个为最终流的类型！！！</strong></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;简要介绍 &lt;code&gt;Stream&lt;/code&gt; 的 javadoc，与集合的关系以及区别，一些重要的注意事项&lt;/li&gt;
+&lt;li
+    
+    </summary>
+    
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
+    
+  </entry>
   
   <entry>
     <title>jdk1.7新增自动关闭接口AutoCloseable</title>
