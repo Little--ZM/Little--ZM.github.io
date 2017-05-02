@@ -91,13 +91,13 @@
 
 
 
-<meta name="description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。 1 简单自定义一个收集器这个收集器的目的是将一个 list 转换成一个 set  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051pu">
+<meta name="description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。">
 <meta name="keywords" content="java8,coding life">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jdk8-28-30-自定义收集器&坑">
-<meta property="og:url" content="http://yoursite.com/2017/05/02/jdk8-28-30-自定义收集器-坑/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/jdk8-28-30-自定义收集器-坑/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。 1 简单自定义一个收集器这个收集器的目的是将一个 list 转换成一个 set  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051pu">
+<meta property="og:description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/0cl0ol9dyihk63ocsh0qzjgi/14914603137015.jpg">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/nnftv5zwqcgildzp8ddyd1x3/14914608156971.jpg">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/gj3bj52qxy1im34hvvznjt5s/14914612652241.jpg">
@@ -105,10 +105,10 @@
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/0cy0jahcni4gnhbb00qjiivv/14914634695900.jpg">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/bgpyjod0lm1fm796tszkxw0c/14914635854475.jpg">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/n73a6j6hol02our7kigqyo1x/14914638813587.jpg">
-<meta property="og:updated_time" content="2017-05-02T00:32:48.000Z">
+<meta property="og:updated_time" content="2017-05-02T00:34:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk8-28-30-自定义收集器&坑">
-<meta name="twitter:description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。 1 简单自定义一个收集器这个收集器的目的是将一个 list 转换成一个 set  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051pu">
+<meta name="twitter:description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。">
 <meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/0cl0ol9dyihk63ocsh0qzjgi/14914603137015.jpg">
 
 
@@ -137,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/02/jdk8-28-30-自定义收集器-坑/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/20/jdk8-28-30-自定义收集器-坑/"/>
 
 
 
@@ -315,7 +315,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/02/jdk8-28-30-自定义收集器-坑/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/jdk8-28-30-自定义收集器-坑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="朱老师&敏哥">
@@ -351,8 +351,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-02T08:32:03+08:00">
-                2017-05-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T08:32:03+08:00">
+                2017-04-20
               </time>
             
 
@@ -370,7 +370,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/05/02/jdk8-28-30-自定义收集器-坑/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/04/20/jdk8-28-30-自定义收集器-坑/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -403,6 +403,7 @@
 
       
         <p>收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。</p>
+<a id="more"></a>
 <h3 id="1-简单自定义一个收集器"><a href="#1-简单自定义一个收集器" class="headerlink" title="1 简单自定义一个收集器"></a>1 简单自定义一个收集器</h3><p>这个收集器的目的是将一个 <code>list</code> 转换成一个 <code>set</code> </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySetCollector</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Collector</span>&lt;<span class="title">T</span>, <span class="title">Set</span>&lt;<span class="title">T</span>&gt;, <span class="title">Set</span>&lt;<span class="title">T</span>&gt;&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> Supplier&lt;Set&lt;T&gt;&gt; supplier() &#123;</div><div class="line">        System.out.println(<span class="string">"supplier invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> HashSet::<span class="keyword">new</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> BiConsumer&lt;Set&lt;T&gt;, T&gt; accumulator() &#123;</div><div class="line">	    System.out.println(<span class="string">"accumulator invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> Set&lt;T&gt;::add;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 并行性流才会调用，将两个分段的集合</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> BinaryOperator&lt;Set&lt;T&gt;&gt; combiner() &#123;</div><div class="line">        System.out.println(<span class="string">"combiner invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> (t1, t2) -&gt; &#123;</div><div class="line">            t1.addAll(t2);</div><div class="line">            <span class="keyword">return</span> t1;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> Function&lt;Set&lt;T&gt;, Set&lt;T&gt;&gt; finisher() &#123;</div><div class="line">        System.out.println(<span class="string">"finisher invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> Function.identity();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 描述这个集合的特性</div><div class="line">     * IDENTITY_FINISH 表示结果容器和中间容器是一致的，这个时候 JDK 会在返回的时候自动帮助我们做类型转换。而不用再去调用 finisher</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Set&lt;Characteristics&gt; <span class="title">characteristics</span><span class="params">()</span> </span>&#123;</div><div class="line">    System.out.println(<span class="string">"characteristics invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> Collections.unmodifiableSet(EnumSet.of(IDENTITY_FINISH,UNORDERED));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        List&lt;String&gt; words = Arrays.asList(<span class="string">"hello"</span> , <span class="string">"world"</span>, <span class="string">"welcome"</span>, <span class="string">"hello"</span>);</div><div class="line"></div><div class="line">        Set&lt;String&gt; stringSet = words.stream().collect(<span class="keyword">new</span> MySetCollector&lt;&gt;());</div><div class="line">        System.out.println(stringSet);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>实现类里，我们分别实现了5个方法。 其中比较重要的两个方式 <code>finisher</code> 和 <code>characteristics</code>  方法</p>
@@ -517,14 +518,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/04/30/jdk8-32-groupingBy-源码分析/" rel="next" title="jdk8-32-groupingBy 源码分析">
+                <i class="fa fa-chevron-left"></i> jdk8-32-groupingBy 源码分析
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/01/老版本MacBookPro-厚的-格式化-U盘安装-MacOS-Sierra/" rel="prev" title="老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra">
-                老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/" rel="prev" title="jdk8-31-工厂方法收集器Collectors的中的常用函数">
+                jdk8-31-工厂方法收集器Collectors的中的常用函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
