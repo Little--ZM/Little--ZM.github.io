@@ -101,7 +101,7 @@
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/rydvwpav6zkm6jhel6244jxl/image_1bf3bdg6r6da1bha17s9cm81bej13.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/tmv8f7uvw289fjrfibxcr77y/image_1bf3avqeh1sjr8061aa9kr1bpc9.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/c709aferpg4yr5myxks8txnu/image_1bf3bcj84433l37sm41vrf10dhm.png">
-<meta property="og:updated_time" content="2017-05-02T01:53:49.000Z">
+<meta property="og:updated_time" content="2017-05-02T01:55:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk1.7新增自动关闭接口AutoCloseable">
 <meta name="twitter:description" content="1 AutoCloseable 接口这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口">
@@ -400,6 +400,7 @@
       
         <h3 id="1-AutoCloseable-接口"><a href="#1-AutoCloseable-接口" class="headerlink" title="1 AutoCloseable 接口"></a>1 AutoCloseable 接口</h3><p>这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口<br><img src="http://static.zybuluo.com/zhumin1990719/rydvwpav6zkm6jhel6244jxl/image_1bf3bdg6r6da1bha17s9cm81bej13.png" alt="image_1bf3bdg6r6da1bha17s9cm81bej13.png-90.6kB"></p>
 <a id="more"></a>
+<p>这个接口好就好在，只有一个方法，名叫 <code>close()</code>, 而这正好有是我们各个资源关闭的方法名，所以使用起来相当方便，因为名称一样，代码兼容。</p>
 <p>JDK8 中就在很多地方应用了这个接口，比如 <code>Stream</code> 继承了 <code>BaseStream</code>，而 <code>BaseStream</code> 则继承了 <code>AutoCloseable</code> 这个接口。</p>
 <p><img src="http://static.zybuluo.com/zhumin1990719/tmv8f7uvw289fjrfibxcr77y/image_1bf3avqeh1sjr8061aa9kr1bpc9.png" alt="image_1bf3avqeh1sjr8061aa9kr1bpc9.png-45.6kB"></p>
 <p>这个接口的说明很清楚，当你在使用 <code>try-with-resources block</code> 这种语法调用来进行资源获取的时候，在 <code>block</code> 退出之后自动关闭</p>
