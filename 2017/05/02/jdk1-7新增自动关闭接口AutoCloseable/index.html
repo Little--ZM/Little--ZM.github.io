@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="coding life,java8," />
+  <meta name="keywords" content="java,coding life," />
 
 
 
@@ -91,19 +91,21 @@
 
 
 
-<meta name="description" content="方法应用其实是 jdk 8 中的对于  lambda 表达式给予的一种 语法糖  而方法引用一共分为 4 种；  1 类名::静态方法名 2 对象名::方法名 3 类名::实例方法名 4 构造方法引用::new">
-<meta name="keywords" content="coding life,java8">
+<meta name="description" content="1 AutoCloseable 接口这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口 JDK8 中就在很多地方应用了这个接口，比如 Stream 继承了 BaseStream，而 BaseStream 则继承了 AutoCloseable 这个接口。  这个接口的说明很清楚，当你在使用 try-with-resources block 这种语法调用来进行资源获取的时候，">
+<meta name="keywords" content="java,coding life">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jdk8-1.1-方法引用：lambda表达式的语法糖">
-<meta property="og:url" content="http://yoursite.com/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/index.html">
+<meta property="og:title" content="jdk1.7新增自动关闭接口AutoCloseable">
+<meta property="og:url" content="http://yoursite.com/2017/05/02/jdk1-7新增自动关闭接口AutoCloseable/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="方法应用其实是 jdk 8 中的对于  lambda 表达式给予的一种 语法糖  而方法引用一共分为 4 种；  1 类名::静态方法名 2 对象名::方法名 3 类名::实例方法名 4 构造方法引用::new">
-<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/6sl7hr28156h9kmv9jsmstb6/image_1b7k0qtepmls15v3rjv19691om39.png">
-<meta property="og:updated_time" content="2017-04-14T07:33:54.000Z">
+<meta property="og:description" content="1 AutoCloseable 接口这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口 JDK8 中就在很多地方应用了这个接口，比如 Stream 继承了 BaseStream，而 BaseStream 则继承了 AutoCloseable 这个接口。  这个接口的说明很清楚，当你在使用 try-with-resources block 这种语法调用来进行资源获取的时候，">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/rydvwpav6zkm6jhel6244jxl/image_1bf3bdg6r6da1bha17s9cm81bej13.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/tmv8f7uvw289fjrfibxcr77y/image_1bf3avqeh1sjr8061aa9kr1bpc9.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/c709aferpg4yr5myxks8txnu/image_1bf3bcj84433l37sm41vrf10dhm.png">
+<meta property="og:updated_time" content="2017-05-02T01:14:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jdk8-1.1-方法引用：lambda表达式的语法糖">
-<meta name="twitter:description" content="方法应用其实是 jdk 8 中的对于  lambda 表达式给予的一种 语法糖  而方法引用一共分为 4 种；  1 类名::静态方法名 2 对象名::方法名 3 类名::实例方法名 4 构造方法引用::new">
-<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/6sl7hr28156h9kmv9jsmstb6/image_1b7k0qtepmls15v3rjv19691om39.png">
+<meta name="twitter:title" content="jdk1.7新增自动关闭接口AutoCloseable">
+<meta name="twitter:description" content="1 AutoCloseable 接口这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口 JDK8 中就在很多地方应用了这个接口，比如 Stream 继承了 BaseStream，而 BaseStream 则继承了 AutoCloseable 这个接口。  这个接口的说明很清楚，当你在使用 try-with-resources block 这种语法调用来进行资源获取的时候，">
+<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/rydvwpav6zkm6jhel6244jxl/image_1bf3bdg6r6da1bha17s9cm81bej13.png">
 
 
 
@@ -131,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/02/jdk1-7新增自动关闭接口AutoCloseable/"/>
 
 
 
 
 
-  <title> jdk8-1.1-方法引用：lambda表达式的语法糖 | 待葡萄嗖透 </title>
+  <title> jdk1.7新增自动关闭接口AutoCloseable | 待葡萄嗖透 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -309,7 +311,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/02/jdk1-7新增自动关闭接口AutoCloseable/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="朱老师&敏哥">
@@ -330,7 +332,7 @@
             
             
               
-                jdk8-1.1-方法引用：lambda表达式的语法糖
+                jdk1.7新增自动关闭接口AutoCloseable
               
             
           </h1>
@@ -345,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-12T15:31:46+08:00">
-                2017-02-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-02T09:13:09+08:00">
+                2017-05-02
               </time>
             
 
@@ -364,7 +366,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/02/12/jdk8-1-1-方法引用：lambda表达式的语法糖/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/05/02/jdk1-7新增自动关闭接口AutoCloseable/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -396,25 +398,14 @@
       
 
       
-        <blockquote>
-<p>方法应用其实是 jdk 8 中的对于  <em>lambda</em> 表达式给予的一种 <strong>语法糖</strong></p>
-</blockquote>
-<p>而方法引用一共分为 4 种；</p>
-<ul>
-<li>1 <code>类名::静态方法名</code></li>
-<li>2 <code>对象名::方法名</code></li>
-<li>3 <code>类名::实例方法名</code></li>
-<li>4 <code>构造方法引用::new</code></li>
-</ul>
-<a id="more"></a>
-<p>我们有intellj 编写 lambda 表达式的时候，编译器总是标黄来告诉你，这里可以使用方法引用的方法来进行代码的简化</p>
-<p><img src="http://static.zybuluo.com/zhumin1990719/6sl7hr28156h9kmv9jsmstb6/image_1b7k0qtepmls15v3rjv19691om39.png" alt="image_1b7k0qtepmls15v3rjv19691om39.png-86kB"></p>
-<p>而方法引用，<strong><em>method reference</em></strong> 其实就是lambda表达式一种语法糖<br>但是 </p>
-<blockquote>
-<p><strong>不是所有的 lambda 表达式，都可以用方法引用的方式来编写</strong><br>复杂的 lambda 表达式还是需要老老实实写相关代码</p>
-</blockquote>
-<p>我们通过一个例子来分别讲解这四种方法引用的方式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">// 第一种</span></div><div class="line"></div><div class="line">        Student student1 = <span class="keyword">new</span> Student(<span class="string">"zhumin1"</span>,<span class="number">10</span>);</div><div class="line">        Student student2 = <span class="keyword">new</span> Student(<span class="string">"zhumin2"</span>,<span class="number">20</span>);</div><div class="line">        Student student3 = <span class="keyword">new</span> Student(<span class="string">"zhumin3"</span>,<span class="number">40</span>);</div><div class="line">        Student student4 = <span class="keyword">new</span> Student(<span class="string">"zhumin4"</span>,<span class="number">80</span>);</div><div class="line"></div><div class="line">        List&lt;Student&gt; students = Arrays.asList(student1, student2, student3, student4);</div><div class="line"></div><div class="line">        <span class="comment">// jdk 1.8 的新方法  List 中新增加了 sort 方法</span></div><div class="line">        <span class="comment">// 传统的 lambda 表达式</span></div><div class="line">        students.sort((studentP1, studentP2) -&gt; Student.compareByScore(studentP1, studentP2));</div><div class="line">        <span class="comment">// 第一种方法引用的方式 类名::静态方法名</span></div><div class="line">        <span class="comment">// 不需要传参数，因为可以自动推断出 Student 类型</span></div><div class="line">        students.sort(Student::compareByScore);</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 第二种 对象名称::方法名称</span></div><div class="line">        <span class="comment">// 其实和第一种很类似</span></div><div class="line">        StudentComparator studentComparator = <span class="keyword">new</span> StudentComparator();</div><div class="line"></div><div class="line">        students.sort((studentP1, studentP2) -&gt; studentComparator.comparator(studentP1, studentP2));</div><div class="line">        <span class="comment">// 对象名称::方法名称 (方法引用的第二种方式)</span></div><div class="line">        students.sort(studentComparator::comparator);</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 第三种方法 类名::实例方法</span></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 比较难理解的的地方是，你会看到调用的函数，和 lambda 表达式需要的参数个数不一致， 会少一个</div><div class="line">         * 而且类名是没法调用方法名的</div><div class="line">         * 而理解方式是：调用方法的实例，就是传入lambda 表达式的第一个参数，而剩下所有参数，都作为 调用的实例方法 的参数</div><div class="line">         * 我们看下面的例子 ， Student 类调用的是其的实例方法 compare（Student） 只有一个参数</div><div class="line">         * 而 List 的默认方法需要的 Comparator 的函数式接口需要两个参数，看似对应不上，而且，类名也无法调用实例方法</div><div class="line">         * 实际是，传入的第一参数就是 comare（student）这个函数的调用者，而第二个参数以及后续所有的参数（如果有跟多也是一样），是作为实例方法的参数传入</div><div class="line">         * 所以少一个参数也没什么</div><div class="line">         * 而更为关键的是这个就是一个语法糖，为了简化代码而生。理解就好</div><div class="line">         * 如此一来； 这个第三种方式就很好理解了</div><div class="line">         *</div><div class="line">         * 类名::实例方法</div><div class="line">         * 即 lambda 表达式的第一参数就是 实例方法 的调用者，后续所有的参数就是 实例方法的传入参数</div><div class="line">         */</div><div class="line">        students.sort(Student::compare);</div><div class="line"></div><div class="line">        <span class="comment">// 再看一个例子</span></div><div class="line">        List&lt;String&gt; cities = Arrays.asList(<span class="string">"haha"</span>,<span class="string">"lala"</span>,<span class="string">"nihao"</span>,<span class="string">"memeda"</span>);</div><div class="line">        <span class="comment">// 对比二者</span></div><div class="line">        Collections.sort(cities, (city1, city2) -&gt; city1.compareToIgnoreCase(city2));</div><div class="line">        Collections.sort(cities, String::compareToIgnoreCase);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">// 对于第四种，构造方法引用，对于带参数和不带参数的都可以，编译器会自动的进行腿短</span></div><div class="line">        MethodRefrenceTest methodRefrenceTest = <span class="keyword">new</span> MethodRefrenceTest();</div><div class="line">        <span class="comment">// 点击 new 看看会跳到那个方法里去</span></div><div class="line">        methodRefrenceTest.getName(String::<span class="keyword">new</span>);</div><div class="line">        <span class="comment">// 点击 new 看看会跳到那个方法里去</span></div><div class="line">        methodRefrenceTest.getName2(<span class="string">"haa"</span>, String::<span class="keyword">new</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">(Supplier&lt;String&gt; supplier)</span>  </span>&#123;</div><div class="line">        <span class="keyword">return</span> supplier.get() + <span class="string">"haha"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName2</span><span class="params">(String name, Function&lt;String ,String&gt; stringFunction)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> stringFunction.apply(name);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+        <h3 id="1-AutoCloseable-接口"><a href="#1-AutoCloseable-接口" class="headerlink" title="1 AutoCloseable 接口"></a>1 AutoCloseable 接口</h3><p>这是JDK1.7 的新增语法。帮助你自动关闭一些资源。可能你还不知道这个接口<br><img src="http://static.zybuluo.com/zhumin1990719/rydvwpav6zkm6jhel6244jxl/image_1bf3bdg6r6da1bha17s9cm81bej13.png" alt="image_1bf3bdg6r6da1bha17s9cm81bej13.png-90.6kB"></p>
+<p>JDK8 中就在很多地方应用了这个接口，比如 <code>Stream</code> 继承了 <code>BaseStream</code>，而 <code>BaseStream</code> 则继承了 <code>AutoCloseable</code> 这个接口。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/tmv8f7uvw289fjrfibxcr77y/image_1bf3avqeh1sjr8061aa9kr1bpc9.png" alt="image_1bf3avqeh1sjr8061aa9kr1bpc9.png-45.6kB"></p>
+<p>这个接口的说明很清楚，当你在使用 <code>try-with-resources block</code> 这种语法调用来进行资源获取的时候，在 <code>block</code> 退出之后自动关闭</p>
+<p>你不用像之前写 <code>finally{}</code> 代码那样的进行关闭。就不会有资源未被释放的问题。</p>
+<h3 id="2-测试代码"><a href="#2-测试代码" class="headerlink" title="2 测试代码"></a>2 测试代码</h3><p>简单测试代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Created by charleszhu on 2017/5/2.</div><div class="line"> */</div><div class="line">public class AutoCloseAbleTest implements AutoCloseable&#123;</div><div class="line"></div><div class="line">    public void doSth() &#123;</div><div class="line">        System.out.println(&quot;doStm&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void close() throws Exception &#123;</div><div class="line">        System.out.println(&quot;Close() 看到没，我被吊了&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        /**</div><div class="line">         * try-with-resources 语法块</div><div class="line">         */</div><div class="line">        try(AutoCloseAbleTest autoCloseAbleTest = new AutoCloseAbleTest()) &#123;</div><div class="line">            autoCloseAbleTest.doSth();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行一下，结果如下：<br><img src="http://static.zybuluo.com/zhumin1990719/c709aferpg4yr5myxks8txnu/image_1bf3bcj84433l37sm41vrf10dhm.png" alt="image_1bf3bcj84433l37sm41vrf10dhm.png-120.6kB"></p>
 
       
     </div>
@@ -470,9 +461,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/coding-life/" rel="tag"># coding life</a>
+            <a href="/tags/java/" rel="tag"># java</a>
           
-            <a href="/tags/java8/" rel="tag"># java8</a>
+            <a href="/tags/coding-life/" rel="tag"># coding life</a>
           
         </div>
       
@@ -485,18 +476,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/14/jdk8-2-流初步以及Function详解/" rel="next" title="jdk8-2-流初步以及Function详解">
-                <i class="fa fa-chevron-left"></i> jdk8-2-流初步以及Function详解
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/11/jdk8-1-函数式接口-lambda表达式/" rel="prev" title="jdk8-1-函数式接口&lambda表达式">
-                jdk8-1-函数式接口&lambda表达式 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/01/老版本MacBookPro-厚的-格式化-U盘安装-MacOS-Sierra/" rel="prev" title="老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra">
+                老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -546,8 +533,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/user.jpg"
@@ -650,6 +646,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-AutoCloseable-接口"><span class="nav-number">1.</span> <span class="nav-text">1 AutoCloseable 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-测试代码"><span class="nav-number">2.</span> <span class="nav-text">2 测试代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
