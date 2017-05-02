@@ -1,0 +1,1029 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="BTgFOfs30XTIqnhxtU99eC0CyqZEzQWQXu5MB1WrwL0" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java8,coding life," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="待葡萄嗖透" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。 1 简单自定义一个收集器这个收集器的目的是将一个 list 转换成一个 set  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051pu">
+<meta name="keywords" content="java8,coding life">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jdk8-28-30-自定义收集器&坑">
+<meta property="og:url" content="http://yoursite.com/2017/05/02/jdk8-28-30-自定义收集器-坑/index.html">
+<meta property="og:site_name" content="待葡萄嗖透">
+<meta property="og:description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。 1 简单自定义一个收集器这个收集器的目的是将一个 list 转换成一个 set  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051pu">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/0cl0ol9dyihk63ocsh0qzjgi/14914603137015.jpg">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/nnftv5zwqcgildzp8ddyd1x3/14914608156971.jpg">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/gj3bj52qxy1im34hvvznjt5s/14914612652241.jpg">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/2bpiqnuxu4atmod39o4v090m/14914633115993.jpg">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/0cy0jahcni4gnhbb00qjiivv/14914634695900.jpg">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/bgpyjod0lm1fm796tszkxw0c/14914635854475.jpg">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/n73a6j6hol02our7kigqyo1x/14914638813587.jpg">
+<meta property="og:updated_time" content="2017-05-02T00:32:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jdk8-28-30-自定义收集器&坑">
+<meta name="twitter:description" content="收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。 1 简单自定义一个收集器这个收集器的目的是将一个 list 转换成一个 set  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051pu">
+<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/0cl0ol9dyihk63ocsh0qzjgi/14914603137015.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/02/jdk8-28-30-自定义收集器-坑/"/>
+
+
+
+
+
+  <title> jdk8-28-30-自定义收集器&坑 | 待葡萄嗖透 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61700030";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">待葡萄嗖透</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">你说啥？</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/02/jdk8-28-30-自定义收集器-坑/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="朱老师&敏哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="待葡萄嗖透">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                jdk8-28-30-自定义收集器&坑
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-02T08:32:03+08:00">
+                2017-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/05/02/jdk8-28-30-自定义收集器-坑/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"> 被偷窥 👀</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>收集器中有很5个抽象方法，每个抽象方法都有自己特殊的作用，如果说我们要自己实现要给收集器的话，我们就需要分别实现下面五个方法。</p>
+<h3 id="1-简单自定义一个收集器"><a href="#1-简单自定义一个收集器" class="headerlink" title="1 简单自定义一个收集器"></a>1 简单自定义一个收集器</h3><p>这个收集器的目的是将一个 <code>list</code> 转换成一个 <code>set</code> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySetCollector</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Collector</span>&lt;<span class="title">T</span>, <span class="title">Set</span>&lt;<span class="title">T</span>&gt;, <span class="title">Set</span>&lt;<span class="title">T</span>&gt;&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> Supplier&lt;Set&lt;T&gt;&gt; supplier() &#123;</div><div class="line">        System.out.println(<span class="string">"supplier invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> HashSet::<span class="keyword">new</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> BiConsumer&lt;Set&lt;T&gt;, T&gt; accumulator() &#123;</div><div class="line">	    System.out.println(<span class="string">"accumulator invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> Set&lt;T&gt;::add;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 并行性流才会调用，将两个分段的集合</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> BinaryOperator&lt;Set&lt;T&gt;&gt; combiner() &#123;</div><div class="line">        System.out.println(<span class="string">"combiner invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> (t1, t2) -&gt; &#123;</div><div class="line">            t1.addAll(t2);</div><div class="line">            <span class="keyword">return</span> t1;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> Function&lt;Set&lt;T&gt;, Set&lt;T&gt;&gt; finisher() &#123;</div><div class="line">        System.out.println(<span class="string">"finisher invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> Function.identity();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 描述这个集合的特性</div><div class="line">     * IDENTITY_FINISH 表示结果容器和中间容器是一致的，这个时候 JDK 会在返回的时候自动帮助我们做类型转换。而不用再去调用 finisher</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Set&lt;Characteristics&gt; <span class="title">characteristics</span><span class="params">()</span> </span>&#123;</div><div class="line">    System.out.println(<span class="string">"characteristics invoked!!!"</span>);</div><div class="line">        <span class="keyword">return</span> Collections.unmodifiableSet(EnumSet.of(IDENTITY_FINISH,UNORDERED));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        List&lt;String&gt; words = Arrays.asList(<span class="string">"hello"</span> , <span class="string">"world"</span>, <span class="string">"welcome"</span>, <span class="string">"hello"</span>);</div><div class="line"></div><div class="line">        Set&lt;String&gt; stringSet = words.stream().collect(<span class="keyword">new</span> MySetCollector&lt;&gt;());</div><div class="line">        System.out.println(stringSet);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实现类里，我们分别实现了5个方法。 其中比较重要的两个方式 <code>finisher</code> 和 <code>characteristics</code>  方法</p>
+<p>这俩方法是相互影响的。首先看 <code>characteristics</code>  方法，这个方法要求返回一个 <code>Characteristics</code> 枚举类型对的 <code>Set</code>。而  <code>Characteristics</code> 一共有三个枚举值。分别有不同的含义。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">   * 当我们采用并行流的时候，同时设置了  CONCURRENT 作为这个流的特性</div><div class="line">   * 那么，操作的是同一个集合，而不是多个</div><div class="line">   * 同样的道理，我们采用了并行流的方式，但是没有这个特性，我们就会生成多个</div><div class="line">   * 集合</div><div class="line">   */</div><div class="line">  CONCURRENT,</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   *  代表集合是否是有序的</div><div class="line">   */</div><div class="line">  UNORDERED,</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 表示 finisher function 可以被省略，因为中间结果和最后的返回的结果的类型是一致的。</div><div class="line">   * 所以当我们设置了这个属性之后，我们就必须了解到， 最后的返回的类型，可以由中间结果类型进行强制的返回。</div><div class="line">   */</div><div class="line">  IDENTITY_FINISH</div></pre></td></tr></table></figure>
+<p>上面的例子中，我们为我们自己的 <code>collector</code> 设置了两个属性， <code>IDENTITY_FINISH</code> &amp; <code>UNORDERED</code> ; 意思就是这个收集器收集的元素是无序的。 而同时，返回的类型和中间结果类型是可以完全强制转换的（如果不可以，则会报错，下面会说到）；而 <code>finisher()</code>  函数是不会被执行的，即使你在函数内部直接抛出一个异常都没有问题，因为根本不会执行。<br>执行结果我们可以看一下：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/0cl0ol9dyihk63ocsh0qzjgi/14914603137015.jpg" alt="14914603137015.jpg-102.1kB"></p>
+<p>这里需要注意两点：</p>
+<ol>
+<li>虽然 <code>combiner()</code> 函数被调用了，但是只是返回了一个 <code>BinaryOperator</code> 而已，而这个 <code>BinaryOperator</code> 并不会被调用。</li>
+<li><code>finisher()</code> 函数并没有被调用，原因上面已经说过</li>
+<li><code>characteristics()</code> 函数被调用了两次，分别代表不同的意思</li>
+</ol>
+<p>对于第3点，我们跟进 <code>collector()</code> 源代码里看一下, 便会有答案。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/nnftv5zwqcgildzp8ddyd1x3/14914608156971.jpg" alt="14914608156971.jpg-302.5kB"></p>
+<p>图中书说法其实不准确，其实是 <code>evaluate</code> 方法中的 <code>ReduceOps.makeRef(collector)</code> 中，会逐个调用相关方法， 包括 <code>characteristics()</code> 方法。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/gj3bj52qxy1im34hvvznjt5s/14914612652241.jpg" alt="14914612652241.jpg-351.7kB"></p>
+<p>所以 <code>characteristics()</code> 被调用了两次，第一次用于判断 <strong>是否是无序集合</strong> ；第二次用于判断 <strong>是否需要执行 finisher 用于中间结果和最终结果的类型转换</strong></p>
+<h3 id="2-当中间结果与返回结果不一致"><a href="#2-当中间结果与返回结果不一致" class="headerlink" title="2 当中间结果与返回结果不一致"></a>2 当中间结果与返回结果不一致</h3><p>看下面这个改造的自定义收集器，中间结果是个 <code>set</code> 而返回的是个 <code>map</code>，也就是中间结果和最终最终结果是不一致的。这个时候，<code>finisher</code> 函数就会排上用场了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySetCollector2</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Collector</span>&lt;<span class="title">T</span>, <span class="title">Set</span>&lt;<span class="title">T</span>&gt;, <span class="title">Map</span>&lt;<span class="title">T</span>,<span class="title">T</span>&gt;&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> Supplier&lt;Set&lt;T&gt;&gt; supplier() &#123;</div><div class="line">        System.out.println(<span class="string">"supplier invoked!!!!!"</span>);</div><div class="line">        <span class="keyword">return</span> HashSet::<span class="keyword">new</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> BiConsumer&lt;Set&lt;T&gt;, T&gt; accumulator() &#123;</div><div class="line">        System.out.println(<span class="string">"accumulator invoked!!!!!"</span>);</div><div class="line"></div><div class="line"></div><div class="line">        <span class="keyword">return</span> (set, item) -&gt; &#123;</div><div class="line">            System.out.println(set);</div><div class="line">            System.out.println(<span class="string">"threadName: "</span> + Thread.currentThread().getName());</div><div class="line">            set.add(item);</div><div class="line">        &#125;;</div><div class="line"><span class="comment">//        return Set&lt;T&gt;::add;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> BinaryOperator&lt;Set&lt;T&gt;&gt; combiner() &#123;</div><div class="line">        System.out.println(<span class="string">"combiner invoked!!!!!"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> (set1, set2) -&gt; &#123;</div><div class="line">            set1.addAll(set2);</div><div class="line">            <span class="keyword">return</span> set1;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> Function&lt;Set&lt;T&gt;, Map&lt;T, T&gt;&gt; finisher() &#123;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"finisher invoked!!!!"</span>);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> set -&gt; &#123;</div><div class="line">            Map&lt;T, T&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">            set.stream().forEach(item -&gt; map.put(item, item));</div><div class="line">            <span class="keyword">return</span> map;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 当有 Characteristics.CONCURRENT 意味着如果有并发，则是多个线程操作一个集合。</div><div class="line">     * 这个时候 accumulator 如果有 遍历操作，就有可能会抛出  ConcurrentModificationException</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Set&lt;Characteristics&gt; <span class="title">characteristics</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"characteristics invoked!!!!"</span>);</div><div class="line">        <span class="keyword">return</span> Collections.unmodifiableSet(EnumSet.of(Characteristics.UNORDERED, Characteristics.CONCURRENT));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i ++) &#123;</div><div class="line">            List&lt;String&gt; words = Arrays.asList(<span class="string">"hello"</span>, <span class="string">"word"</span>, <span class="string">"helloword"</span>, <span class="string">"hello"</span>, <span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>);</div><div class="line">            Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</div><div class="line">            set.addAll(words);</div><div class="line"></div><div class="line">            Map&lt;String, String&gt; map = set.parallelStream().collect(<span class="keyword">new</span> MySetCollector2&lt;&gt;());</div><div class="line">            System.out.println(map);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里由于我输出与中间结果类型并不一致，所以如果我在 <code>characteristics()</code> 方法中，依旧使用  <code>IDENTITY_FINISH</code> ，也就是进行类型强转，则必然报错，类型转换异常。大家可以自己试一下。</p>
+<h3 id="3-并发与并行的区别-并行时候的一些坑"><a href="#3-并发与并行的区别-并行时候的一些坑" class="headerlink" title="3 并发与并行的区别-并行时候的一些坑"></a>3 并发与并行的区别-并行时候的一些坑</h3><p>这里，有另外一个很要命的坑。</p>
+<blockquote>
+<p>在说这个概念之前，先说一下收集器中 <code>parallel</code> 和 <code>concurrent</code> 的区别</p>
+<ol>
+<li><code>parallel</code> 是<strong>并行</strong>，会将产生多个集合，多个线程操作，最后合并，也就是会调用 <code>combiner()</code> 方法<ol>
+<li><code>concurrent</code> 是<strong>并发</strong>， 是多个线程对同一个集合进行操作，首先 <code>combiner()</code> 函数不会被执行，而同时，如果你在 <code>accumulator()</code> 函数中进行累加操作，又进行遍历操作，就会抛出并发异常。</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<p>用例子说话，首先我们必须采用 <code>并行流</code> ， 在 <code>accumulator()</code> 函数中遍历 <code>set</code>, 同时将 <code>characteristics()</code> 函数中加入 <code>CONCURRENT</code> 这个属性，你执行100次，基本都会抛出异常</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/2bpiqnuxu4atmod39o4v090m/14914633115993.jpg" alt="14914633115993.jpg-397.3kB"></p>
+<p>原因很简答也比较复杂： 程序采用了并行流 <code>set.parallelStream()</code>，同时设置了 <code>CONCURRENT</code> 属性；也就是说，多个线程操作同一个集合。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/0cy0jahcni4gnhbb00qjiivv/14914634695900.jpg" alt="14914634695900.jpg-105.6kB"></p>
+<p>而在 <code>accumulator()</code> 函数中同时遍历了集合，也修改了集合。由于是多线程操作，很大的概率就会发生你一边遍历集合，一遍修改，就会报错。顺被大家可看看 <code>ConcurrentModificationException</code> 的 <em>javadoc</em>. </p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/bgpyjod0lm1fm796tszkxw0c/14914635854475.jpg" alt="14914635854475.jpg-77.1kB"></p>
+<p>而如果，你不添加 <code>CONCURRENT</code> 这个属性，就不会报错。因为会生成多个中间集合。这一点，我们可以改造 <code>supplier()</code> 方法，在其中答应一条语句，通过打印了几条语句，就可以看出产生了几个集合。</p>
+<blockquote>
+<p>当然了，如果你在  <code>accumulator()</code> 中不去有那个遍历的操作，也是即使你添加了 <code>CONCURRENT</code> 属性，也是不会报错的。因为你没有并发的即遍历又修改一个集合</p>
+</blockquote>
+<p><img src="http://static.zybuluo.com/zhumin1990719/n73a6j6hol02our7kigqyo1x/14914638813587.jpg" alt="14914638813587.jpg-75.7kB"></p>
+<p>而一般产生多少集合，由产生多少个线程决定，而产生多少线程一般由机器经过 <code>超线程</code> 技术之后有多少个处理器而确定的。当然也是可以修改的，但是一般没有必要。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 查看有多少处理器</span></div><div class="line">Runtime.getRuntime().availableProcessors();</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/gongzhonghao.jpeg" alt="朱老师&敏哥 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>有惊喜，朋友🙄</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>我要拿铁不加糖.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.png" alt="朱老师&敏哥 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.png" alt="朱老师&敏哥 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java8/" rel="tag"># java8</a>
+          
+            <a href="/tags/coding-life/" rel="tag"># coding life</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/01/老版本MacBookPro-厚的-格式化-U盘安装-MacOS-Sierra/" rel="prev" title="老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra">
+                老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/user.jpg"
+               alt="朱老师&敏哥" />
+          <p class="site-author-name" itemprop="name">朱老师&敏哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">朱老师的鸡汤和敏哥装逼的日常</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Little--ZM" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/zm1990719" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/charlsez" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dianping.com/" title="dianping" target="_blank">dianping</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-简单自定义一个收集器"><span class="nav-number">1.</span> <span class="nav-text">1 简单自定义一个收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-当中间结果与返回结果不一致"><span class="nav-number">2.</span> <span class="nav-text">2 当中间结果与返回结果不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-并发与并行的区别-并行时候的一些坑"><span class="nav-number">3.</span> <span class="nav-text">3 并发与并行的区别-并行时候的一些坑</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱老师&敏哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e4781449fa44af29373d0e3b4bdf733",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
