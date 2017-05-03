@@ -104,7 +104,7 @@
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/wne2ek9nxhs90tx5zygzc7cc/image_1bf7dhepa1cpp7gi28b1r7v1m3r1f.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/s65e3diseksbvgh87sgxu6t5/image_1bf7e1upp1aa69mamubh2krap29.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/sfq22rxzqdmtkaqpnlpiqeko/image_1bf7ehq7bgaj1qrg8k61eiq1e1b2m.png">
-<meta property="og:updated_time" content="2017-05-03T15:28:27.000Z">
+<meta property="og:updated_time" content="2017-05-03T15:35:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk8 一个颠覆了面向对象认知的例子">
 <meta name="twitter:description" content="1 起源如果你看了上一篇文章关于 Spliterator 分割迭代器，最后一部分说到了图中的两个强制转换逻辑的不合理之处。  第一处，我传入的是一个 Consumer 接口，但是判断的情况却是判断   1action instanceof  IntConsumer 而 IntConsumer 和 Consumer 是没有继承关系的平行函数式接口。这样的转换为何会成功？  第二处，当第一个判断条件不">
@@ -422,7 +422,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">consumerTest.test(intConsumer::accept); <span class="comment">// 函数式的方式</span></div></pre></td></tr></table></figure>
 <p>当你按住 command 把鼠标放在双冒号的时候 出现的如下：<br><img src="http://static.zybuluo.com/zhumin1990719/kk9ld6ktzbhctlv3xitujalv/image_1bf7diai619ibfi64uk13hp1viv1s.png" alt="image_1bf7diai619ibfi64uk13hp1viv1s.png-121.5kB"></p>
 <p>当你按住 command 把鼠标放在的 <code>accept</code> 时候 出现的如下：<br><img src="http://static.zybuluo.com/zhumin1990719/wne2ek9nxhs90tx5zygzc7cc/image_1bf7dhepa1cpp7gi28b1r7v1m3r1f.png" alt="image_1bf7dhepa1cpp7gi28b1r7v1m3r1f.png-155.1kB"></p>
-<p>双冒号代表是的当前 <code>lambda</code> 表达式的类型。因为你看我初始化连个consumer的代码</p>
+<p>双冒号代表是的当前 <code>lambda</code> 表达式的类型。因为你看我初始化两个consumer的代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Consumer&lt;Integer&gt; consumer = i -&gt; System.out.println(i);</div><div class="line">IntConsumer intConsumer = i -&gt; System.out.println(i);</div></pre></td></tr></table></figure>
 <p>我后面的表达式是一模一样的。但是却可以赋予两个不同的类型。<br>所以，重点来了</p>
 <blockquote>

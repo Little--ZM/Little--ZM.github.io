@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-03T15:28:27.000Z</updated>
+  <updated>2017-05-03T15:35:02.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/05/03/jdk8-%E4%B8%80%E4%B8%AA%E9%A2%A0%E8%A6%86%E4%BA%86%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%A4%E7%9F%A5%E7%9A%84%E4%BE%8B%E5%AD%90/"/>
     <id>http://yoursite.com/2017/05/03/jdk8-一个颠覆了面向对象认知的例子/</id>
     <published>2017-05-03T15:27:20.000Z</published>
-    <updated>2017-05-03T15:28:27.000Z</updated>
+    <updated>2017-05-03T15:35:02.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-起源"><a href="#1-起源" class="headerlink" title="1 起源"></a>1 起源</h2><p>如果你看了上一篇文章关于 <code>Spliterator</code> 分割迭代器，最后一部分说到了图中的两个强制转换逻辑的不合理之处。</p>
 <ul>
@@ -43,7 +43,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">consumerTest.test(intConsumer::accept); <span class="comment">// 函数式的方式</span></div></pre></td></tr></table></figure>
 <p>当你按住 command 把鼠标放在双冒号的时候 出现的如下：<br><img src="http://static.zybuluo.com/zhumin1990719/kk9ld6ktzbhctlv3xitujalv/image_1bf7diai619ibfi64uk13hp1viv1s.png" alt="image_1bf7diai619ibfi64uk13hp1viv1s.png-121.5kB"></p>
 <p>当你按住 command 把鼠标放在的 <code>accept</code> 时候 出现的如下：<br><img src="http://static.zybuluo.com/zhumin1990719/wne2ek9nxhs90tx5zygzc7cc/image_1bf7dhepa1cpp7gi28b1r7v1m3r1f.png" alt="image_1bf7dhepa1cpp7gi28b1r7v1m3r1f.png-155.1kB"></p>
-<p>双冒号代表是的当前 <code>lambda</code> 表达式的类型。因为你看我初始化连个consumer的代码</p>
+<p>双冒号代表是的当前 <code>lambda</code> 表达式的类型。因为你看我初始化两个consumer的代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Consumer&lt;Integer&gt; consumer = i -&gt; System.out.println(i);</div><div class="line">IntConsumer intConsumer = i -&gt; System.out.println(i);</div></pre></td></tr></table></figure>
 <p>我后面的表达式是一模一样的。但是却可以赋予两个不同的类型。<br>所以，重点来了</p>
 <blockquote>
