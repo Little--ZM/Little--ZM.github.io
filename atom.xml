@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-02T09:57:25.000Z</updated>
+  <updated>2017-05-03T15:28:27.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jdk8 一个颠覆了面向对象认知的例子</title>
+    <link href="http://yoursite.com/2017/05/03/jdk8-%E4%B8%80%E4%B8%AA%E9%A2%A0%E8%A6%86%E4%BA%86%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%A4%E7%9F%A5%E7%9A%84%E4%BE%8B%E5%AD%90/"/>
+    <id>http://yoursite.com/2017/05/03/jdk8-一个颠覆了面向对象认知的例子/</id>
+    <published>2017-05-03T15:27:20.000Z</published>
+    <updated>2017-05-03T15:28:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-起源"><a href="#1-起源" class="headerlink" title="1 起源"></a>1 起源</h2><p>如果你看了上一篇文章关于 <code>Spliterator</code> 分割迭代器，最后一部分说到了图中的两个强制转换逻辑的不合理之处。</p>
+<ul>
+<li>第一处，我传入的是一个 <code>Consumer</code> 接口，但是判断的情况却是判断 </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">action <span class="keyword">instanceof</span>  IntConsumer</div></pre></td></tr></table></figure>
+<p>而 IntConsumer 和 Consumer 是没有继承关系的平行函数式接口。这样的转换为何会成功？</p>
+<ul>
+<li>第二处，当第一个判断条件不满足的是时候，使用（IntConsumer）强转 <code>lambda</code> 表达式，这样为何能成功被需要传入 <code>IntConsumer</code> 函数所接受呢？</li>
+</ul>
+<p>如下图：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/b5fvbgzis7apng5pcmv4rxfj/image_1bf48rn8nbi1lrs1hgq1f72ass1t.png" alt="image_1bf48rn8nbi1lrs1hgq1f72ass1t.png-236.6kB"></p>
+<a id="more"></a>
+<h2 id="2-尝试解释看看喽"><a href="#2-尝试解释看看喽" class="headerlink" title="2 尝试解释看看喽"></a>2 尝试解释看看喽</h2><h3 id="先看第二处：lambda表达式也可以强转？"><a href="#先看第二处：lambda表达式也可以强转？" class="headerlink" title="先看第二处：lambda表达式也可以强转？"></a>先看第二处：lambda表达式也可以强转？</h3><p>我们先写一个类似的例子，有一个需要传入 <code>Consumer</code> 的方法，我们尝试传入一个 <code>IntConsumer</code> 会发生什么情况。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerTest</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> Integer&gt; consumer)</span> </span>&#123;</div><div class="line">        System.out.println(consumer <span class="keyword">instanceof</span> IntConsumer);</div><div class="line">        consumer.accept(<span class="number">100</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        ConsumerTest consumerTest = <span class="keyword">new</span> ConsumerTest();</div><div class="line"></div><div class="line">        Consumer&lt;Integer&gt; consumer = i -&gt; System.out.println(i);</div><div class="line">        IntConsumer intConsumer = i -&gt; System.out.println(i);</div><div class="line"></div><div class="line">        consumerTest.test(consumer);  <span class="comment">// 面向对象的方式</span></div><div class="line">        consumerTest.test(consumer::accept); <span class="comment">// 函数式的方式</span></div><div class="line">        consumerTest.test(intConsumer::accept); <span class="comment">// 函数式的方式</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子的输出结果是：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/twikzu01ww4e7t9u8x63tw9h/image_1bf77758l13l11agu1ekeshv1134l.png" alt="image_1bf77758l13l11agu1ekeshv1134l.png-28kB"></p>
+<p>我们发现这三种传入方式都是可以的，第一第二种没什么好说的，因为 <code>Test</code> 方法就是需要传入一个 <code>Consumer</code>， 无论你使用原来传递对象的方式，还是通过方法引用的方法，都是没有问题，可以被执行。</p>
+<p>问题在于，第三种方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">consumerTest.test(intConsumer::accept); <span class="comment">// 函数式的方式</span></div></pre></td></tr></table></figure>
+<p>当你按住 command 把鼠标放在双冒号的时候 出现的如下：<br><img src="http://static.zybuluo.com/zhumin1990719/kk9ld6ktzbhctlv3xitujalv/image_1bf7diai619ibfi64uk13hp1viv1s.png" alt="image_1bf7diai619ibfi64uk13hp1viv1s.png-121.5kB"></p>
+<p>当你按住 command 把鼠标放在的 <code>accept</code> 时候 出现的如下：<br><img src="http://static.zybuluo.com/zhumin1990719/wne2ek9nxhs90tx5zygzc7cc/image_1bf7dhepa1cpp7gi28b1r7v1m3r1f.png" alt="image_1bf7dhepa1cpp7gi28b1r7v1m3r1f.png-155.1kB"></p>
+<p>双冒号代表是的当前 <code>lambda</code> 表达式的类型。因为你看我初始化连个consumer的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Consumer&lt;Integer&gt; consumer = i -&gt; System.out.println(i);</div><div class="line">IntConsumer intConsumer = i -&gt; System.out.println(i);</div></pre></td></tr></table></figure>
+<p>我后面的表达式是一模一样的。但是却可以赋予两个不同的类型。<br>所以，重点来了</p>
+<blockquote>
+<p>重点是 lambda 表达式的类型，<code>是要靠上下文进行推断的</code>。</p>
+</blockquote>
+<p>这个是和传统面向的编程不一样的地方。需要注意。<br>刚刚上面的第三种调用的方式，就是如此，编译器推断出，你这个 <code>lambda</code> 表达式 <code>intConsumer::accept</code> 肯定是 <code>Consumer&lt;T super Integer&gt;</code> 类型的。所以不报错而这个时候如果你前面加一个强制转换，就像文章一开始的那张图的第二个强转逻辑一样，也是可以的。不过，略显多余就是了。</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/s65e3diseksbvgh87sgxu6t5/image_1bf7e1upp1aa69mamubh2krap29.png" alt="image_1bf7e1upp1aa69mamubh2krap29.png-57.5kB"></p>
+<h3 id="在看第一处"><a href="#在看第一处" class="headerlink" title="在看第一处"></a>在看第一处</h3><p>那么什么情况下，才会出现第一种情况，传入的是 <code>Consumer</code> ，但却同时是 <code>instanceof IntConsumer</code> 呢？</p>
+<p>对了！（对什么对，你又没想到）就是这样，你同时继承者两个接口就可以了呀！</p>
+<p>上代码！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by charleszhu on 2017/5/2.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerTest</span> </span>&#123;</div><div class="line">    <span class="comment">// 要求传入 Consumer</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testInt</span><span class="params">(Consumer&lt;Integer&gt; consumer)</span> </span>&#123;</div><div class="line">        <span class="comment">// 判断是否为 IntConsumer</span></div><div class="line">        System.out.println(consumer <span class="keyword">instanceof</span> IntConsumer);</div><div class="line">        consumer.accept(<span class="number">100</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">        ConsumerTest consumerTest = <span class="keyword">new</span> ConsumerTest();</div><div class="line"></div><div class="line">        consumerTest.testInt(<span class="keyword">new</span> MyConsumer2&lt;&gt;());</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 同时实现两个方法</div><div class="line"> * <span class="doctag">@param</span> &lt;Integer&gt;</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyConsumer2</span>&lt;<span class="title">Integer</span>&gt; <span class="keyword">implements</span> <span class="title">IntConsumer</span>, <span class="title">Consumer</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</div><div class="line">        System.out.println(value);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Integer t)</span> </span>&#123;</div><div class="line">        System.out.println(t);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行一下结果：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/sfq22rxzqdmtkaqpnlpiqeko/image_1bf7ehq7bgaj1qrg8k61eiq1e1b2m.png" alt="image_1bf7ehq7bgaj1qrg8k61eiq1e1b2m.png-28.5kB"></p>
+<p>就可以发现，这个时候就和开头的那个例子中的，第一处转换： 需要传入的是 <code>Consumer</code>, 但是也是 <code>IntConsumer</code> 的实例，就会进入第一个判断了</p>
+<p>至此两个强转就解释完毕了！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个例子想给大家说的就是函数式接口的很传统的命令式编程还是有一定差别的。尤其是 <code>lambda</code> 表达式的类型是要靠上下文推断的这一点，需要好好的理解~</p>
+<p>只有慢慢理解这些，才能真正理解函数式编程。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-起源&quot;&gt;&lt;a href=&quot;#1-起源&quot; class=&quot;headerlink&quot; title=&quot;1 起源&quot;&gt;&lt;/a&gt;1 起源&lt;/h2&gt;&lt;p&gt;如果你看了上一篇文章关于 &lt;code&gt;Spliterator&lt;/code&gt; 分割迭代器，最后一部分说到了图中的两个强制转换逻辑的不合理之处。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一处，我传入的是一个 &lt;code&gt;Consumer&lt;/code&gt; 接口，但是判断的情况却是判断 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;action &lt;span class=&quot;keyword&quot;&gt;instanceof&lt;/span&gt;  IntConsumer&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;而 IntConsumer 和 Consumer 是没有继承关系的平行函数式接口。这样的转换为何会成功？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第二处，当第一个判断条件不满足的是时候，使用（IntConsumer）强转 &lt;code&gt;lambda&lt;/code&gt; 表达式，这样为何能成功被需要传入 &lt;code&gt;IntConsumer&lt;/code&gt; 函数所接受呢？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://static.zybuluo.com/zhumin1990719/b5fvbgzis7apng5pcmv4rxfj/image_1bf48rn8nbi1lrs1hgq1f72ass1t.png&quot; alt=&quot;image_1bf48rn8nbi1lrs1hgq1f72ass1t.png-236.6kB&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
+    
+  </entry>
   
   <entry>
     <title>jdk8 Stream 解析2 - Spliterator分割迭代器</title>
