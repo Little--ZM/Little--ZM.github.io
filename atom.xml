@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-03T15:35:02.000Z</updated>
+  <updated>2017-05-05T08:55:32.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS 6.x 如何升级 glibc 2.17</title>
+    <link href="http://yoursite.com/2017/05/05/CentOS-6-x-%E5%A6%82%E4%BD%95%E5%8D%87%E7%BA%A7-glibc-2-17/"/>
+    <id>http://yoursite.com/2017/05/05/CentOS-6-x-如何升级-glibc-2-17/</id>
+    <published>2017-05-05T08:55:00.000Z</published>
+    <updated>2017-05-05T08:55:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>本文描述如何在 <code>CentOS 6.x</code> 升级蛋疼的 <code>glibc 2.17</code>.</p>
+<p>学习机器的内容，需要用到 <code>tensorFlow</code>, 在自己 <code>Mac</code> 上跑太心疼了。 于是尝试在公司的测试机上跑。然而我搭建好 <code>conda</code>, <code>jupyter notebook</code> , 引入 <code>tf</code> 的时候报错。<br>（关于如何 安装科学计算环境，以及远程访问 <code>jupyter notebook</code>, 请看下一篇文章）</p>
+<p>如下<br><img src="http://static.zybuluo.com/zhumin1990719/1qx1afr47y8ok3gyzwlqobeu/image_1bfbrng2h1mgr110uuqj1l0239n9.png" alt="image_1bfbrng2h1mgr110uuqj1l0239n9.png-26.6kB"></p>
+<a id="more"></a>
+<p>在一看机器上的情况 最高只有 2.15<br><img src="http://static.zybuluo.com/zhumin1990719/iey92s8tqlehk14a5dddq5lo/image_1bfbrqvjh3eg1qjl1g0i1d1r3kvm.png" alt="image_1bfbrqvjh3eg1qjl1g0i1d1r3kvm.png-55.9kB"></p>
+<p>其实已经是运维升级过了的，默认只到 12。主要还是我们的系统版本太低。</p>
+<blockquote>
+<p>CentOS 7.X，GLIBC 已经到 <code>2.17</code>，GCC 也是 <code>4.8.5</code><br>但是对于公司来说，稳定是第一位的。所以。。。</p>
+</blockquote>
+<h2 id="如何安装"><a href="#如何安装" class="headerlink" title="如何安装"></a>如何安装</h2><p>两种方法，一种源码编译，一种是用 rpm 来安装，之前看到这篇文章<a href="http://blog.ttionya.com/article-1559.html" target="_blank" rel="external">点这里</a>，其实说的还蛮好的，但是只是升级到 <code>2.15</code>， 而最新的 <code>tf 1.1</code> 版本，需要 <code>2.17</code> 的版本。</p>
+<p>其实问题最大的就是找不到给 <code>CentOS 6.x</code> 用的 <code>2.17</code> 的 <code>rpm</code> 包，直到今日，我搜到了有人昨天发布一段脚本，才算找到了解决方法<br>，直接给链接 <a href="https://gist.github.com/harv/f86690fcad94f655906ee9e37c85b174" target="_blank" rel="external">感激万分的点这里</a></p>
+<p>你不愿点看，我就写下来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#! /bin/sh</div><div class="line"></div><div class="line"># update glibc to 2.17 for CentOS 6</div><div class="line"></div><div class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-2.17-55.el6.x86_64.rpm</div><div class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-common-2.17-55.el6.x86_64.rpm</div><div class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-devel-2.17-55.el6.x86_64.rpm</div><div class="line">wget http://copr-be.cloud.fedoraproject.org/results/mosquito/myrepo-el6/epel-6-x86_64/glibc-2.17-55.fc20/glibc-headers-2.17-55.el6.x86_64.rpm</div><div class="line"></div><div class="line">sudo rpm -Uvh glibc-2.17-55.el6.x86_64.rpm \</div><div class="line">glibc-common-2.17-55.el6.x86_64.rpm \</div><div class="line">glibc-devel-2.17-55.el6.x86_64.rpm \</div><div class="line">glibc-headers-2.17-55.el6.x86_64.rpm</div></pre></td></tr></table></figure>
+<p>其实就是下载资源，然后用 <code>rpm</code> 安装。</p>
+<h2 id="可能遇到的错误"><a href="#可能遇到的错误" class="headerlink" title="可能遇到的错误"></a>可能遇到的错误</h2><p>当你执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rpm -Uvh glibc-2.17-55.el6.x86_64.rpm \ </div><div class="line">glibc-common-2.17-55.el6.x86_64.rpm \ </div><div class="line">glibc-devel-2.17-55.el6.x86_64.rpm \ </div><div class="line">glibc-headers-2.17-55.el6.x86_64.rpm</div></pre></td></tr></table></figure>
+<p>的时候会报错</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/qbu7fz3fl6784ng3k9nv7dkm/image_1bfbsmbs2h3m1o5t163o1luhkhe13.png" alt="image_1bfbsmbs2h3m1o5t163o1luhkhe13.png-84.4kB"></p>
+<p>解决方案：<br>命令结尾加上参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--force --nodeps</div></pre></td></tr></table></figure>
+<p>原因可以看这篇文章 <a href="http://blog.csdn.net/wulantian/article/details/8804696" target="_blank" rel="external">点这里</a>，造成这个问题的主要原因是套件被重複 (强制) 安装了两次以上. 可以用上面的命令进行依赖忽略，也可以卸载。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>搜索的关键词真的很重要，谷歌很重要，英语很重要。</li>
+<li>运气很重要(这个问题折腾我两个礼拜)</li>
+<li>别用百度搜技术问题。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;引子&quot;&gt;&lt;a href=&quot;#引子&quot; class=&quot;headerlink&quot; title=&quot;引子&quot;&gt;&lt;/a&gt;引子&lt;/h2&gt;&lt;p&gt;本文描述如何在 &lt;code&gt;CentOS 6.x&lt;/code&gt; 升级蛋疼的 &lt;code&gt;glibc 2.17&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;学习机器的内容，需要用到 &lt;code&gt;tensorFlow&lt;/code&gt;, 在自己 &lt;code&gt;Mac&lt;/code&gt; 上跑太心疼了。 于是尝试在公司的测试机上跑。然而我搭建好 &lt;code&gt;conda&lt;/code&gt;, &lt;code&gt;jupyter notebook&lt;/code&gt; , 引入 &lt;code&gt;tf&lt;/code&gt; 的时候报错。&lt;br&gt;（关于如何 安装科学计算环境，以及远程访问 &lt;code&gt;jupyter notebook&lt;/code&gt;, 请看下一篇文章）&lt;/p&gt;
+&lt;p&gt;如下&lt;br&gt;&lt;img src=&quot;http://static.zybuluo.com/zhumin1990719/1qx1afr47y8ok3gyzwlqobeu/image_1bfbrng2h1mgr110uuqj1l0239n9.png&quot; alt=&quot;image_1bfbrng2h1mgr110uuqj1l0239n9.png-26.6kB&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+  </entry>
   
   <entry>
     <title>jdk8 一个颠覆了面向对象认知的例子</title>
@@ -317,9 +367,9 @@
     </summary>
     
     
-      <category term="java" scheme="http://yoursite.com/tags/java/"/>
-    
       <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
   </entry>
   
