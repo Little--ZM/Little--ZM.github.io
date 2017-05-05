@@ -81,7 +81,7 @@
     <link href="http://yoursite.com/2017/05/05/CentOS-6-x-%E5%A6%82%E4%BD%95%E5%8D%87%E7%BA%A7-glibc-2-17/"/>
     <id>http://yoursite.com/2017/05/05/CentOS-6-x-如何升级-glibc-2-17/</id>
     <published>2017-05-05T08:55:00.000Z</published>
-    <updated>2017-05-05T08:55:32.000Z</updated>
+    <updated>2017-05-05T10:04:20.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>本文描述如何在 <code>CentOS 6.x</code> 升级蛋疼的 <code>glibc 2.17</code>.</p>
 <p>学习机器的内容，需要用到 <code>tensorFlow</code>, 在自己 <code>Mac</code> 上跑太心疼了。 于是尝试在公司的测试机上跑。然而我搭建好 <code>conda</code>, <code>jupyter notebook</code> , 引入 <code>tf</code> 的时候报错。<br>（关于如何 安装科学计算环境，以及远程访问 <code>jupyter notebook</code>, 请看下一篇文章）</p>
@@ -109,6 +109,8 @@
 <li>运气很重要(这个问题折腾我两个礼拜)</li>
 <li>别用百度搜技术问题。</li>
 </ul>
+<h2 id="还有，如果你手动编译安装glibc。。。。"><a href="#还有，如果你手动编译安装glibc。。。。" class="headerlink" title="还有，如果你手动编译安装glibc。。。。"></a>还有，如果你手动编译安装glibc。。。。</h2><p>万一你安装失败就会导致系统各种命令无法执行。。千万别退出。。你一旦退出，就无法登陆了，只能用光盘恢复系统了。。</p>
+<p>但是这篇文章里的方法，可以试一试 <a href="https://cnodejs.org/topic/56dc21f1502596633dc2c3dc" target="_blank" rel="external">解决方法</a></p>
 ]]></content>
     
     <summary type="html">
