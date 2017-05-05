@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-05T09:11:56.000Z</updated>
+  <updated>2017-05-05T09:15:06.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/05/05/Linux-%E4%B8%8A%E6%90%AD%E5%BB%BA-Anaconda-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE-juypter/"/>
     <id>http://yoursite.com/2017/05/05/Linux-上搭建-Anaconda-远程访问-juypter/</id>
     <published>2017-05-05T09:10:35.000Z</published>
-    <updated>2017-05-05T09:11:56.000Z</updated>
+    <updated>2017-05-05T09:15:06.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-什么是-Anaconda"><a href="#1-什么是-Anaconda" class="headerlink" title="1 什么是 Anaconda"></a>1 什么是 Anaconda</h3><p>Anaconda 能让你轻松安装在数据科学工作中经常使用的包。你还将使用它创建虚拟环境，以便更轻松地处理多个项目。Anaconda 简化了我的工作流程，并且解决了我在处理包和多个 Python 版本时遇到的大量问题。</p>
 <a id="more"></a>
@@ -31,7 +31,8 @@
 <p>也可以将环境中的包的列表导出为文件，然后将该文件与代码包括在一起。这能让其他人轻松加载代码的所有依赖项。pip 提供了类似的功能，即 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip freeze &gt; requirements.txt。</div></pre></td></tr></table></figure>
 <h3 id="2-为什么使用-conda-而不是-virtualenv"><a href="#2-为什么使用-conda-而不是-virtualenv" class="headerlink" title="2 为什么使用 conda 而不是 virtualenv?"></a>2 为什么使用 conda 而不是 virtualenv?</h3><p><img src="http://static.zybuluo.com/zhumin1990719/cgmj2er08c6xivvx1wmlni09/14937979458924.jpg" alt="14937979458924.jpg-832.6kB"></p>
-<h3 id="3-安装过程"><a href="#3-安装过程" class="headerlink" title="3 安装过程"></a>3 安装过程</h3><h4 id="1-下载-，上传到191"><a href="#1-下载-，上传到191" class="headerlink" title="1 下载 ，上传到191"></a>1 下载 ，上传到191</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://repo.continuum.io/archive/Anaconda2-4.3.1-Linux-x86_64.sh</div></pre></td></tr></table></figure>
+<h3 id="3-安装过程"><a href="#3-安装过程" class="headerlink" title="3 安装过程"></a>3 安装过程</h3><h4 id="1-下载-，上传到机器"><a href="#1-下载-，上传到机器" class="headerlink" title="1 下载 ，上传到机器"></a>1 下载 ，上传到机器</h4><p>你也可以在机器 <code>wget</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://repo.continuum.io/archive/Anaconda2-4.3.1-Linux-x86_64.sh</div></pre></td></tr></table></figure>
 <h4 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh Anaconda2-4.3.1-Linux-x86_64.sh</div></pre></td></tr></table></figure>
 <p>选择安装目录。为了节约 根目录空间，安装在</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 目录事先必须不存在</div><div class="line">/data/min.zhu/anaconda2</div></pre></td></tr></table></figure>
