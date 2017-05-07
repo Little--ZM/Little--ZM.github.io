@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-05T09:15:06.000Z</updated>
+  <updated>2017-05-07T05:34:33.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>老妈的生活哲学</title>
+    <link href="http://yoursite.com/2017/05/07/%E6%9C%B1%E8%80%81%E5%B8%88%E4%B8%8E%E8%80%81%E5%A6%88%E7%9A%84%E7%94%9F%E6%B4%BB%E7%BB%86%E8%8A%82/"/>
+    <id>http://yoursite.com/2017/05/07/朱老师与老妈的生活细节/</id>
+    <published>2017-05-07T05:28:51.000Z</published>
+    <updated>2017-05-07T05:34:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近家里人感冒的多，姐姐的双胞胎，小的那个被我们带到舅舅家。</p>
+<p>中午，我去我妈那里;</p>
+<p><strong><em>我</em></strong>：老妈，今晚舅妈有事儿，我带小宝贝，你给我送点饭。</p>
+<p><strong><em>老妈</em></strong>：你中午剩的饭你热热就好啦。</p>
+<p><strong><em>我</em></strong> ： 。。。那我叫外卖。。</p>
+<p><strong><em>老妈</em></strong> ： 那我也去吃 😌</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近家里人感冒的多，姐姐的双胞胎，小的那个被我们带到舅舅家。&lt;/p&gt;
+&lt;p&gt;中午，我去我妈那里;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;我&lt;/em&gt;&lt;/strong&gt;：老妈，今晚舅妈有事儿，我带小宝贝，你给我送点饭。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;老妈&lt;/em&gt;&lt;/
+    
+    </summary>
+    
+    
+      <category term="生活细节" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB%E7%BB%86%E8%8A%82/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 上搭建 Anaconda, 远程访问 juypter</title>
