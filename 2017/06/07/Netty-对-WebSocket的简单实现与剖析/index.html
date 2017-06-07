@@ -1,0 +1,1059 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="BTgFOfs30XTIqnhxtU99eC0CyqZEzQWQXu5MB1WrwL0" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="coding life,netty,websocket," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="待葡萄嗖透" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。">
+<meta name="keywords" content="coding life,netty,websocket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty 对 WebSocket的简单实现与剖析">
+<meta property="og:url" content="http://yoursite.com/2017/06/07/Netty-对-WebSocket的简单实现与剖析/index.html">
+<meta property="og:site_name" content="待葡萄嗖透">
+<meta property="og:description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/vhfib8y17vai9qufzhdar6lk/image_1bi10abjtij3k1fol91c5dkrq9.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/zx0v9dsjaum7lajszic0e65y/image_1bi10qil21u2ul2hhck541m1jm.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/7n4gc92bqydxrl621vo7bsae/image_1bi1122017ar1ans1bm8fr71nm513.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/gp12rirel4wu1dphfwbdn4e9/image_1bi11329c1gjgn4t1rnjvii1t7o1g.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/7s4ne8auqwdfjwf5ao0f5hgf/image_1bi116pi91bq35iqpn4150u1t9h1t.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/a0ftuajhha27h8d5npao2mz4/image_1bi117a54qu0k151sfo98a1q6t2a.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/6xc9j5iqby6fbn3oj37sb32k/image_1bi11g7qkkrtt5ud4sop536d2n.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/sxu6eoau4d10t21cy45v5ijr/image_1bi11n5ke12tr19kve631ot01p6a34.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/c3lmwkxat1yv6xxvwexfggq7/image_1bi11pgoo1kdfao6mi3r8e1i6p3h.png">
+<meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/t8ga6azf75757rytx4xcba7d/image_1bi11rlob15li1k8r1ars5pt1mb33u.png">
+<meta property="og:updated_time" content="2017-06-07T10:44:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Netty 对 WebSocket的简单实现与剖析">
+<meta name="twitter:description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。">
+<meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/vhfib8y17vai9qufzhdar6lk/image_1bi10abjtij3k1fol91c5dkrq9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/07/Netty-对-WebSocket的简单实现与剖析/"/>
+
+
+
+
+
+  <title> Netty 对 WebSocket的简单实现与剖析 | 待葡萄嗖透 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61700030";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">待葡萄嗖透</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">你说啥？</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/07/Netty-对-WebSocket的简单实现与剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="朱老师&敏哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="待葡萄嗖透">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Netty 对 WebSocket的简单实现与剖析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T18:42:07+08:00">
+                2017-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/07/Netty-对-WebSocket的简单实现与剖析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"> 被偷窥 👀</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要描述 <code>netty</code> 对 <code>WebSocket</code> 的支持。并编写一个简单 <code>demo</code>; 对 <code>WebSocket</code> 的内容做了简单剖析。</p>
+<a id="more"></a>
+<h2 id="WebSocket-的由来"><a href="#WebSocket-的由来" class="headerlink" title="WebSocket 的由来"></a>WebSocket 的由来</h2><h3 id="HTTP-协议的问题"><a href="#HTTP-协议的问题" class="headerlink" title="HTTP 协议的问题"></a>HTTP 协议的问题</h3><p><code>HTTP</code> 协议无状态，为了保持状态，引出了 <code>session</code> &amp; <code>cookies</code>等技术。</p>
+<p><code>HTTP</code> 是基于 <code>请求</code> 和 <code>响应</code> 的，请求一定是客户端发出的。（1.1 还有 <code>keepAlive</code>, 持续连接，在一定时间可以进行连接的复用。）</p>
+<p>导致的问题， 服务器无法推送数据。所以早期有客户端轮训技术。<br>会导致资源和网络带宽的浪费。因为 <code>Header</code> 数据每次都要构建。</p>
+<h3 id="WebSocket-可以做到什么？"><a href="#WebSocket-可以做到什么？" class="headerlink" title="WebSocket 可以做到什么？"></a>WebSocket 可以做到什么？</h3><p><code>WebSocket</code> 来自 <code>Html5</code>; 所以是 <code>HTTP</code> 协议的一个升级版本</p>
+<ul>
+<li>协议可以建立浏览器和服务器之间的长连接。</li>
+<li>可以实现服务端的push</li>
+<li>只需要在一开始建立连接的时候构建 <code>Header</code>；其他时间都不需要再有 <code>Header</code> 信息</li>
+</ul>
+<blockquote>
+<p>因为是基于 HTTP 的，所以建立连接的时候，发的请求是一个标准的 http  请求。只不过是在 <code>Header</code> 中添加了信息。</p>
+</blockquote>
+<p>虽然是基于 <code>Http</code> 的，但是不仅仅在 <code>浏览器上使用</code><br>也可以通过第三方的工具包在 <code>app</code> 端使用</p>
+<h2 id="netty-对-webSocket-的简单实现"><a href="#netty-对-webSocket-的简单实现" class="headerlink" title="netty 对 webSocket 的简单实现"></a>netty 对 webSocket 的简单实现</h2><p>netty 功能众多，可以实现对 <code>HTTP</code> 的支持，可以实现高性能异步 <code>RPC</code> 的功能。同样，他也支持对 <code>WebSocket</code> 的支持。</p>
+<p>虽然用过 <code>netty</code> 的人都说 <code>netty</code> 复杂，但是他无论简单和复杂的应用，写起来都是样的复杂，这样一来平均一下，只要你了解了规则，还是比较简单的2333</p>
+<h3 id="netty-实现-websocket-服务端"><a href="#netty-实现-websocket-服务端" class="headerlink" title="netty 实现 websocket 服务端"></a>netty 实现 websocket 服务端</h3><p>三个步骤</p>
+<ul>
+<li>Server</li>
+<li>Initializer</li>
+<li>Handler</li>
+</ul>
+<h4 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h4><p>因为你无论写什么 <code>Server</code> 都基本是这个套路：贴代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 这个示例主要用来阐述</div><div class="line"> * netty 对于 WebSocket 连接的支持</div><div class="line"> * 以及如何写一个简单的WebSocket demo</div><div class="line"> */</div><div class="line">public class WebSocketServer &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        EventLoopGroup bossGroup = new NioEventLoopGroup();</div><div class="line">        EventLoopGroup workerGroup = new NioEventLoopGroup();</div><div class="line"></div><div class="line">        try &#123;</div><div class="line">            ServerBootstrap serverBootstrap = new ServerBootstrap();</div><div class="line">            serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)</div><div class="line">                    .handler(new LoggingHandler(LogLevel.INFO))</div><div class="line">                    .childHandler(new WebSocketChannelInitializer());</div><div class="line"></div><div class="line">            ChannelFuture channelFuture = serverBootstrap.bind(new InetSocketAddress(8899)).sync();</div><div class="line">            channelFuture.channel().closeFuture().sync();</div><div class="line">        &#125; finally &#123;</div><div class="line">            bossGroup.shutdownGracefully();</div><div class="line">            workerGroup.shutdownGracefully();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里简单解释下为什么有连个 group; 其实一个也没有问题。如果你才会用两个 group；那么 <code>bossGroup</code> 负责接收请求；而 <code>workerGroup</code> 负责处理请求</p>
+</blockquote>
+<h4 id="Initializer"><a href="#Initializer" class="headerlink" title="Initializer"></a>Initializer</h4><p><code>netty</code> 的各种复杂功能都是由各个 <code>handler</code> 实现的，实现 <code>WebSocket</code> 也是如此。没啥好说的，贴代码，看注释。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketChannelInitializer</span> <span class="keyword">extends</span> <span class="title">ChannelInitializer</span>&lt;<span class="title">SocketChannel</span>&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initChannel</span><span class="params">(SocketChannel ch)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        ChannelPipeline pipeline = ch.pipeline();</div><div class="line"></div><div class="line">        <span class="comment">// 因为是基于HTTP 协议之上的，所以需要使用到 HTTP 的编解码技术</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> HttpServerCodec());</div><div class="line">        <span class="comment">// 按照块来写数据 handler</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> ChunkedWriteHandler());</div><div class="line">        <span class="comment">// http request 和 response 的一个聚合类</span></div><div class="line">        <span class="comment">// netty 会对http 请求做分段的处理；所以在第一个 http 的示例中，有些会调用多次</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> HttpObjectAggregator(<span class="number">8192</span>));</div><div class="line"></div><div class="line">        <span class="comment">// web socket netty 的特殊支持</span></div><div class="line">        <span class="comment">// 其中 "ws" 是指的是 websocket 协议路径</span></div><div class="line">        <span class="comment">// 通常形式   ws://localhost:8899/ws</span></div><div class="line">        <span class="comment">// 8899/ws 后面的 ws 就是我传入的 /ws 路径。</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> WebSocketServerProtocolHandler(<span class="string">"/ws"</span>));</div><div class="line">        <span class="comment">// 插入自定义的 TextWebSocketFrameHandler</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> TextWebSocketFrameHandler());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="TextWebSocketFrameHandler"><a href="#TextWebSocketFrameHandler" class="headerlink" title="TextWebSocketFrameHandler"></a>TextWebSocketFrameHandler</h4><p><code>WebSocket</code> 协议的传输是是以 <code>Frame</code> 作为单位的。这里我们处理的是 <code>Text</code> 这种类型的 <code>Frame</code>。<br>传统，贴代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TextWebSocketFrameHandler</span> <span class="keyword">extends</span> <span class="title">SimpleChannelInboundHandler</span>&lt;<span class="title">TextWebSocketFrame</span>&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">channelRead0</span><span class="params">(ChannelHandlerContext ctx, TextWebSocketFrame msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"接受到消息："</span> + msg.text());</div><div class="line">        <span class="comment">// 这里我们接受客户端传来的消息，返回我们当前时间</span></div><div class="line">        ctx.writeAndFlush(<span class="keyword">new</span> TextWebSocketFrame(<span class="string">"服务器时间："</span> + LocalTime.now()));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handlerAdded</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"连接建立 : "</span> + ctx.channel().id().asLongText());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handlerRemoved</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"连接断开 : "</span> + ctx.channel().id().asLongText());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"出异常"</span>);</div><div class="line">        ctx.close();</div><div class="line">        cause.printStackTrace();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>Frame</code> 一共有六种，我们可以从类的继承上看<br><img src="http://static.zybuluo.com/zhumin1990719/vhfib8y17vai9qufzhdar6lk/image_1bi10abjtij3k1fol91c5dkrq9.png" alt="image_1bi10abjtij3k1fol91c5dkrq9.png-138.7kB"><br>六种分别有不同的用途，从字面上都比较容易理解<br>至于为什么是六种？ 那是因为 <code>WebSocket</code> 协议就是这么规定的。</p>
+</blockquote>
+<h3 id="简单的网页客户端"><a href="#简单的网页客户端" class="headerlink" title="简单的网页客户端"></a>简单的网页客户端</h3><p>为了方便，我们就只用简单的 <code>JS</code> 来进行 <code>WebSocket</code> 的调用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">&lt;script type="text/javascript"&gt;</div><div class="line">    var socket;</div><div class="line">    // 判断浏览器是不是支持</div><div class="line">    if(window.WebSocket) &#123;</div><div class="line">        socket = new WebSocket("ws://localhost:8899/ws")</div><div class="line">        socket.onmessage = function (event) &#123;</div><div class="line">            var ta = document.getElementById("responseText");</div><div class="line">            ta.value = ta.value + "\n" + event.data</div><div class="line">        &#125;</div><div class="line">        socket.onopen = function (event) &#123;</div><div class="line">            var ta = document.getElementById("responseText");</div><div class="line">            ta.value = "连接开启"</div><div class="line">        &#125;</div><div class="line">        socket.onclose = function (event) &#123;</div><div class="line">            var ta = document.getElementById("responseText");</div><div class="line">            ta.value = "连接关闭"</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        alert("浏览器不支持 WebSocket")</div><div class="line">    &#125;</div><div class="line">    // 发送消息</div><div class="line">    function send(message) &#123;</div><div class="line">        if(!window.WebSocket) &#123;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        if(socket.readyState == WebSocket.OPEN) &#123;</div><div class="line">            socket.send(message)</div><div class="line">        &#125; else &#123;</div><div class="line">            alert("连接尚未开启")</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line"></div><div class="line">&lt;form onsubmit="return false;"&gt;</div><div class="line">    &lt;textarea name="message" style="width: 400px; height: 200px"&gt;&lt;/textarea&gt;</div><div class="line">    &lt;input type="button" value="发送数据" onclick="send(this.form.message.value)"/&gt;</div><div class="line">    &lt;h3&gt;服务端输出：&lt;/h3&gt;</div><div class="line">    &lt;textarea id="responseText" style="width: 400px; height: 200px"&gt;&lt;/textarea&gt;</div><div class="line">    &lt;input type="button" value="清空数据" onclick="javascript: document.getElementById('responseText').value=''"/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
+<li><p>启动服务器：<br><img src="http://static.zybuluo.com/zhumin1990719/zx0v9dsjaum7lajszic0e65y/image_1bi10qil21u2ul2hhck541m1jm.png" alt="image_1bi10qil21u2ul2hhck541m1jm.png-89.1kB"></p>
+</li>
+<li><p>启动客户端</p>
+</li>
+</ul>
+<p>简单的做发你可以在 <code>IntelliJ</code> 中直接运行 <code>html</code> 他会帮你起一个服务。或者你可以用 <code>Python</code> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python -m SimpleHTTPServer 8080</div></pre></td></tr></table></figure>
+<p>我采用第一种：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/7n4gc92bqydxrl621vo7bsae/image_1bi1122017ar1ans1bm8fr71nm513.png" alt="image_1bi1122017ar1ans1bm8fr71nm513.png-64.4kB"><br>客户端显示连接已经建立</p>
+<p>此时，你可以在服务器端看到我们要打出的信息<br><img src="http://static.zybuluo.com/zhumin1990719/gp12rirel4wu1dphfwbdn4e9/image_1bi11329c1gjgn4t1rnjvii1t7o1g.png" alt="image_1bi11329c1gjgn4t1rnjvii1t7o1g.png-41.2kB"></p>
+<p>然后你可以通过客户端给服务器发送消息：比如我发送</p>
+<blockquote>
+<p>敏哥好帅<br>还用你所？</p>
+</blockquote>
+<p>服务端会收到：<br><img src="http://static.zybuluo.com/zhumin1990719/7s4ne8auqwdfjwf5ao0f5hgf/image_1bi116pi91bq35iqpn4150u1t9h1t.png" alt="image_1bi116pi91bq35iqpn4150u1t9h1t.png-41.9kB"></p>
+<p>客户端也会收到服务端的时间：<br><img src="http://static.zybuluo.com/zhumin1990719/a0ftuajhha27h8d5npao2mz4/image_1bi117a54qu0k151sfo98a1q6t2a.png" alt="image_1bi117a54qu0k151sfo98a1q6t2a.png-17.4kB"></p>
+<p>至此，我们可以的这个例子就成功运行了，你停止服务器会看到客户端输出 <code>连接关闭</code>； 你关闭客户端，会看见服务端输出 <code>连接断开</code>。</p>
+<h3 id="更近一步，基于-frame-基于-http"><a href="#更近一步，基于-frame-基于-http" class="headerlink" title="更近一步，基于 frame ? 基于 http ?"></a>更近一步，基于 frame ? 基于 http ?</h3><h4 id="基于-frame-的信息传递"><a href="#基于-frame-的信息传递" class="headerlink" title="基于 frame 的信息传递"></a>基于 frame 的信息传递</h4><p>刚刚说到，<code>WebSocket</code> 在建立长连接后，不需要在传递头信息。我们可以代开 <code>Chrome</code> 的控制台看一下：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/6xc9j5iqby6fbn3oj37sb32k/image_1bi11g7qkkrtt5ud4sop536d2n.png" alt="image_1bi11g7qkkrtt5ud4sop536d2n.png-149.2kB"></p>
+<p>我们能看到的是 <code>ws</code> 的连接的信息里有个 <code>Frames</code> 的标签，你传输的信息都在这里。</p>
+<h4 id="WebSocket-连接是基于-HTTP-升级的？"><a href="#WebSocket-连接是基于-HTTP-升级的？" class="headerlink" title="WebSocket 连接是基于 HTTP 升级的？"></a>WebSocket 连接是基于 HTTP 升级的？</h4><p>我们可以刷新一下你的客户端的网页，观察下 network 的输出：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/sxu6eoau4d10t21cy45v5ijr/image_1bi11n5ke12tr19kve631ot01p6a34.png" alt="image_1bi11n5ke12tr19kve631ot01p6a34.png-153kB"><br>注意看出了 <code>js</code> 之外的连个请求：第一个就是基本的 <code>http</code> 请求，状态的 <code>304</code></p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/c3lmwkxat1yv6xxvwexfggq7/image_1bi11pgoo1kdfao6mi3r8e1i6p3h.png" alt="image_1bi11pgoo1kdfao6mi3r8e1i6p3h.png-135.4kB"></p>
+<p>重点在看一下下面的 <code>ws</code> , 他是一个 <code>WebSocket</code> 请求：<br><img src="http://static.zybuluo.com/zhumin1990719/t8ga6azf75757rytx4xcba7d/image_1bi11rlob15li1k8r1ars5pt1mb33u.png" alt="image_1bi11rlob15li1k8r1ars5pt1mb33u.png-166.7kB"></p>
+<p><code>request</code> 中还有一个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Upgrade:websocket</div></pre></td></tr></table></figure></p>
+<p>的内容，就是它将协议由 <code>http</code> 协议升级成为了 <code>websocket</code> 协议。<br>所以就是这么回事</p>
+<p>所以，<code>websocket</code> 需要浏览器的支持。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li><code>jdk8</code></li>
+<li><code>netty 4.1.10.Final</code></li>
+<li><code>gradle</code></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/gongzhonghao.jpeg" alt="朱老师&敏哥 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>有惊喜，朋友🙄</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>我要拿铁不加糖.</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.png" alt="朱老师&敏哥 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.png" alt="朱老师&敏哥 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/coding-life/" rel="tag"># coding life</a>
+          
+            <a href="/tags/netty/" rel="tag"># netty</a>
+          
+            <a href="/tags/websocket/" rel="tag"># websocket</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/07/朱老师与老妈的生活细节/" rel="prev" title="老妈的生活哲学">
+                老妈的生活哲学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/user.jpg"
+               alt="朱老师&敏哥" />
+          <p class="site-author-name" itemprop="name">朱老师&敏哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">朱老师的鸡汤和敏哥装逼的日常</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Little--ZM" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/zm1990719" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/charlsez" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dianping.com/" title="dianping" target="_blank">dianping</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-的由来"><span class="nav-number">1.</span> <span class="nav-text">WebSocket 的由来</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-协议的问题"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP 协议的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket-可以做到什么？"><span class="nav-number">1.2.</span> <span class="nav-text">WebSocket 可以做到什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#netty-对-webSocket-的简单实现"><span class="nav-number">2.</span> <span class="nav-text">netty 对 webSocket 的简单实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#netty-实现-websocket-服务端"><span class="nav-number">2.1.</span> <span class="nav-text">netty 实现 websocket 服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Server"><span class="nav-number">2.1.1.</span> <span class="nav-text">Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Initializer"><span class="nav-number">2.1.2.</span> <span class="nav-text">Initializer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TextWebSocketFrameHandler"><span class="nav-number">2.1.3.</span> <span class="nav-text">TextWebSocketFrameHandler</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单的网页客户端"><span class="nav-number">2.2.</span> <span class="nav-text">简单的网页客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">2.3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更近一步，基于-frame-基于-http"><span class="nav-number">2.4.</span> <span class="nav-text">更近一步，基于 frame ? 基于 http ?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于-frame-的信息传递"><span class="nav-number">2.4.1.</span> <span class="nav-text">基于 frame 的信息传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebSocket-连接是基于-HTTP-升级的？"><span class="nav-number">2.4.2.</span> <span class="nav-text">WebSocket 连接是基于 HTTP 升级的？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.</span> <span class="nav-text">环境</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱老师&敏哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4e4781449fa44af29373d0e3b4bdf733",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

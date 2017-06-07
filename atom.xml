@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-07T05:35:56.000Z</updated>
+  <updated>2017-06-07T10:44:26.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,100 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Netty 对 WebSocket的简单实现与剖析</title>
+    <link href="http://yoursite.com/2017/06/07/Netty-%E5%AF%B9-WebSocket%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%89%96%E6%9E%90/"/>
+    <id>http://yoursite.com/2017/06/07/Netty-对-WebSocket的简单实现与剖析/</id>
+    <published>2017-06-07T10:42:07.000Z</published>
+    <updated>2017-06-07T10:44:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文主要描述 <code>netty</code> 对 <code>WebSocket</code> 的支持。并编写一个简单 <code>demo</code>; 对 <code>WebSocket</code> 的内容做了简单剖析。</p>
+<a id="more"></a>
+<h2 id="WebSocket-的由来"><a href="#WebSocket-的由来" class="headerlink" title="WebSocket 的由来"></a>WebSocket 的由来</h2><h3 id="HTTP-协议的问题"><a href="#HTTP-协议的问题" class="headerlink" title="HTTP 协议的问题"></a>HTTP 协议的问题</h3><p><code>HTTP</code> 协议无状态，为了保持状态，引出了 <code>session</code> &amp; <code>cookies</code>等技术。</p>
+<p><code>HTTP</code> 是基于 <code>请求</code> 和 <code>响应</code> 的，请求一定是客户端发出的。（1.1 还有 <code>keepAlive</code>, 持续连接，在一定时间可以进行连接的复用。）</p>
+<p>导致的问题， 服务器无法推送数据。所以早期有客户端轮训技术。<br>会导致资源和网络带宽的浪费。因为 <code>Header</code> 数据每次都要构建。</p>
+<h3 id="WebSocket-可以做到什么？"><a href="#WebSocket-可以做到什么？" class="headerlink" title="WebSocket 可以做到什么？"></a>WebSocket 可以做到什么？</h3><p><code>WebSocket</code> 来自 <code>Html5</code>; 所以是 <code>HTTP</code> 协议的一个升级版本</p>
+<ul>
+<li>协议可以建立浏览器和服务器之间的长连接。</li>
+<li>可以实现服务端的push</li>
+<li>只需要在一开始建立连接的时候构建 <code>Header</code>；其他时间都不需要再有 <code>Header</code> 信息</li>
+</ul>
+<blockquote>
+<p>因为是基于 HTTP 的，所以建立连接的时候，发的请求是一个标准的 http  请求。只不过是在 <code>Header</code> 中添加了信息。</p>
+</blockquote>
+<p>虽然是基于 <code>Http</code> 的，但是不仅仅在 <code>浏览器上使用</code><br>也可以通过第三方的工具包在 <code>app</code> 端使用</p>
+<h2 id="netty-对-webSocket-的简单实现"><a href="#netty-对-webSocket-的简单实现" class="headerlink" title="netty 对 webSocket 的简单实现"></a>netty 对 webSocket 的简单实现</h2><p>netty 功能众多，可以实现对 <code>HTTP</code> 的支持，可以实现高性能异步 <code>RPC</code> 的功能。同样，他也支持对 <code>WebSocket</code> 的支持。</p>
+<p>虽然用过 <code>netty</code> 的人都说 <code>netty</code> 复杂，但是他无论简单和复杂的应用，写起来都是样的复杂，这样一来平均一下，只要你了解了规则，还是比较简单的2333</p>
+<h3 id="netty-实现-websocket-服务端"><a href="#netty-实现-websocket-服务端" class="headerlink" title="netty 实现 websocket 服务端"></a>netty 实现 websocket 服务端</h3><p>三个步骤</p>
+<ul>
+<li>Server</li>
+<li>Initializer</li>
+<li>Handler</li>
+</ul>
+<h4 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h4><p>因为你无论写什么 <code>Server</code> 都基本是这个套路：贴代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 这个示例主要用来阐述</div><div class="line"> * netty 对于 WebSocket 连接的支持</div><div class="line"> * 以及如何写一个简单的WebSocket demo</div><div class="line"> */</div><div class="line">public class WebSocketServer &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        EventLoopGroup bossGroup = new NioEventLoopGroup();</div><div class="line">        EventLoopGroup workerGroup = new NioEventLoopGroup();</div><div class="line"></div><div class="line">        try &#123;</div><div class="line">            ServerBootstrap serverBootstrap = new ServerBootstrap();</div><div class="line">            serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)</div><div class="line">                    .handler(new LoggingHandler(LogLevel.INFO))</div><div class="line">                    .childHandler(new WebSocketChannelInitializer());</div><div class="line"></div><div class="line">            ChannelFuture channelFuture = serverBootstrap.bind(new InetSocketAddress(8899)).sync();</div><div class="line">            channelFuture.channel().closeFuture().sync();</div><div class="line">        &#125; finally &#123;</div><div class="line">            bossGroup.shutdownGracefully();</div><div class="line">            workerGroup.shutdownGracefully();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里简单解释下为什么有连个 group; 其实一个也没有问题。如果你才会用两个 group；那么 <code>bossGroup</code> 负责接收请求；而 <code>workerGroup</code> 负责处理请求</p>
+</blockquote>
+<h4 id="Initializer"><a href="#Initializer" class="headerlink" title="Initializer"></a>Initializer</h4><p><code>netty</code> 的各种复杂功能都是由各个 <code>handler</code> 实现的，实现 <code>WebSocket</code> 也是如此。没啥好说的，贴代码，看注释。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketChannelInitializer</span> <span class="keyword">extends</span> <span class="title">ChannelInitializer</span>&lt;<span class="title">SocketChannel</span>&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initChannel</span><span class="params">(SocketChannel ch)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        ChannelPipeline pipeline = ch.pipeline();</div><div class="line"></div><div class="line">        <span class="comment">// 因为是基于HTTP 协议之上的，所以需要使用到 HTTP 的编解码技术</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> HttpServerCodec());</div><div class="line">        <span class="comment">// 按照块来写数据 handler</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> ChunkedWriteHandler());</div><div class="line">        <span class="comment">// http request 和 response 的一个聚合类</span></div><div class="line">        <span class="comment">// netty 会对http 请求做分段的处理；所以在第一个 http 的示例中，有些会调用多次</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> HttpObjectAggregator(<span class="number">8192</span>));</div><div class="line"></div><div class="line">        <span class="comment">// web socket netty 的特殊支持</span></div><div class="line">        <span class="comment">// 其中 "ws" 是指的是 websocket 协议路径</span></div><div class="line">        <span class="comment">// 通常形式   ws://localhost:8899/ws</span></div><div class="line">        <span class="comment">// 8899/ws 后面的 ws 就是我传入的 /ws 路径。</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> WebSocketServerProtocolHandler(<span class="string">"/ws"</span>));</div><div class="line">        <span class="comment">// 插入自定义的 TextWebSocketFrameHandler</span></div><div class="line">        pipeline.addLast(<span class="keyword">new</span> TextWebSocketFrameHandler());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="TextWebSocketFrameHandler"><a href="#TextWebSocketFrameHandler" class="headerlink" title="TextWebSocketFrameHandler"></a>TextWebSocketFrameHandler</h4><p><code>WebSocket</code> 协议的传输是是以 <code>Frame</code> 作为单位的。这里我们处理的是 <code>Text</code> 这种类型的 <code>Frame</code>。<br>传统，贴代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TextWebSocketFrameHandler</span> <span class="keyword">extends</span> <span class="title">SimpleChannelInboundHandler</span>&lt;<span class="title">TextWebSocketFrame</span>&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">channelRead0</span><span class="params">(ChannelHandlerContext ctx, TextWebSocketFrame msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"接受到消息："</span> + msg.text());</div><div class="line">        <span class="comment">// 这里我们接受客户端传来的消息，返回我们当前时间</span></div><div class="line">        ctx.writeAndFlush(<span class="keyword">new</span> TextWebSocketFrame(<span class="string">"服务器时间："</span> + LocalTime.now()));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handlerAdded</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"连接建立 : "</span> + ctx.channel().id().asLongText());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handlerRemoved</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"连接断开 : "</span> + ctx.channel().id().asLongText());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"出异常"</span>);</div><div class="line">        ctx.close();</div><div class="line">        cause.printStackTrace();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>Frame</code> 一共有六种，我们可以从类的继承上看<br><img src="http://static.zybuluo.com/zhumin1990719/vhfib8y17vai9qufzhdar6lk/image_1bi10abjtij3k1fol91c5dkrq9.png" alt="image_1bi10abjtij3k1fol91c5dkrq9.png-138.7kB"><br>六种分别有不同的用途，从字面上都比较容易理解<br>至于为什么是六种？ 那是因为 <code>WebSocket</code> 协议就是这么规定的。</p>
+</blockquote>
+<h3 id="简单的网页客户端"><a href="#简单的网页客户端" class="headerlink" title="简单的网页客户端"></a>简单的网页客户端</h3><p>为了方便，我们就只用简单的 <code>JS</code> 来进行 <code>WebSocket</code> 的调用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">&lt;script type="text/javascript"&gt;</div><div class="line">    var socket;</div><div class="line">    // 判断浏览器是不是支持</div><div class="line">    if(window.WebSocket) &#123;</div><div class="line">        socket = new WebSocket("ws://localhost:8899/ws")</div><div class="line">        socket.onmessage = function (event) &#123;</div><div class="line">            var ta = document.getElementById("responseText");</div><div class="line">            ta.value = ta.value + "\n" + event.data</div><div class="line">        &#125;</div><div class="line">        socket.onopen = function (event) &#123;</div><div class="line">            var ta = document.getElementById("responseText");</div><div class="line">            ta.value = "连接开启"</div><div class="line">        &#125;</div><div class="line">        socket.onclose = function (event) &#123;</div><div class="line">            var ta = document.getElementById("responseText");</div><div class="line">            ta.value = "连接关闭"</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        alert("浏览器不支持 WebSocket")</div><div class="line">    &#125;</div><div class="line">    // 发送消息</div><div class="line">    function send(message) &#123;</div><div class="line">        if(!window.WebSocket) &#123;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        if(socket.readyState == WebSocket.OPEN) &#123;</div><div class="line">            socket.send(message)</div><div class="line">        &#125; else &#123;</div><div class="line">            alert("连接尚未开启")</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line"></div><div class="line">&lt;form onsubmit="return false;"&gt;</div><div class="line">    &lt;textarea name="message" style="width: 400px; height: 200px"&gt;&lt;/textarea&gt;</div><div class="line">    &lt;input type="button" value="发送数据" onclick="send(this.form.message.value)"/&gt;</div><div class="line">    &lt;h3&gt;服务端输出：&lt;/h3&gt;</div><div class="line">    &lt;textarea id="responseText" style="width: 400px; height: 200px"&gt;&lt;/textarea&gt;</div><div class="line">    &lt;input type="button" value="清空数据" onclick="javascript: document.getElementById('responseText').value=''"/&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
+<li><p>启动服务器：<br><img src="http://static.zybuluo.com/zhumin1990719/zx0v9dsjaum7lajszic0e65y/image_1bi10qil21u2ul2hhck541m1jm.png" alt="image_1bi10qil21u2ul2hhck541m1jm.png-89.1kB"></p>
+</li>
+<li><p>启动客户端</p>
+</li>
+</ul>
+<p>简单的做发你可以在 <code>IntelliJ</code> 中直接运行 <code>html</code> 他会帮你起一个服务。或者你可以用 <code>Python</code> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python -m SimpleHTTPServer 8080</div></pre></td></tr></table></figure>
+<p>我采用第一种：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/7n4gc92bqydxrl621vo7bsae/image_1bi1122017ar1ans1bm8fr71nm513.png" alt="image_1bi1122017ar1ans1bm8fr71nm513.png-64.4kB"><br>客户端显示连接已经建立</p>
+<p>此时，你可以在服务器端看到我们要打出的信息<br><img src="http://static.zybuluo.com/zhumin1990719/gp12rirel4wu1dphfwbdn4e9/image_1bi11329c1gjgn4t1rnjvii1t7o1g.png" alt="image_1bi11329c1gjgn4t1rnjvii1t7o1g.png-41.2kB"></p>
+<p>然后你可以通过客户端给服务器发送消息：比如我发送</p>
+<blockquote>
+<p>敏哥好帅<br>还用你所？</p>
+</blockquote>
+<p>服务端会收到：<br><img src="http://static.zybuluo.com/zhumin1990719/7s4ne8auqwdfjwf5ao0f5hgf/image_1bi116pi91bq35iqpn4150u1t9h1t.png" alt="image_1bi116pi91bq35iqpn4150u1t9h1t.png-41.9kB"></p>
+<p>客户端也会收到服务端的时间：<br><img src="http://static.zybuluo.com/zhumin1990719/a0ftuajhha27h8d5npao2mz4/image_1bi117a54qu0k151sfo98a1q6t2a.png" alt="image_1bi117a54qu0k151sfo98a1q6t2a.png-17.4kB"></p>
+<p>至此，我们可以的这个例子就成功运行了，你停止服务器会看到客户端输出 <code>连接关闭</code>； 你关闭客户端，会看见服务端输出 <code>连接断开</code>。</p>
+<h3 id="更近一步，基于-frame-基于-http"><a href="#更近一步，基于-frame-基于-http" class="headerlink" title="更近一步，基于 frame ? 基于 http ?"></a>更近一步，基于 frame ? 基于 http ?</h3><h4 id="基于-frame-的信息传递"><a href="#基于-frame-的信息传递" class="headerlink" title="基于 frame 的信息传递"></a>基于 frame 的信息传递</h4><p>刚刚说到，<code>WebSocket</code> 在建立长连接后，不需要在传递头信息。我们可以代开 <code>Chrome</code> 的控制台看一下：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/6xc9j5iqby6fbn3oj37sb32k/image_1bi11g7qkkrtt5ud4sop536d2n.png" alt="image_1bi11g7qkkrtt5ud4sop536d2n.png-149.2kB"></p>
+<p>我们能看到的是 <code>ws</code> 的连接的信息里有个 <code>Frames</code> 的标签，你传输的信息都在这里。</p>
+<h4 id="WebSocket-连接是基于-HTTP-升级的？"><a href="#WebSocket-连接是基于-HTTP-升级的？" class="headerlink" title="WebSocket 连接是基于 HTTP 升级的？"></a>WebSocket 连接是基于 HTTP 升级的？</h4><p>我们可以刷新一下你的客户端的网页，观察下 network 的输出：</p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/sxu6eoau4d10t21cy45v5ijr/image_1bi11n5ke12tr19kve631ot01p6a34.png" alt="image_1bi11n5ke12tr19kve631ot01p6a34.png-153kB"><br>注意看出了 <code>js</code> 之外的连个请求：第一个就是基本的 <code>http</code> 请求，状态的 <code>304</code></p>
+<p><img src="http://static.zybuluo.com/zhumin1990719/c3lmwkxat1yv6xxvwexfggq7/image_1bi11pgoo1kdfao6mi3r8e1i6p3h.png" alt="image_1bi11pgoo1kdfao6mi3r8e1i6p3h.png-135.4kB"></p>
+<p>重点在看一下下面的 <code>ws</code> , 他是一个 <code>WebSocket</code> 请求：<br><img src="http://static.zybuluo.com/zhumin1990719/t8ga6azf75757rytx4xcba7d/image_1bi11rlob15li1k8r1ars5pt1mb33u.png" alt="image_1bi11rlob15li1k8r1ars5pt1mb33u.png-166.7kB"></p>
+<p><code>request</code> 中还有一个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Upgrade:websocket</div></pre></td></tr></table></figure></p>
+<p>的内容，就是它将协议由 <code>http</code> 协议升级成为了 <code>websocket</code> 协议。<br>所以就是这么回事</p>
+<p>所以，<code>websocket</code> 需要浏览器的支持。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li><code>jdk8</code></li>
+<li><code>netty 4.1.10.Final</code></li>
+<li><code>gradle</code></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文主要描述 &lt;code&gt;netty&lt;/code&gt; 对 &lt;code&gt;WebSocket&lt;/code&gt; 的支持。并编写一个简单 &lt;code&gt;demo&lt;/code&gt;; 对 &lt;code&gt;WebSocket&lt;/code&gt; 的内容做了简单剖析。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="netty" scheme="http://yoursite.com/tags/netty/"/>
+    
+      <category term="websocket" scheme="http://yoursite.com/tags/websocket/"/>
+    
+  </entry>
   
   <entry>
     <title>老妈的生活哲学</title>
@@ -152,9 +246,9 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
-    
       <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
     
   </entry>
   
