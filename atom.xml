@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-07T10:44:26.000Z</updated>
+  <updated>2017-06-07T10:47:00.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://yoursite.com/2017/06/07/Netty-%E5%AF%B9-WebSocket%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%89%96%E6%9E%90/"/>
     <id>http://yoursite.com/2017/06/07/Netty-对-WebSocket的简单实现与剖析/</id>
     <published>2017-06-07T10:42:07.000Z</published>
-    <updated>2017-06-07T10:44:26.000Z</updated>
+    <updated>2017-06-07T10:47:00.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文主要描述 <code>netty</code> 对 <code>WebSocket</code> 的支持。并编写一个简单 <code>demo</code>; 对 <code>WebSocket</code> 的内容做了简单剖析。</p>
+<p>通过文章会了解为何 <code>WebSocket</code> 是 <code>HTTP</code> 协议升级而来； <code>netty</code> 是如何实现对他的支持等。</p>
 <a id="more"></a>
 <h2 id="WebSocket-的由来"><a href="#WebSocket-的由来" class="headerlink" title="WebSocket 的由来"></a>WebSocket 的由来</h2><h3 id="HTTP-协议的问题"><a href="#HTTP-协议的问题" class="headerlink" title="HTTP 协议的问题"></a>HTTP 协议的问题</h3><p><code>HTTP</code> 协议无状态，为了保持状态，引出了 <code>session</code> &amp; <code>cookies</code>等技术。</p>
 <p><code>HTTP</code> 是基于 <code>请求</code> 和 <code>响应</code> 的，请求一定是客户端发出的。（1.1 还有 <code>keepAlive</code>, 持续连接，在一定时间可以进行连接的复用。）</p>
@@ -97,6 +98,7 @@
     <summary type="html">
     
       &lt;p&gt;本文主要描述 &lt;code&gt;netty&lt;/code&gt; 对 &lt;code&gt;WebSocket&lt;/code&gt; 的支持。并编写一个简单 &lt;code&gt;demo&lt;/code&gt;; 对 &lt;code&gt;WebSocket&lt;/code&gt; 的内容做了简单剖析。&lt;/p&gt;
+&lt;p&gt;通过文章会了解为何 &lt;code&gt;WebSocket&lt;/code&gt; 是 &lt;code&gt;HTTP&lt;/code&gt; 协议升级而来； &lt;code&gt;netty&lt;/code&gt; 是如何实现对他的支持等。&lt;/p&gt;
     
     </summary>
     

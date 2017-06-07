@@ -91,13 +91,13 @@
 
 
 
-<meta name="description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。">
+<meta name="description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。 通过文章会了解为何 WebSocket 是 HTTP 协议升级而来； netty 是如何实现对他的支持等。">
 <meta name="keywords" content="coding life,netty,websocket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Netty 对 WebSocket的简单实现与剖析">
 <meta property="og:url" content="http://yoursite.com/2017/06/07/Netty-对-WebSocket的简单实现与剖析/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。">
+<meta property="og:description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。 通过文章会了解为何 WebSocket 是 HTTP 协议升级而来； netty 是如何实现对他的支持等。">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/vhfib8y17vai9qufzhdar6lk/image_1bi10abjtij3k1fol91c5dkrq9.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/zx0v9dsjaum7lajszic0e65y/image_1bi10qil21u2ul2hhck541m1jm.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/7n4gc92bqydxrl621vo7bsae/image_1bi1122017ar1ans1bm8fr71nm513.png">
@@ -108,10 +108,10 @@
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/sxu6eoau4d10t21cy45v5ijr/image_1bi11n5ke12tr19kve631ot01p6a34.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/c3lmwkxat1yv6xxvwexfggq7/image_1bi11pgoo1kdfao6mi3r8e1i6p3h.png">
 <meta property="og:image" content="http://static.zybuluo.com/zhumin1990719/t8ga6azf75757rytx4xcba7d/image_1bi11rlob15li1k8r1ars5pt1mb33u.png">
-<meta property="og:updated_time" content="2017-06-07T10:44:26.000Z">
+<meta property="og:updated_time" content="2017-06-07T10:47:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty 对 WebSocket的简单实现与剖析">
-<meta name="twitter:description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。">
+<meta name="twitter:description" content="本文主要描述 netty 对 WebSocket 的支持。并编写一个简单 demo; 对 WebSocket 的内容做了简单剖析。 通过文章会了解为何 WebSocket 是 HTTP 协议升级而来； netty 是如何实现对他的支持等。">
 <meta name="twitter:image" content="http://static.zybuluo.com/zhumin1990719/vhfib8y17vai9qufzhdar6lk/image_1bi10abjtij3k1fol91c5dkrq9.png">
 
 
@@ -406,6 +406,7 @@
 
       
         <p>本文主要描述 <code>netty</code> 对 <code>WebSocket</code> 的支持。并编写一个简单 <code>demo</code>; 对 <code>WebSocket</code> 的内容做了简单剖析。</p>
+<p>通过文章会了解为何 <code>WebSocket</code> 是 <code>HTTP</code> 协议升级而来； <code>netty</code> 是如何实现对他的支持等。</p>
 <a id="more"></a>
 <h2 id="WebSocket-的由来"><a href="#WebSocket-的由来" class="headerlink" title="WebSocket 的由来"></a>WebSocket 的由来</h2><h3 id="HTTP-协议的问题"><a href="#HTTP-协议的问题" class="headerlink" title="HTTP 协议的问题"></a>HTTP 协议的问题</h3><p><code>HTTP</code> 协议无状态，为了保持状态，引出了 <code>session</code> &amp; <code>cookies</code>等技术。</p>
 <p><code>HTTP</code> 是基于 <code>请求</code> 和 <code>响应</code> 的，请求一定是客户端发出的。（1.1 还有 <code>keepAlive</code>, 持续连接，在一定时间可以进行连接的复用。）</p>
