@@ -383,37 +383,17 @@
 
       
         
-          
-            <h2 id="1-为何使用kotlin"><a href="#1-为何使用kotlin" class="headerlink" title="1 为何使用kotlin"></a>1 为何使用kotlin</h2><ul>
+          <h2 id="1-为何使用kotlin"><a href="#1-为何使用kotlin" class="headerlink" title="1 为何使用kotlin"></a>1 为何使用kotlin</h2><ul>
 <li>这是一门强势技术</li>
 </ul>
 <p>语言那么多；不可能什么语言都学习。学习的一定是要有支撑有前景的语言。比如苹果的<code>swift</code>；即使是有呢么多问题；但是由于有苹果的背书</p>
-<ul>
-<li>他可以和java进行相互的调用</li>
-<li>他解决了java无法通过迭代解决的问题</li>
-<li>已经成为安卓的官方支持语言，发展前景很好</li>
-<li>spring5 也提供了对kotlin的原生支持</li>
-<li>官方文档齐全好用</li>
-</ul>
-<blockquote>
-<p><a href="http://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" rel="external">http://kotlinlang.org/docs/reference/basic-syntax.html</a><br>可执行</p>
-</blockquote>
-<h3 id="1-2-kotlin-的特点"><a href="#1-2-kotlin-的特点" class="headerlink" title="1.2 kotlin 的特点"></a>1.2 kotlin 的特点</h3><p><img src="http://static.zybuluo.com/zhumin1990719/5raonicmc2dqbskdf001hafg/image_1bs6sjqm91tu3k8fu8a1l4ok8a9.png" alt="image_1bs6sjqm91tu3k8fu8a1l4ok8a9.png-80.9kB"></p>
-<ul>
-<li><p>简洁；一行代码解决所有 <code>getter</code> 和 <code>setter</code>; <code>it</code> 语法糖等等<br><img src="http://static.zybuluo.com/zhumin1990719/8xq7h590sr000r5ze0snl7u2/image_1bs6tdkff1ce325evtb1pia16aom.png" alt="image_1bs6tdkff1ce325evtb1pia16aom.png-134.7kB"></p>
-</li>
-<li><p>安全；使用 <code>optional</code> 避免NPE</p>
-</li>
-<li>相互操作；兼容所有jvm 和 Android的第三方库</li>
-<li>良好的工具支持</li>
-</ul>
-<h2 id="2-简单代码示例"><a href="#2-简单代码示例" class="headerlink" title="2 简单代码示例"></a>2 简单代码示例</h2><p>通过 intellij；新建一个 <code>kotlin</code> 的项目；新建一个 <code>kotlin</code> 文件；</p>
-<p><img src="http://static.zybuluo.com/zhumin1990719/0g1fq8rd1lj6784rr4ptupgt/image_1bs6tp5vvc47ho929omcq1p9213.png" alt="image_1bs6tp5vvc47ho929omcq1p9213.png-59.8kB"></p>
-<p>官网上有清晰的教程： <a href="http://kotlinlang.org/docs/tutorials/getting-started.html" target="_blank" rel="external">http://kotlinlang.org/docs/tutorials/getting-started.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">package com.zhumin.kotlin.demo</div><div class="line"></div><div class="line">import java.util.function.Consumer</div><div class="line"></div><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line"></div><div class="line">    print(&quot;hello world&quot;)</div><div class="line"></div><div class="line">    val list : List&lt;String&gt; = listOf(&quot;hello&quot;, &quot;world&quot;, &quot;hello world&quot;)</div><div class="line"></div><div class="line">    // 遍历</div><div class="line">    for(str in list) &#123;</div><div class="line">        println(str)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    println(&quot;--------------------&quot;)</div><div class="line"></div><div class="line">    list.forEach (Consumer &#123;println(it)&#125;)</div><div class="line"></div><div class="line">    println(&quot;--------------------&quot;)</div><div class="line"></div><div class="line">    list.forEach(System.out::println)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看到引入的是java中的包；对consumer的用法和java8也几乎是一模一样。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/14/kotlin学习1-为何学习kotlin/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
