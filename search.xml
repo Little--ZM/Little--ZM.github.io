@@ -4,7 +4,7 @@
     
     <entry>
       <title><![CDATA[kotlin学习1 为何学习kotlin]]></title>
-      <url>%2F2017%2F10%2F14%2F2017-10-14%2F</url>
+      <url>%2F2017%2F10%2F14%2Fkotlin%E5%AD%A6%E4%B9%A01-%E4%B8%BA%E4%BD%95%E5%AD%A6%E4%B9%A0kotlin%2F</url>
       <content type="text"><![CDATA[1 为何使用kotlin 这是一门强势技术 语言那么多；不可能什么语言都学习。学习的一定是要有支撑有前景的语言。比如苹果的swift；即使是有呢么多问题；但是由于有苹果的背书 他可以和java进行相互的调用 他解决了java无法通过迭代解决的问题 已经成为安卓的官方支持语言，发展前景很好 spring5 也提供了对kotlin的原生支持 官方文档齐全好用 http://kotlinlang.org/docs/reference/basic-syntax.html可执行 1.2 kotlin 的特点 简洁；一行代码解决所有 getter 和 setter; it 语法糖等等 安全；使用 optional 避免NPE 相互操作；兼容所有jvm 和 Android的第三方库 良好的工具支持 2 简单代码示例通过 intellij；新建一个 kotlin 的项目；新建一个 kotlin 文件； 官网上有清晰的教程： http://kotlinlang.org/docs/tutorials/getting-started.html 1234567891011121314151617181920212223package com.zhumin.kotlin.demoimport java.util.function.Consumerfun main(args: Array&lt;String&gt;) &#123; print(&quot;hello world&quot;) val list : List&lt;String&gt; = listOf(&quot;hello&quot;, &quot;world&quot;, &quot;hello world&quot;) // 遍历 for(str in list) &#123; println(str) &#125; println(&quot;--------------------&quot;) list.forEach (Consumer &#123;println(it)&#125;) println(&quot;--------------------&quot;) list.forEach(System.out::println)&#125; 可以看到引入的是java中的包；对consumer的用法和java8也几乎是一模一样。]]></content>
     </entry>
 
