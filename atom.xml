@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-14T08:27:31.000Z</updated>
+  <updated>2017-10-14T09:10:11.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,47 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kotlin学习2 kotlin的编译与反编译以及与java的关系</title>
+    <link href="http://yoursite.com/2017/10/14/kotlin%E5%AD%A6%E4%B9%A02-kotlin%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8F%8D%E7%BC%96%E8%AF%91%E4%BB%A5%E5%8F%8A%E4%B8%8Ejava%E7%9A%84%E5%85%B3%E7%B3%BB/"/>
+    <id>http://yoursite.com/2017/10/14/kotlin学习2-kotlin的编译与反编译以及与java的关系/</id>
+    <published>2017-10-14T09:09:00.000Z</published>
+    <updated>2017-10-14T09:10:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章主要描述 <code>kotlin</code> 的简单编译与反编译的流程。以及与 <code>java</code> 的关系。<br>之前说到 <code>kotlin</code> 是一个静态的代码语言。他也是需要编译的。需要编译就有编译器；而他和<code>java</code>又是可以相互调用的。所以隐隐约约感觉应该编译出来的东西和应该也和<code>java</code> 相关；下面就来看一下。</p>
+<a id="more"></a>
+<h2 id="下载安装编译器"><a href="#下载安装编译器" class="headerlink" title="下载安装编译器"></a>下载安装编译器</h2><p>方式在官网上都有；我这里选择的是下载压缩包；你通过<code>sdkman</code>；<code>homebrew</code>等安装当然都是 ok 的。官网链接 <a href="http://kotlinlang.org/docs/tutorials/command-line.html" target="_blank" rel="external">点我大帅比</a>。</p>
+<p>下载完之后，解压，配置好路径；如下：<br><img src="http://static.zybuluo.com/zhumin1990719/dj4fmo9zzefbculdu4hrb2r2/image_1bsd0v6gh19mv4sf1bqqg3r11onm.png" alt="image_1bsd0v6gh19mv4sf1bqqg3r11onm.png-50.1kB"><br>退出；<code>source</code> 一下你的<code>bashrc</code>或者<code>zshrc</code> 文件；而后验证一下<br><img src="http://static.zybuluo.com/zhumin1990719/hcz8al62f1g3vre9bgt9jp4l/image_1bsd10p1o1c7r1u3r1nfot7bjp13.png" alt="image_1bsd10p1o1c7r1u3r1nfot7bjp13.png-24.7kB"></p>
+<p>如此一来，你的编译器就安装好了。下面就是测试。</p>
+<h2 id="编译与运行kotlin文件"><a href="#编译与运行kotlin文件" class="headerlink" title="编译与运行kotlin文件"></a>编译与运行kotlin文件</h2><p>首先；<code>vim</code> 编写一个简单的 <code>hello world</code> 文件 <code>HelloKotlin.kt</code>；</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args:<span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</div><div class="line">    println(<span class="string">"Hello World"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二：编译与运行；<br>与 <code>java</code> 类似；<code>kotlinc HelloKotlin.kt</code> 编译； 运行 <code>kotlin HelloKotlinKt</code> 执行；如下图。<br><img src="http://static.zybuluo.com/zhumin1990719/3ey110j8y4kmrd929wsiicij/image_1bsd1do35ukb1rkq2ig1405gns1g.png" alt="image_1bsd1do35ukb1rkq2ig1405gns1g.png-28.6kB"></p>
+<blockquote>
+<p>这里需要注意的是；编译的时候产生的文件如下：<br><img src="http://static.zybuluo.com/zhumin1990719/b5b3drbmzxpa23iwu0ggjlqc/image_1bsd1fvvejdba7u9k18p31dd22d.png" alt="image_1bsd1fvvejdba7u9k18p31dd22d.png-31kB"><br>一个 <code>class</code> 文件；以及一个配置文件的文件夹。<br>这个 <code>class</code> 文件就是我们执行的文件；而编译器在文件末尾加上了 <code>Kt</code> 两个字母用于标记这个<code>Kotlin</code> 的编译文件。</p>
+</blockquote>
+<h2 id="反编译-class-文件"><a href="#反编译-class-文件" class="headerlink" title="反编译 class 文件"></a>反编译 class 文件</h2><p>既然是 <code>class</code> 文件；可以和<code>java</code>相互执行；<code>javap</code> 反编译一下看看 <code>class</code> 文件的结构。因为<code>kotlin</code> 文件中；我们是没有指定类的；那在<code>class</code> 文件中，一定是会生成类的；否则就和 <code>java</code> 的基本逻辑产生了冲突。我们看一下：<br><img src="http://static.zybuluo.com/zhumin1990719/kjorjwhsgfv2wjhcfec969en/image_1bsd1opuf1l6s1eoj5971t1p1kls3q.png" alt="image_1bsd1opuf1l6s1eoj5971t1p1kls3q.png-35.2kB"></p>
+<p>可以反编译的更加彻底一点看下方法内部实现；命令是 <code>javap -c</code><br><img src="http://static.zybuluo.com/zhumin1990719/au3sbrpaw3rsyxbhf2tjyo14/image_1bsd1rjub1docjujtrk8ee1ur047.png" alt="image_1bsd1rjub1docjujtrk8ee1ur047.png-109.6kB"><br>可以看到；调用的都是 <code>java</code> 内部的方法。</p>
+<h2 id="打包成jar"><a href="#打包成jar" class="headerlink" title="打包成jar"></a>打包成jar</h2><p>既然是在 <code>jvm</code> 上运行；一定是可以打成 <code>jar</code> 来执行的；<code>kotlinc</code> 提供了支持。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kotlinc HelloKotlin.kt -include-runtime -d HelloKotlin.jar</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>-include-runtime</code> 是将 <code>kotlin</code> 运行时所需要的包都包含进去的参数。</p>
+</blockquote>
+<p>而后就可以用 <code>java -jar</code> 来执行。得到一样的结果<br><img src="http://static.zybuluo.com/zhumin1990719/ktu7pxd1ue4p8p4vsei7lqls/image_1bsd239gj1t1911rq1lcnv4l10684k.png" alt="image_1bsd239gj1t1911rq1lcnv4l10684k.png-23.2kB"></p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>以上说了如何编译和反编译<code>kotlin</code> 以及如何打成 <code>jar</code> 包运行。当然了一般情况下我们用不到这么麻烦，<code>intellij</code> 提供了很好的支持，但这有助于帮助我们理解 <code>kotlin</code> 与 <code>java</code> 的关系。也有注意我们更好的学习 <code>kotlin</code></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章主要描述 &lt;code&gt;kotlin&lt;/code&gt; 的简单编译与反编译的流程。以及与 &lt;code&gt;java&lt;/code&gt; 的关系。&lt;br&gt;之前说到 &lt;code&gt;kotlin&lt;/code&gt; 是一个静态的代码语言。他也是需要编译的。需要编译就有编译器；而他和&lt;code&gt;java&lt;/code&gt;又是可以相互调用的。所以隐隐约约感觉应该编译出来的东西和应该也和&lt;code&gt;java&lt;/code&gt; 相关；下面就来看一下。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="kotlin" scheme="http://yoursite.com/tags/kotlin/"/>
+    
+  </entry>
   
   <entry>
     <title>kotlin学习1 为何学习kotlin</title>

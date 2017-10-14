@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[kotlin学习2 kotlin的编译与反编译以及与java的关系]]></title>
+      <url>%2F2017%2F10%2F14%2Fkotlin%E5%AD%A6%E4%B9%A02-kotlin%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E5%8F%8D%E7%BC%96%E8%AF%91%E4%BB%A5%E5%8F%8A%E4%B8%8Ejava%E7%9A%84%E5%85%B3%E7%B3%BB%2F</url>
+      <content type="text"><![CDATA[这篇文章主要描述 kotlin 的简单编译与反编译的流程。以及与 java 的关系。之前说到 kotlin 是一个静态的代码语言。他也是需要编译的。需要编译就有编译器；而他和java又是可以相互调用的。所以隐隐约约感觉应该编译出来的东西和应该也和java 相关；下面就来看一下。 下载安装编译器方式在官网上都有；我这里选择的是下载压缩包；你通过sdkman；homebrew等安装当然都是 ok 的。官网链接 点我大帅比。 下载完之后，解压，配置好路径；如下：退出；source 一下你的bashrc或者zshrc 文件；而后验证一下 如此一来，你的编译器就安装好了。下面就是测试。 编译与运行kotlin文件首先；vim 编写一个简单的 hello world 文件 HelloKotlin.kt； 123fun main(args:Array&lt;String&gt;) &#123; println("Hello World")&#125; 第二：编译与运行；与 java 类似；kotlinc HelloKotlin.kt 编译； 运行 kotlin HelloKotlinKt 执行；如下图。 这里需要注意的是；编译的时候产生的文件如下：一个 class 文件；以及一个配置文件的文件夹。这个 class 文件就是我们执行的文件；而编译器在文件末尾加上了 Kt 两个字母用于标记这个Kotlin 的编译文件。 反编译 class 文件既然是 class 文件；可以和java相互执行；javap 反编译一下看看 class 文件的结构。因为kotlin 文件中；我们是没有指定类的；那在class 文件中，一定是会生成类的；否则就和 java 的基本逻辑产生了冲突。我们看一下： 可以反编译的更加彻底一点看下方法内部实现；命令是 javap -c可以看到；调用的都是 java 内部的方法。 打包成jar既然是在 jvm 上运行；一定是可以打成 jar 来执行的；kotlinc 提供了支持。1kotlinc HelloKotlin.kt -include-runtime -d HelloKotlin.jar -include-runtime 是将 kotlin 运行时所需要的包都包含进去的参数。 而后就可以用 java -jar 来执行。得到一样的结果 总结：以上说了如何编译和反编译kotlin 以及如何打成 jar 包运行。当然了一般情况下我们用不到这么麻烦，intellij 提供了很好的支持，但这有助于帮助我们理解 kotlin 与 java 的关系。也有注意我们更好的学习 kotlin]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[kotlin学习1 为何学习kotlin]]></title>
       <url>%2F2017%2F10%2F14%2Fkotlin%E5%AD%A6%E4%B9%A01-%E4%B8%BA%E4%BD%95%E5%AD%A6%E4%B9%A0kotlin%2F</url>
       <content type="text"><![CDATA[1 为何使用kotlin 这是一门强势技术 语言那么多；不可能什么语言都学习。学习的一定是要有支撑有前景的语言。比如苹果的swift；即使是有呢么多问题；但是由于有苹果的背书 他可以和java进行相互的调用 他解决了java无法通过迭代解决的问题 已经成为安卓的官方支持语言，发展前景很好 spring5 也提供了对kotlin的原生支持 官方文档齐全好用 http://kotlinlang.org/docs/reference/basic-syntax.html可执行 1.2 kotlin 的特点 简洁；一行代码解决所有 getter 和 setter; it 语法糖等等 安全；使用 optional 避免NPE 相互操作；兼容所有jvm 和 Android的第三方库 良好的工具支持 2 简单代码示例通过 intellij；新建一个 kotlin 的项目；新建一个 kotlin 文件； 官网上有清晰的教程： http://kotlinlang.org/docs/tutorials/getting-started.html 1234567891011121314151617181920212223package com.zhumin.kotlin.demoimport java.util.function.Consumerfun main(args: Array&lt;String&gt;) &#123; print(&quot;hello world&quot;) val list : List&lt;String&gt; = listOf(&quot;hello&quot;, &quot;world&quot;, &quot;hello world&quot;) // 遍历 for(str in list) &#123; println(str) &#125; println(&quot;--------------------&quot;) list.forEach (Consumer &#123;println(it)&#125;) println(&quot;--------------------&quot;) list.forEach(System.out::println)&#125; 可以看到引入的是java中的包；对consumer的用法和java8也几乎是一模一样。]]></content>
