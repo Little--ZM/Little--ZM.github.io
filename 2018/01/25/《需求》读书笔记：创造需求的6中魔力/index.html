@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="coding life,java8," />
+  <meta name="keywords" content="读书笔记,产品经理," />
 
 
 
@@ -91,22 +91,17 @@
 
 
 
-<meta name="description" content="1   collectorImpl Collectors 中的 的基础 collectorImpl 两个构造方法一个有 finisher(), 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 finisher() 方法">
-<meta name="keywords" content="coding life,java8">
+<meta name="description" content="这是一本讲需求创造者的书。书名叫 Demand ； 和我们常常说的 Requirement 是不同的，前者更加偏向于人们内心的渴求。而不是明确的索求。 创造需求的大师；就是可以想群众之想。 通过观察用户的麻烦地图，创造有魔力的产品；提供用户之前不存在的需求；并且不断精进，解决用户的烦恼。 但是书并不是一本创造需求的指导手册。他是通过一些原创的案例的分析；将创造需求的可行的以及需要注意的方向进行总结">
+<meta name="keywords" content="读书笔记,产品经理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jdk8-31-工厂方法收集器Collectors的中的常用函数">
-<meta property="og:url" content="http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/index.html">
+<meta property="og:title" content="《需求》读书笔记：创造需求的6中魔力">
+<meta property="og:url" content="http://yoursite.com/2018/01/25/《需求》读书笔记：创造需求的6中魔力/index.html">
 <meta property="og:site_name" content="待葡萄嗖透">
-<meta property="og:description" content="1   collectorImpl Collectors 中的 的基础 collectorImpl 两个构造方法一个有 finisher(), 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 finisher() 方法">
-<meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918251558881.jpg">
-<meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918263223655.jpg">
-<meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918267966242.jpg">
-<meta property="og:image" content="http://ooapi4q4v.bkt.clouddn.com/14918270760778.jpg">
-<meta property="og:updated_time" content="2017-04-14T07:07:24.000Z">
+<meta property="og:description" content="这是一本讲需求创造者的书。书名叫 Demand ； 和我们常常说的 Requirement 是不同的，前者更加偏向于人们内心的渴求。而不是明确的索求。 创造需求的大师；就是可以想群众之想。 通过观察用户的麻烦地图，创造有魔力的产品；提供用户之前不存在的需求；并且不断精进，解决用户的烦恼。 但是书并不是一本创造需求的指导手册。他是通过一些原创的案例的分析；将创造需求的可行的以及需要注意的方向进行总结">
+<meta property="og:updated_time" content="2018-04-05T11:48:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jdk8-31-工厂方法收集器Collectors的中的常用函数">
-<meta name="twitter:description" content="1   collectorImpl Collectors 中的 的基础 collectorImpl 两个构造方法一个有 finisher(), 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 finisher() 方法">
-<meta name="twitter:image" content="http://ooapi4q4v.bkt.clouddn.com/14918251558881.jpg">
+<meta name="twitter:title" content="《需求》读书笔记：创造需求的6中魔力">
+<meta name="twitter:description" content="这是一本讲需求创造者的书。书名叫 Demand ； 和我们常常说的 Requirement 是不同的，前者更加偏向于人们内心的渴求。而不是明确的索求。 创造需求的大师；就是可以想群众之想。 通过观察用户的麻烦地图，创造有魔力的产品；提供用户之前不存在的需求；并且不断精进，解决用户的烦恼。 但是书并不是一本创造需求的指导手册。他是通过一些原创的案例的分析；将创造需求的可行的以及需要注意的方向进行总结">
 
 
 
@@ -134,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/25/《需求》读书笔记：创造需求的6中魔力/"/>
 
 
 
 
 
-  <title> jdk8-31-工厂方法收集器Collectors的中的常用函数 | 待葡萄嗖透 </title>
+  <title> 《需求》读书笔记：创造需求的6中魔力 | 待葡萄嗖透 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -312,7 +307,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/《需求》读书笔记：创造需求的6中魔力/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="朱老师&敏哥">
@@ -333,7 +328,7 @@
             
             
               
-                jdk8-31-工厂方法收集器Collectors的中的常用函数
+                《需求》读书笔记：创造需求的6中魔力
               
             
           </h1>
@@ -348,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-13T21:28:28+08:00">
-                2017-04-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T22:47:19+08:00">
+                2018-01-25
               </time>
             
 
@@ -367,7 +362,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/04/13/jdk8-31-工厂方法收集器Collectors的中的常用函数/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2018/01/25/《需求》读书笔记：创造需求的6中魔力/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -399,51 +394,95 @@
       
 
       
-        <h3 id="1-collectorImpl"><a href="#1-collectorImpl" class="headerlink" title="1   collectorImpl"></a>1   collectorImpl</h3><ul>
-<li><code>Collectors</code> 中的 的基础 <code>collectorImpl</code> 两个构造方法一个有 <code>finisher()</code>, 一个没有。这个很容易理解，一个需要转换中间结果，一个中间结果和最终结果一致，所以不需要使用 <code>finisher()</code> 方法</li>
-</ul>
+        <p>这是一本讲需求创造者的书。书名叫 <code>Demand</code> ； 和我们常常说的 <code>Requirement</code> 是不同的，前者更加偏向于人们内心的渴求。而不是明确的索求。</p>
+<p>创造需求的大师；就是可以想群众之想。 通过观察用户的麻烦地图，创造有魔力的产品；提供用户之前不存在的需求；并且不断精进，解决用户的烦恼。</p>
+<p>但是书并不是一本创造需求的指导手册。他是通过一些原创的案例的分析；将创造需求的可行的以及需要注意的方向进行总结，变成6个关键点。阅读这些案例与总结；可以为我们提供一定的借鉴意义。但绝不要希望可以按照书中的内容就可以知道现实中的产品如何商业化。</p>
 <a id="more"></a>
-<h3 id="2-两种实现方式"><a href="#2-两种实现方式" class="headerlink" title="2  两种实现方式"></a>2  两种实现方式</h3><p>对于工厂类 两种实现方式</p>
-<ol>
-<li><code>CollectorImpl</code> 来实现。</li>
-<li><code>reduceing</code> 来实现， 而 <code>reducing</code> 方法归根还是用的是 <code>CollectorImpl</code> 方法来实现</li>
-</ol>
-<h3 id="3-常见函数"><a href="#3-常见函数" class="headerlink" title="3  常见函数"></a>3  常见函数</h3><h4 id="1）-toList-amp-toCollection"><a href="#1）-toList-amp-toCollection" class="headerlink" title="1）  toList() &amp; toCollection"></a>1）  <code>toList()</code> &amp; <code>toCollection</code></h4><ul>
-<li><p>两个最常用的方法 <code>toList()</code> &amp; <code>toCollection</code><br><img src="http://ooapi4q4v.bkt.clouddn.com/14918251558881.jpg" alt=""></p>
-</li>
-<li><p><code>toSet()</code> 方法是也是 <code>toCollection</code> 的特化。</p>
-</li>
-</ul>
-<h4 id="2）-joining"><a href="#2）-joining" class="headerlink" title="2）  joining()"></a>2）  <code>joining()</code></h4><ul>
-<li><code>joining</code> 三种重载方法</li>
-</ul>
-<h4 id="3）-mapping"><a href="#3）-mapping" class="headerlink" title="3）  mapping()"></a>3）  <code>mapping()</code></h4><ul>
-<li><code>mapping()</code> 将输入元素转换成输出元素</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; lastNamesByCity= people.stream().collect(groupingBy(</div><div class="line">Person::getCity,</div><div class="line">mapping(Person::getLastName, toSet()) <span class="comment">// Mapping , 将Person 转换成String , 提供给下游 Collector 使用</span></div><div class="line">));</div></pre></td></tr></table></figure>
-<h4 id="4）-collectingAndThen"><a href="#4）-collectingAndThen" class="headerlink" title="4）  collectingAndThen()"></a>4）  <code>collectingAndThen()</code></h4><ul>
-<li><p><code>collectingAndThen(Collector&lt;T,A,R&gt; downstream, Function&lt;R,RR&gt; finisher)</code>  先过完上层收集器 <code>downstream</code> ，在进行一次 <code>finisher()</code> 转换结果</p>
-<p> 比如说，你在 <code>toList()</code> 之后，想将它转换成一个 <code>immutableList()</code> 就可以如下使用</p>
-</li>
-</ul>
-<pre><code class="java">List&lt;String&gt; people = people.stream().collect(collectingAndThen(toList(), Collections::unmodifiableList));
-</code></pre>
-<p>实现其实很有意思<br><img src="http://ooapi4q4v.bkt.clouddn.com/14918263223655.jpg" alt=""></p>
-<h4 id="5）-counting-minBy-maxBy"><a href="#5）-counting-minBy-maxBy" class="headerlink" title="5）  counting() , minBy() , maxBy()"></a>5）  <code>counting()</code> , <code>minBy()</code> , <code>maxBy()</code></h4><ul>
-<li><code>counting()</code> , <code>minBy()</code> , <code>maxBy()</code> 用 <code>reducing()</code> 实现, <code>reducing()</code> 又是基于 <code>CollectorImpl</code> 实现</li>
-</ul>
-<h4 id="6）-summingInt-averagingInt-averagingDouble"><a href="#6）-summingInt-averagingInt-averagingDouble" class="headerlink" title="6）  summingInt() , averagingInt() , averagingDouble()"></a>6）  <code>summingInt()</code> , <code>averagingInt()</code> , <code>averagingDouble()</code></h4><ul>
-<li><code>summingInt()</code> 对每一个元素使用 <code>toIntFunction</code> 在累加，实现很有意思</li>
-</ul>
-<p><img src="http://ooapi4q4v.bkt.clouddn.com/14918267966242.jpg" alt=""></p>
-<p><code>Supplier()</code> 采用生成了一个 长度为1 的 <code>int</code> 数组，而不是直接使用的整形数字？<br>因为数字是一个 <code>值</code>， 值是无法传递的，而数组是一个 <code>引用</code>， 引用是可以传递的。</p>
+<h2 id="创造需求；首先要做的是理解人"><a href="#创造需求；首先要做的是理解人" class="headerlink" title="创造需求；首先要做的是理解人"></a>创造需求；首先要做的是理解人</h2><p>真正创造需求的大师，会把所有的精力都投入到对 “人” 了解中。</p>
 <ul>
-<li><code>averagingInt()</code> 求平均值</li>
+<li>一个人；一个问题；一个点子</li>
 </ul>
-<p><img src="http://ooapi4q4v.bkt.clouddn.com/14918270760778.jpg" alt=""></p>
+<p>我们都不了解自己的需求的时候，<code>需求创造者</code> 就已经看透了我们的内心，他们创造出我们无法抗拒的产品</p>
 <ul>
-<li>对于<code>averagingDouble()</code> 的实现可以再去看一下，他的初始数组长度为4，他们视为浮点数计算的补偿产生的。</li>
+<li>从情绪中看需求</li>
 </ul>
+<p>看出我们 <code>不可理喻，满腔热情，焦虑苦恼，捉摸不定</code>；我们到底需要什么，讨厌什么呢，什么样的东西能够令我们无法抗拒</p>
+<ul>
+<li>从麻烦中看需求</li>
+</ul>
+<p><code>我们真正想要的东西，和我们购买的东西之间，总有一道鸿沟</code>； 这就是创造新需求的机会。<code>他们认识到，人们实际购买行为和心理需求之间差异巨大</code></p>
+<p>哈斯汀斯因为还录像带迟了要交罚款感到痛苦，发现了其中的麻烦，并解决。最终创造了奈飞。</p>
+<p>诺基亚的1100 洞察了渔民的需求而大卖。</p>
+<p>所以，优秀的需求创造者都知道以下6个关键点。同时知道如何传递这些能力给到<code>团队里的其他人</code></p>
+<h2 id="6个关键点"><a href="#6个关键点" class="headerlink" title="6个关键点"></a>6个关键点</h2><p>这6个关键点，越到值得说道的地方越少，重复性的内容与无用的描述月来越多。只用看标题；就可以大体上知道这一章的主要到底是什么。这样书来作者的总结能力还是很强的</p>
+<p>可以说；这本书的核心是案例。脱离的案例；理论就毫无意义。可是这也是一个悖论；你的案例是来说明的你理论；但是否也可以说案例是经过挑选而展现在你的眼前的；为了证明你所说的话是正确的。</p>
+<p>我也无法证实我的想法；因为特例总是存在的</p>
+<h3 id="关键1-：魔力：创造无法割舍的情感共鸣"><a href="#关键1-：魔力：创造无法割舍的情感共鸣" class="headerlink" title="关键1 ：魔力：创造无法割舍的情感共鸣"></a>关键1 ：魔力：创造无法割舍的情感共鸣</h3><p><code>魔力M = 卓越功能F X 情感诉求</code> </p>
+<p><strong>案例：</strong>  <code>zipcar</code>；<code>魏格曼超市</code><br><strong>卷首语：</strong></p>
+<ul>
+<li>赢家需要创造情感共鸣；并把握市场方向</li>
+<li>需求没有必然可言；提供用户不具备的选择</li>
+</ul>
+<h4 id="zipcar-密度产生魔力"><a href="#zipcar-密度产生魔力" class="headerlink" title="zipcar : 密度产生魔力"></a>zipcar : 密度产生魔力</h4><p>zipcar 初始做共享汽车；理想丰满；上线后市场几乎毫无反应。尽管他拥有很好的理念；卓越的功能，但并不能形成魔力产品。因为当时车辆的距离注册的会员很远；用户用车很不方便。所以用户没有使用的动力。</p>
+<p>公司立足的<code>鸿沟</code>是 ： 一遍是客户购买汽车的<code>费用和麻烦</code> ； 一边是 <code>说走就走的自由</code></p>
+<p>找出现有产品的缺陷并没有用，需要有足够的魅力激发客户的激情；吸引用户的关注。</p>
+<p>需求的关键，通常是不起眼的小事。 <code>他走向成功的点是密度</code> 。 在典型用户分布区域，在用车高分期进行高密度投放。同时做好营销宣传与细节的掌控，（因为需求很脆弱）可以唤醒用户的心理需求：不被一辆机械绑架的自由。 需求从来没有必然可言。zipcar 创造并满足了这一需求。</p>
+<h4 id="魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择"><a href="#魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择" class="headerlink" title="魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择"></a>魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择</h4><p>“关注行业新趋势；赶在其前面；敢于提供当时不具备的选择”</p>
+<p>形成魔力的6大行为方式；需求创造者需要：</p>
+<ul>
+<li>努力减少消除产品和服务中的不便等各种问题</li>
+</ul>
+<p>魏格曼超市形成了自己的魔力；他们提供各种不具备的选择：深夜营业的药房；“没有糖果” 的收银台；儿童房间等等。</p>
+<ul>
+<li>知道如何调动客户情感上的兴奋度</li>
+</ul>
+<p>邀请大厨；退出廉价方便的主菜；提供菜单等等。帮助用户更加愉悦的购物</p>
+<ul>
+<li>为每一位员工赋予创造需求的力量</li>
+</ul>
+<p>给员工实现自己的创造需求的能力；这样员工才会主动帮助公司做的更好；<br>比如下雨天；给客户提供撑伞到车内的服务。</p>
+<ul>
+<li>敢于认真听取顾客的意见</li>
+<li>需要孜孜不倦的实验</li>
+<li>保护自身的特性<br><code>把事情作对；比做快重要</code></li>
+</ul>
+<h3 id="关键2-：麻烦地图：解决用户没告诉你的困扰"><a href="#关键2-：麻烦地图：解决用户没告诉你的困扰" class="headerlink" title="关键2 ：麻烦地图：解决用户没告诉你的困扰"></a>关键2 ：麻烦地图：解决用户没告诉你的困扰</h3><p>可以在头脑中绘制麻烦地图；每一个引起失望的结果；都是一个个麻烦点。</p>
+<p>“每个没有必要存在的步骤；都是摩擦点；每个摩擦点代表一个需求创造的机会”<br>“需求；是以解决顾客问题为中心的”</p>
+<ul>
+<li>苹果：一键世界的先锋</li>
+</ul>
+<p>化摩擦为动力；苹果下载一首歌的点击次数是5次，而其他品牌要18 -35次。<br>“想到李明远对百度音乐的定义： 搜得到；能下载”</p>
+<p>绘制麻烦地图的过程中； 你需要想用户的心理活动是什么样的；他们希望从人生中获得什么？如何满足？<br>什么样的麻烦让人用户气愤而无奈；是否存在一些；用户没发现但是我们可以解决</p>
+<p>一键世界三大维度： 1 外观设计（奈非改了150版本信封的设计）；2 用户体验（每次微调；减少用户的麻烦）； 3 商业系统</p>
+<ul>
+<li>CareCore: 协作式医疗的典范</li>
+</ul>
+<p>减少麻烦；而不是减少成本。CareCore为用户提供个性化的医疗服务；费用虽然高；但是麻烦却很少；很专业。强调沟通；从用户出发。真正延长用户的寿命。</p>
+<p>去倾听用户的声音；他们不会说出真实的动机和欲望；“比如买奔驰想让隔壁邻居看着眼红”</p>
+<p>“你只要去看，就能观察到很多情况”</p>
+<p>corecare 为病人提供免费交通的事情，大多数人都想不到</p>
+<h3 id="关键3-：背景因素：那些看似与产品无关的，却决定产品的命运"><a href="#关键3-：背景因素：那些看似与产品无关的，却决定产品的命运" class="headerlink" title="关键3 ：背景因素：那些看似与产品无关的，却决定产品的命运"></a>关键3 ：背景因素：那些看似与产品无关的，却决定产品的命运</h3><p>决定一款产品成功与否力量；常常在你看不见的地方。背景因素就是如此。它构成的基础设施与消费需求之间是相辅相成的。</p>
+<p>案例：kindle的成功和Librie的失败。</p>
+<p>索尼的电子墨水阅读器比kindle要早出好多年，质量和设计也都不差；却没有取得成功的关键原因是可阅读的书籍的不足。因为出版商觉得这会影响他们自己的收入，不愿提供给到索尼优质的电子书的资源。  浮田嘉孝（索尼CD机的设计师，索尼最富设计天赋的人之一）的失败就是没有观察到这些背景因素对产品成败的影响</p>
+<p>kindle则不同；发布的当日就有88000本图书可以下载，比索尼要多的多。</p>
+<p>贝索斯说，当自己不知道要怎么做的时候，总是问问自己：“怎么样做对用户更好？” 他也确实这么做了。<br>例如：你再次购买一件你曾经买过的书以及CD的时候，下单的时候会弹出提示框来让你确认。</p>
+<h3 id="关键4-：激发力：让潜在的需求变成真正的需求"><a href="#关键4-：激发力：让潜在的需求变成真正的需求" class="headerlink" title="关键4 ：激发力：让潜在的需求变成真正的需求"></a>关键4 ：激发力：让潜在的需求变成真正的需求</h3><p>人的行为很大程度上被自己的各种情绪；偏好所左右；需求像发动机；在激发力的驱使下，一拧就着。</p>
+<p>激发力可以让冷淡的骑墙派变得热情；并心甘情愿的变成用户</p>
+<p>案例：奈飞；配送速度就是激发力<br>它在增长的阶段发现了湾区的注册数字与人数都高于其他地区；讨论需求没有结果；于是，哈斯汀斯调研发现；只有一个地方不同就是 <code>配送速度</code>；因为奈飞的配送中心就在湾区；</p>
+<p><strong>高效便捷的第二天就送达的服务；就是用户兴奋的关键点</strong></p>
+<p>后来奈用建立配送中心的地方；注册用户数就会立刻翻倍。</p>
+<h3 id="关键5-：精进曲线：缓慢改进就等于平庸"><a href="#关键5-：精进曲线：缓慢改进就等于平庸" class="headerlink" title="关键5 ：精进曲线：缓慢改进就等于平庸"></a>关键5 ：精进曲线：缓慢改进就等于平庸</h3><p>快速迭代；甩开竞争者；才能成为最后的赢家<br>案例懒得写了。。</p>
+<h3 id="关键6：去平均好：你不能讨好所有人，一次只满足一类客户"><a href="#关键6：去平均好：你不能讨好所有人，一次只满足一类客户" class="headerlink" title="关键6：去平均好：你不能讨好所有人，一次只满足一类客户"></a>关键6：去平均好：你不能讨好所有人，一次只满足一类客户</h3><p>设计满足所有人的产品；永远是浪费钱和时间。<br>案例懒得写了。。</p>
+<h2 id="产品发布：避免阿克琉斯之踵"><a href="#产品发布：避免阿克琉斯之踵" class="headerlink" title="产品发布：避免阿克琉斯之踵"></a>产品发布：避免阿克琉斯之踵</h2><p>全书我觉得最值得读两遍的一整节；虽然读下来很有一种心理学与行为经济学的混合。（如果你读过思考快与慢，就不用读第二遍了。）但是一切需求；最终都要回归到人本身。所以更好的了解我们，了解群体，总是有好处的。</p>
+<h3 id="用数据说话"><a href="#用数据说话" class="headerlink" title="用数据说话"></a>用数据说话</h3><p> 做一个现实的人。</p>
+<p>决定产品发布成败的是人的思维方式。正确的思维方式是用数据说话；俗话说眼见为实；但是 <code>塞默尔斯反射</code> 却直接指出人性弱点：仅仅凭借数据并不能改变现状；很可能没有人会相信你说的话。（只有我信以为实，才能看得见）；<code>强烈的信念和客观数据之间的竞赛；数据永远是输家</code></p>
+<p>想起三本书：《影响力》；告诉我们如何去影响别人的六大武器。如果塞默尔斯知道，也不会英年早逝。《思考快与慢》《原则》一个告诉我们人们思考问题的误区与人性；一个告诉我们要保持极为开放的头脑；时刻反思；我怎么知道我是正确的呢？ 以防止我们陷入同样的陷阱中。</p>
+<h3 id="做事前检查"><a href="#做事前检查" class="headerlink" title="做事前检查"></a>做事前检查</h3><p>预期性后见之明： 沃顿商学院的米切尔与康奈尔大雪的拉索以及科罗拉多大学的彭宁顿研究发现；想象某个事件已经发生会让你 预见结果、分析能力提升30%</p>
+<p>《能量之源》的作者盖里·克莱恩人文： 事前分析能让人们表达心中焦虑；如果没有这样的机会；人们倾向于隐藏；担心表现出来之后会显得自己不忠实；或者打击团队信心。</p>
+<p>想象灾难发生；问问自己为什么失败了，将所有可能的失败列出来；尽你所能去避免这些失败。</p>
+<h2 id="一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户"><a href="#一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户" class="headerlink" title="一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户"></a>一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户</h2><p>著名制药公司默克公司采取不同的态度对待FDA； 将他看成客户；</p>
+<p>“这位重要的客户在做决策的时候，需要哪些信息” 而尽力去提供；而不是“怎么不惹麻烦而绕开监管局”</p>
+<p>如此依赖，他们的审批就比其他的公司快很多</p>
 
       
     </div>
@@ -499,9 +538,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/coding-life/" rel="tag"># coding life</a>
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
           
-            <a href="/tags/java8/" rel="tag"># java8</a>
+            <a href="/tags/产品经理/" rel="tag"># 产品经理</a>
           
         </div>
       
@@ -514,8 +553,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/30/jdk8-32-groupingBy-源码分析/" rel="next" title="jdk8-32-groupingBy 源码分析">
-                <i class="fa fa-chevron-left"></i> jdk8-32-groupingBy 源码分析
+              <a href="/2018/02/15/《原则》读书笔记：知道保持开放与如何成长/" rel="next" title="《原则》读书笔记：知道保持开放与如何成长">
+                <i class="fa fa-chevron-left"></i> 《原则》读书笔记：知道保持开放与如何成长
               </a>
             
           </div>
@@ -524,8 +563,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/12/jdk8-28-30-自定义收集器-坑/" rel="prev" title="jdk8-28-30-自定义收集器&坑">
-                jdk8-28-30-自定义收集器&坑 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/14/kotlin学习2-kotlin的编译与反编译以及与java的关系/" rel="prev" title="kotlin学习2 kotlin的编译与反编译以及与java的关系">
+                kotlin学习2 kotlin的编译与反编译以及与java的关系 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -698,7 +737,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-collectorImpl"><span class="nav-number">1.</span> <span class="nav-text">1   collectorImpl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-两种实现方式"><span class="nav-number">2.</span> <span class="nav-text">2  两种实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-常见函数"><span class="nav-number">3.</span> <span class="nav-text">3  常见函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）-toList-amp-toCollection"><span class="nav-number">3.1.</span> <span class="nav-text">1）  toList() & toCollection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）-joining"><span class="nav-number">3.2.</span> <span class="nav-text">2）  joining()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）-mapping"><span class="nav-number">3.3.</span> <span class="nav-text">3）  mapping()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4）-collectingAndThen"><span class="nav-number">3.4.</span> <span class="nav-text">4）  collectingAndThen()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5）-counting-minBy-maxBy"><span class="nav-number">3.5.</span> <span class="nav-text">5）  counting() , minBy() , maxBy()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6）-summingInt-averagingInt-averagingDouble"><span class="nav-number">3.6.</span> <span class="nav-text">6）  summingInt() , averagingInt() , averagingDouble()</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创造需求；首先要做的是理解人"><span class="nav-number">1.</span> <span class="nav-text">创造需求；首先要做的是理解人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6个关键点"><span class="nav-number">2.</span> <span class="nav-text">6个关键点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关键1-：魔力：创造无法割舍的情感共鸣"><span class="nav-number">2.1.</span> <span class="nav-text">关键1 ：魔力：创造无法割舍的情感共鸣</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#zipcar-密度产生魔力"><span class="nav-number">2.1.1.</span> <span class="nav-text">zipcar : 密度产生魔力</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择"><span class="nav-number">2.1.2.</span> <span class="nav-text">魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键2-：麻烦地图：解决用户没告诉你的困扰"><span class="nav-number">2.2.</span> <span class="nav-text">关键2 ：麻烦地图：解决用户没告诉你的困扰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键3-：背景因素：那些看似与产品无关的，却决定产品的命运"><span class="nav-number">2.3.</span> <span class="nav-text">关键3 ：背景因素：那些看似与产品无关的，却决定产品的命运</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键4-：激发力：让潜在的需求变成真正的需求"><span class="nav-number">2.4.</span> <span class="nav-text">关键4 ：激发力：让潜在的需求变成真正的需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键5-：精进曲线：缓慢改进就等于平庸"><span class="nav-number">2.5.</span> <span class="nav-text">关键5 ：精进曲线：缓慢改进就等于平庸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键6：去平均好：你不能讨好所有人，一次只满足一类客户"><span class="nav-number">2.6.</span> <span class="nav-text">关键6：去平均好：你不能讨好所有人，一次只满足一类客户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#产品发布：避免阿克琉斯之踵"><span class="nav-number">3.</span> <span class="nav-text">产品发布：避免阿克琉斯之踵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用数据说话"><span class="nav-number">3.1.</span> <span class="nav-text">用数据说话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#做事前检查"><span class="nav-number">3.2.</span> <span class="nav-text">做事前检查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户"><span class="nav-number">4.</span> <span class="nav-text">一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户</span></a></li></ol></div>
             
 
           </div>

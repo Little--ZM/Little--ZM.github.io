@@ -214,7 +214,7 @@
     <link href="http://yoursite.com/2018/02/15/%E3%80%8A%E5%8E%9F%E5%88%99%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%9F%A5%E9%81%93%E4%BF%9D%E6%8C%81%E5%BC%80%E6%94%BE%E4%B8%8E%E5%A6%82%E4%BD%95%E6%88%90%E9%95%BF/"/>
     <id>http://yoursite.com/2018/02/15/《原则》读书笔记：知道保持开放与如何成长/</id>
     <published>2018-02-15T11:44:31.000Z</published>
-    <updated>2018-04-05T11:45:19.000Z</updated>
+    <updated>2018-04-05T11:46:04.000Z</updated>
     
     <content type="html"><![CDATA[<p>这本原则最近非常火；据说创投圈的人都在读。我在得到app上听过万维钢老师的解读；也写过一些笔记。但是总觉得东西理我自己很远。于是我买回来自己再阅读一次。</p>
 <p>在看书这件事儿上；我能看实体书还是愿意看实体书；一个是因为有读书的感觉；一个是不容易分心（因为我注意力冗余分散）；第三读书笔记记录方便。写下来比打出来记忆更加深刻。最后一个是回顾的时候很方便；你要找自己划线做特殊标记的地方太容易了~ </p>
@@ -399,6 +399,119 @@
       &lt;p&gt;这本原则最近非常火；据说创投圈的人都在读。我在得到app上听过万维钢老师的解读；也写过一些笔记。但是总觉得东西理我自己很远。于是我买回来自己再阅读一次。&lt;/p&gt;
 &lt;p&gt;在看书这件事儿上；我能看实体书还是愿意看实体书；一个是因为有读书的感觉；一个是不容易分心（因为我注意力冗余分散）；第三读书笔记记录方便。写下来比打出来记忆更加深刻。最后一个是回顾的时候很方便；你要找自己划线做特殊标记的地方太容易了~ &lt;/p&gt;
 &lt;p&gt;所以我之前的策略是电子买一本；实体书买一本；但是。。现在电子书的价格节节攀升。。还是只看实体书好了&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="读书笔记" scheme="http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="产品经理" scheme="http://yoursite.com/tags/%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《需求》读书笔记：创造需求的6中魔力</title>
+    <link href="http://yoursite.com/2018/01/25/%E3%80%8A%E9%9C%80%E6%B1%82%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%9B%E9%80%A0%E9%9C%80%E6%B1%82%E7%9A%846%E4%B8%AD%E9%AD%94%E5%8A%9B/"/>
+    <id>http://yoursite.com/2018/01/25/《需求》读书笔记：创造需求的6中魔力/</id>
+    <published>2018-01-25T14:47:19.000Z</published>
+    <updated>2018-04-05T11:48:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这是一本讲需求创造者的书。书名叫 <code>Demand</code> ； 和我们常常说的 <code>Requirement</code> 是不同的，前者更加偏向于人们内心的渴求。而不是明确的索求。</p>
+<p>创造需求的大师；就是可以想群众之想。 通过观察用户的麻烦地图，创造有魔力的产品；提供用户之前不存在的需求；并且不断精进，解决用户的烦恼。</p>
+<p>但是书并不是一本创造需求的指导手册。他是通过一些原创的案例的分析；将创造需求的可行的以及需要注意的方向进行总结，变成6个关键点。阅读这些案例与总结；可以为我们提供一定的借鉴意义。但绝不要希望可以按照书中的内容就可以知道现实中的产品如何商业化。</p>
+<a id="more"></a>
+<h2 id="创造需求；首先要做的是理解人"><a href="#创造需求；首先要做的是理解人" class="headerlink" title="创造需求；首先要做的是理解人"></a>创造需求；首先要做的是理解人</h2><p>真正创造需求的大师，会把所有的精力都投入到对 “人” 了解中。</p>
+<ul>
+<li>一个人；一个问题；一个点子</li>
+</ul>
+<p>我们都不了解自己的需求的时候，<code>需求创造者</code> 就已经看透了我们的内心，他们创造出我们无法抗拒的产品</p>
+<ul>
+<li>从情绪中看需求</li>
+</ul>
+<p>看出我们 <code>不可理喻，满腔热情，焦虑苦恼，捉摸不定</code>；我们到底需要什么，讨厌什么呢，什么样的东西能够令我们无法抗拒</p>
+<ul>
+<li>从麻烦中看需求</li>
+</ul>
+<p><code>我们真正想要的东西，和我们购买的东西之间，总有一道鸿沟</code>； 这就是创造新需求的机会。<code>他们认识到，人们实际购买行为和心理需求之间差异巨大</code></p>
+<p>哈斯汀斯因为还录像带迟了要交罚款感到痛苦，发现了其中的麻烦，并解决。最终创造了奈飞。</p>
+<p>诺基亚的1100 洞察了渔民的需求而大卖。</p>
+<p>所以，优秀的需求创造者都知道以下6个关键点。同时知道如何传递这些能力给到<code>团队里的其他人</code></p>
+<h2 id="6个关键点"><a href="#6个关键点" class="headerlink" title="6个关键点"></a>6个关键点</h2><p>这6个关键点，越到值得说道的地方越少，重复性的内容与无用的描述月来越多。只用看标题；就可以大体上知道这一章的主要到底是什么。这样书来作者的总结能力还是很强的</p>
+<p>可以说；这本书的核心是案例。脱离的案例；理论就毫无意义。可是这也是一个悖论；你的案例是来说明的你理论；但是否也可以说案例是经过挑选而展现在你的眼前的；为了证明你所说的话是正确的。</p>
+<p>我也无法证实我的想法；因为特例总是存在的</p>
+<h3 id="关键1-：魔力：创造无法割舍的情感共鸣"><a href="#关键1-：魔力：创造无法割舍的情感共鸣" class="headerlink" title="关键1 ：魔力：创造无法割舍的情感共鸣"></a>关键1 ：魔力：创造无法割舍的情感共鸣</h3><p><code>魔力M = 卓越功能F X 情感诉求</code> </p>
+<p><strong>案例：</strong>  <code>zipcar</code>；<code>魏格曼超市</code><br><strong>卷首语：</strong></p>
+<ul>
+<li>赢家需要创造情感共鸣；并把握市场方向</li>
+<li>需求没有必然可言；提供用户不具备的选择</li>
+</ul>
+<h4 id="zipcar-密度产生魔力"><a href="#zipcar-密度产生魔力" class="headerlink" title="zipcar : 密度产生魔力"></a>zipcar : 密度产生魔力</h4><p>zipcar 初始做共享汽车；理想丰满；上线后市场几乎毫无反应。尽管他拥有很好的理念；卓越的功能，但并不能形成魔力产品。因为当时车辆的距离注册的会员很远；用户用车很不方便。所以用户没有使用的动力。</p>
+<p>公司立足的<code>鸿沟</code>是 ： 一遍是客户购买汽车的<code>费用和麻烦</code> ； 一边是 <code>说走就走的自由</code></p>
+<p>找出现有产品的缺陷并没有用，需要有足够的魅力激发客户的激情；吸引用户的关注。</p>
+<p>需求的关键，通常是不起眼的小事。 <code>他走向成功的点是密度</code> 。 在典型用户分布区域，在用车高分期进行高密度投放。同时做好营销宣传与细节的掌控，（因为需求很脆弱）可以唤醒用户的心理需求：不被一辆机械绑架的自由。 需求从来没有必然可言。zipcar 创造并满足了这一需求。</p>
+<h4 id="魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择"><a href="#魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择" class="headerlink" title="魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择"></a>魏格曼超市；以减少麻烦为目的；关注用户的情感诉求；提供用户不具备的选择</h4><p>“关注行业新趋势；赶在其前面；敢于提供当时不具备的选择”</p>
+<p>形成魔力的6大行为方式；需求创造者需要：</p>
+<ul>
+<li>努力减少消除产品和服务中的不便等各种问题</li>
+</ul>
+<p>魏格曼超市形成了自己的魔力；他们提供各种不具备的选择：深夜营业的药房；“没有糖果” 的收银台；儿童房间等等。</p>
+<ul>
+<li>知道如何调动客户情感上的兴奋度</li>
+</ul>
+<p>邀请大厨；退出廉价方便的主菜；提供菜单等等。帮助用户更加愉悦的购物</p>
+<ul>
+<li>为每一位员工赋予创造需求的力量</li>
+</ul>
+<p>给员工实现自己的创造需求的能力；这样员工才会主动帮助公司做的更好；<br>比如下雨天；给客户提供撑伞到车内的服务。</p>
+<ul>
+<li>敢于认真听取顾客的意见</li>
+<li>需要孜孜不倦的实验</li>
+<li>保护自身的特性<br><code>把事情作对；比做快重要</code></li>
+</ul>
+<h3 id="关键2-：麻烦地图：解决用户没告诉你的困扰"><a href="#关键2-：麻烦地图：解决用户没告诉你的困扰" class="headerlink" title="关键2 ：麻烦地图：解决用户没告诉你的困扰"></a>关键2 ：麻烦地图：解决用户没告诉你的困扰</h3><p>可以在头脑中绘制麻烦地图；每一个引起失望的结果；都是一个个麻烦点。</p>
+<p>“每个没有必要存在的步骤；都是摩擦点；每个摩擦点代表一个需求创造的机会”<br>“需求；是以解决顾客问题为中心的”</p>
+<ul>
+<li>苹果：一键世界的先锋</li>
+</ul>
+<p>化摩擦为动力；苹果下载一首歌的点击次数是5次，而其他品牌要18 -35次。<br>“想到李明远对百度音乐的定义： 搜得到；能下载”</p>
+<p>绘制麻烦地图的过程中； 你需要想用户的心理活动是什么样的；他们希望从人生中获得什么？如何满足？<br>什么样的麻烦让人用户气愤而无奈；是否存在一些；用户没发现但是我们可以解决</p>
+<p>一键世界三大维度： 1 外观设计（奈非改了150版本信封的设计）；2 用户体验（每次微调；减少用户的麻烦）； 3 商业系统</p>
+<ul>
+<li>CareCore: 协作式医疗的典范</li>
+</ul>
+<p>减少麻烦；而不是减少成本。CareCore为用户提供个性化的医疗服务；费用虽然高；但是麻烦却很少；很专业。强调沟通；从用户出发。真正延长用户的寿命。</p>
+<p>去倾听用户的声音；他们不会说出真实的动机和欲望；“比如买奔驰想让隔壁邻居看着眼红”</p>
+<p>“你只要去看，就能观察到很多情况”</p>
+<p>corecare 为病人提供免费交通的事情，大多数人都想不到</p>
+<h3 id="关键3-：背景因素：那些看似与产品无关的，却决定产品的命运"><a href="#关键3-：背景因素：那些看似与产品无关的，却决定产品的命运" class="headerlink" title="关键3 ：背景因素：那些看似与产品无关的，却决定产品的命运"></a>关键3 ：背景因素：那些看似与产品无关的，却决定产品的命运</h3><p>决定一款产品成功与否力量；常常在你看不见的地方。背景因素就是如此。它构成的基础设施与消费需求之间是相辅相成的。</p>
+<p>案例：kindle的成功和Librie的失败。</p>
+<p>索尼的电子墨水阅读器比kindle要早出好多年，质量和设计也都不差；却没有取得成功的关键原因是可阅读的书籍的不足。因为出版商觉得这会影响他们自己的收入，不愿提供给到索尼优质的电子书的资源。  浮田嘉孝（索尼CD机的设计师，索尼最富设计天赋的人之一）的失败就是没有观察到这些背景因素对产品成败的影响</p>
+<p>kindle则不同；发布的当日就有88000本图书可以下载，比索尼要多的多。</p>
+<p>贝索斯说，当自己不知道要怎么做的时候，总是问问自己：“怎么样做对用户更好？” 他也确实这么做了。<br>例如：你再次购买一件你曾经买过的书以及CD的时候，下单的时候会弹出提示框来让你确认。</p>
+<h3 id="关键4-：激发力：让潜在的需求变成真正的需求"><a href="#关键4-：激发力：让潜在的需求变成真正的需求" class="headerlink" title="关键4 ：激发力：让潜在的需求变成真正的需求"></a>关键4 ：激发力：让潜在的需求变成真正的需求</h3><p>人的行为很大程度上被自己的各种情绪；偏好所左右；需求像发动机；在激发力的驱使下，一拧就着。</p>
+<p>激发力可以让冷淡的骑墙派变得热情；并心甘情愿的变成用户</p>
+<p>案例：奈飞；配送速度就是激发力<br>它在增长的阶段发现了湾区的注册数字与人数都高于其他地区；讨论需求没有结果；于是，哈斯汀斯调研发现；只有一个地方不同就是 <code>配送速度</code>；因为奈飞的配送中心就在湾区；</p>
+<p><strong>高效便捷的第二天就送达的服务；就是用户兴奋的关键点</strong></p>
+<p>后来奈用建立配送中心的地方；注册用户数就会立刻翻倍。</p>
+<h3 id="关键5-：精进曲线：缓慢改进就等于平庸"><a href="#关键5-：精进曲线：缓慢改进就等于平庸" class="headerlink" title="关键5 ：精进曲线：缓慢改进就等于平庸"></a>关键5 ：精进曲线：缓慢改进就等于平庸</h3><p>快速迭代；甩开竞争者；才能成为最后的赢家<br>案例懒得写了。。</p>
+<h3 id="关键6：去平均好：你不能讨好所有人，一次只满足一类客户"><a href="#关键6：去平均好：你不能讨好所有人，一次只满足一类客户" class="headerlink" title="关键6：去平均好：你不能讨好所有人，一次只满足一类客户"></a>关键6：去平均好：你不能讨好所有人，一次只满足一类客户</h3><p>设计满足所有人的产品；永远是浪费钱和时间。<br>案例懒得写了。。</p>
+<h2 id="产品发布：避免阿克琉斯之踵"><a href="#产品发布：避免阿克琉斯之踵" class="headerlink" title="产品发布：避免阿克琉斯之踵"></a>产品发布：避免阿克琉斯之踵</h2><p>全书我觉得最值得读两遍的一整节；虽然读下来很有一种心理学与行为经济学的混合。（如果你读过思考快与慢，就不用读第二遍了。）但是一切需求；最终都要回归到人本身。所以更好的了解我们，了解群体，总是有好处的。</p>
+<h3 id="用数据说话"><a href="#用数据说话" class="headerlink" title="用数据说话"></a>用数据说话</h3><p> 做一个现实的人。</p>
+<p>决定产品发布成败的是人的思维方式。正确的思维方式是用数据说话；俗话说眼见为实；但是 <code>塞默尔斯反射</code> 却直接指出人性弱点：仅仅凭借数据并不能改变现状；很可能没有人会相信你说的话。（只有我信以为实，才能看得见）；<code>强烈的信念和客观数据之间的竞赛；数据永远是输家</code></p>
+<p>想起三本书：《影响力》；告诉我们如何去影响别人的六大武器。如果塞默尔斯知道，也不会英年早逝。《思考快与慢》《原则》一个告诉我们人们思考问题的误区与人性；一个告诉我们要保持极为开放的头脑；时刻反思；我怎么知道我是正确的呢？ 以防止我们陷入同样的陷阱中。</p>
+<h3 id="做事前检查"><a href="#做事前检查" class="headerlink" title="做事前检查"></a>做事前检查</h3><p>预期性后见之明： 沃顿商学院的米切尔与康奈尔大雪的拉索以及科罗拉多大学的彭宁顿研究发现；想象某个事件已经发生会让你 预见结果、分析能力提升30%</p>
+<p>《能量之源》的作者盖里·克莱恩人文： 事前分析能让人们表达心中焦虑；如果没有这样的机会；人们倾向于隐藏；担心表现出来之后会显得自己不忠实；或者打击团队信心。</p>
+<p>想象灾难发生；问问自己为什么失败了，将所有可能的失败列出来；尽你所能去避免这些失败。</p>
+<h2 id="一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户"><a href="#一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户" class="headerlink" title="一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户"></a>一个案例值得说的思维方式转变的案例：监管局不是敌人；而是重要客户</h2><p>著名制药公司默克公司采取不同的态度对待FDA； 将他看成客户；</p>
+<p>“这位重要的客户在做决策的时候，需要哪些信息” 而尽力去提供；而不是“怎么不惹麻烦而绕开监管局”</p>
+<p>如此依赖，他们的审批就比其他的公司快很多</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这是一本讲需求创造者的书。书名叫 &lt;code&gt;Demand&lt;/code&gt; ； 和我们常常说的 &lt;code&gt;Requirement&lt;/code&gt; 是不同的，前者更加偏向于人们内心的渴求。而不是明确的索求。&lt;/p&gt;
+&lt;p&gt;创造需求的大师；就是可以想群众之想。 通过观察用户的麻烦地图，创造有魔力的产品；提供用户之前不存在的需求；并且不断精进，解决用户的烦恼。&lt;/p&gt;
+&lt;p&gt;但是书并不是一本创造需求的指导手册。他是通过一些原创的案例的分析；将创造需求的可行的以及需要注意的方向进行总结，变成6个关键点。阅读这些案例与总结；可以为我们提供一定的借鉴意义。但绝不要希望可以按照书中的内容就可以知道现实中的产品如何商业化。&lt;/p&gt;
     
     </summary>
     
@@ -737,9 +850,9 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
-    
       <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
     
   </entry>
   
@@ -1428,56 +1541,6 @@
 &lt;li&gt;3 &lt;code&gt;类名::实例方法名&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;4 &lt;code&gt;构造方法引用::new&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
-    
-      <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>jdk8-1-函数式接口&amp;lambda表达式</title>
-    <link href="http://yoursite.com/2017/02/11/jdk8-1-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    <id>http://yoursite.com/2017/02/11/jdk8-1-函数式接口-lambda表达式/</id>
-    <published>2017-02-11T07:00:25.000Z</published>
-    <updated>2017-04-14T07:13:39.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1-lmabda表达式"><a href="#1-lmabda表达式" class="headerlink" title="1 lmabda表达式"></a>1 lmabda表达式</h3><p>首先看两段对比代码:<br>为jbutton 添加一个时间监听器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 老写法: 匿名内部类</span></div><div class="line">jButton.addActionListener(<span class="keyword">new</span> AbstractAction() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"Hello Button"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">        </div><div class="line"><span class="comment">// lambda 表达式写法</span></div><div class="line">jButton.addActionListener(e -&gt; System.out.println(<span class="string">"Hello Button"</span>));</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>对比两个写法，lambda表达式的写法会简单很多，如果你有多行处理逻辑：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 加个大括号</span></div><div class="line">jButton.addActionListener(e -&gt;&#123;</div><div class="line">    System.out.println(<span class="string">"Hello Button!!!!"</span>);</div><div class="line">    System.out.println(<span class="string">"Hello Button2!!!!"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>这里的e，没有声明类型，并不是表示java 不是一个静态语言了，而是，编译器的类型推断告诉可以推断出来这个 <code>e</code> 的类型肯定是一个 <code>AbstractAction</code>, 所以无需去写，当然如写上也没有问题，需要加上括号</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">jButton.addActionListener((AbstractAction e) -&gt;&#123;</div><div class="line">    System.out.println(<span class="string">"Hello Button!!!!"</span>);</div><div class="line">    System.out.println(<span class="string">"Hello Button2!!!!"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>所以 <strong>lambda</strong> 表达式的基本结构如下（根据单个参数和单个操作可以有一定的省略）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(event e1, event e2 ...) -&gt; &#123;</div><div class="line">    action1;</div><div class="line">    action2;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>一开始可能不是特别好理解，我们可以结合 <strong>java8</strong> 新增的另一个特性 <strong>函数式接口</strong> 来一起理解为何我们可以如此编写代码</p>
-<h3 id="2-函数式接口"><a href="#2-函数式接口" class="headerlink" title="2 函数式接口"></a>2 函数式接口</h3><p>什么叫函数式接口呢？ 函数式接口是 <code>jdk1.8</code> 中新增的一个接口类型，为此还新增了一个注解 <code>@FunctionalInterface</code> 用于标注函数接口；我们通过阅读 <code>@FunctionalInterface</code> 的 <em>jdk</em> 文档来进行概念认知。总结起来：</p>
-<ul>
-<li>当一个接口 有且只有一个抽象方法，并且这个抽象方法不是继承自 <code>Object</code> 的方法，就会被当做一个 <strong>函数式接口</strong></li>
-<li>当一个接口被  <code>@FunctionalInterface</code> 注解时，可以当做一个函数式接口</li>
-<li>当一个接口被  <code>@FunctionalInterface</code> 注解，但不满足第一个条件的时候，编译器会报错。</li>
-<li>当一个接口 没有被 <code>@FunctionalInterface</code> 注解标注，但是满足函数式接口的条件，也会被当做函数式接口</li>
-</ul>
-<blockquote>
-<p>这里的第一条后半部分很重要，如果一个接口，有两个抽象方法，但是其中一个是继承自 <code>Object</code> 类（因为其实万类师祖）, 他仍然是一个函数式接口。</p>
-</blockquote>
-<p>例如以下实例就是一个完整的函数式接口，即使他有2个抽象方法，但是toString是继承自 <code>Object</code> 的方法，所以不会算作函数式接口的抽象方法，所以其中的 <code>test()</code> 方法, 是函数式接口认定的唯一的抽象方法。<br>同理，如果下面的例子只有 <code>toString()</code> 方法，而没有 <code>test()</code> 方法，同时又有  <code>@FunctionalInterface</code> 注解的话，那么编译器会报错。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@FunctionalInterface</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 函数式接口，只能有唯一的抽象方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 因为改抽象方法，继承自 Object，所以不算函数式接口的抽象方法</div><div class="line">     * 故而，接口可以算作一个函数式接口</div><div class="line">     */</div><div class="line">    <span class="function">String <span class="title">toString</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们可以看一下  <code>@FunctionalInterface</code> 的jdk文档，里面有一句: </p>
-<center><img src="http://static.zybuluo.com/zhumin1990719/xgz9c76x5q7q1fa3fyvrzilz/image_1b4cpml3c13mn1cju14uurjun9v9.png" alt="image_1b4cpml3c13mn1cju14uurjun9v9.png-24.9kB"></center>
-
-<p>意思就是说，函数式接口的实现，可以通过 <code>lambda</code> 表达式 <strong>方法引用</strong> 以及 <strong>构造方法引用</strong> 的方式来实现。其实我们上面的 <code>lambda</code> 表达式的例子，就是实现的函数式接口。我们来新写一个例子。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testInterface</span><span class="params">(MyInterface myInterface)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"start ------------------"</span>);</div><div class="line">        myInterface.test();</div><div class="line">        System.out.println(<span class="string">"end --------------------"</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Test2 test2 = <span class="keyword">new</span> Test2();</div><div class="line">        <span class="comment">/*</span></div><div class="line">         * 因为函数式接口的里唯一的抽象方法test里面，没有参数</div><div class="line">         * 但是（）不能省略</div><div class="line">         * 参考Test1 程序里面的Jframe 里的ActionListener</div><div class="line">         */</div><div class="line">        test2.testInterface(() -&gt; &#123;</div><div class="line">            System.out.println(<span class="string">"函数式接口接口实现"</span>);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们可以看到，<code>testInterface</code> 方法需要传递一个 <code>testInterface</code><br>的接口，而我们使用的方式就是 <code>lambda</code> 表达式来实现了一个函数式接口。 可以运用下面的形式来理解。</p>
-<blockquote>
-<p>(函数式接口唯一的抽象方法的参数列表) -&gt; {唯一抽象函数的实现}</p>
-</blockquote>
-<p>这个时候，我们看一下最开始的那个给 <strong>button</strong> 加 action 的例子。<br>其实实现就是 <code>ActionListener</code> 这个函数式接口的唯一的抽象方法：<br><img src="http://static.zybuluo.com/zhumin1990719/uy91dk519fbykpnmbovocu5h/image_1b4cq5u2j1548e4eif0l1t1t48m.png" alt="image_1b4cq5u2j1548e4eif0l1t1t48m.png-35.9kB"><br>虽然该类没有 <code>@FunctionalInterface</code> 注解，但是满足条件，只有一个抽象方法，所以他也是一个函数式接口，所以我们可以去使用 <code>lambda</code> 表达式去实现他。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1-lmabda表达式&quot;&gt;&lt;a href=&quot;#1-lmabda表达式&quot; class=&quot;headerlink&quot; title=&quot;1 lmabda表达式&quot;&gt;&lt;/a&gt;1 lmabda表达式&lt;/h3&gt;&lt;p&gt;首先看两段对比代码:&lt;br&gt;为jbutton 添加一个时间监听器&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 老写法: 匿名内部类&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;jButton.addActionListener(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; AbstractAction() &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;actionPerformed&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(ActionEvent e)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        System.out.println(&lt;span class=&quot;string&quot;&gt;&quot;Hello Button&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// lambda 表达式写法&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;jButton.addActionListener(e -&amp;gt; System.out.println(&lt;span class=&quot;string&quot;&gt;&quot;Hello Button&quot;&lt;/span&gt;));&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
     
     </summary>
     
