@@ -928,6 +928,43 @@
   </entry>
   
   <entry>
+    <title>抖音的产品体验</title>
+    <link href="http://yoursite.com/2018/02/15/%E6%8A%96%E9%9F%B3%E7%9A%84%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/"/>
+    <id>http://yoursite.com/2018/02/15/抖音的产品体验/</id>
+    <published>2018-02-15T11:29:33.000Z</published>
+    <updated>2018-04-15T11:35:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>说下体验抖音感受吧</p>
+<p>第一，沉浸，高清，人好看，体验确实比同类好不少。也让我眼前一亮。再打开其他的就有一种失落感。因为看到第一眼就是视频里的样子，而其他的，都给你一张他妈都不认识的封面，点击一看…我就不说了…</p>
+<p>第二，运营好，相比于快手的不干扰用户让用户自我发展的策略，他做了很多运营工作。有很多明星入驻，带用户一起玩。并且受众年轻化。</p>
+<p>第三，我们感觉到的内容同质化严重，就是抖音做了很多运营主题，这就有点给了像一个有趣的命题作文，其实给用户了好用的模版，可以低门槛的产生优质内容，参与度也会高。</p>
+<p>之后是无根据扯淡，</p>
+<p>抖音的受众群体年轻，我属于🌚，（但我第一反应是，我妈他们看不懂也不会喜欢，他们更佳喜欢火山和快手。</p>
+<p>看了十来个直播和小视频的内容，给我一种抖音里的人都好好看好有钱或者好有才的感觉。（这和推荐算法一定也有关系）</p>
+<p>而其他直播也好，短视频也好的都是挺正常的。但我看完抖音以后，有一种空虚感，但又想接着刷。让我想起《等待》里的一句歌词</p>
+<p>“明知辉煌，过后是暗淡，仍期待着把一切从头来过”🌚</p>
+<p>都什么乱七八糟的… 我不想再刷了…</p>
+<hr>
+<p>补充：两个多月过去；抖音制造了很多爆款模板。运营可谓相当用心。也捧红一些音乐，这些人和网易云音乐应该有不少重合性。因为我的网易电台里听到的歌有不少部分都是抖音里听过的。</p>
+<p>我妈有一次在我女朋友的案例下下载了抖音；每次一刷都能刷半小时。再一次感叹这种首页的设计真的是直接抓住吸引力；基本不给你拒绝时间。而当没有你的大概画像的时候，把受众最广的一部分内容不断推给你；最大程度的留住你，留不住也没关系；因为你可能不是目标用户。陪我妈刷的内容；大部分都是我几周之前看过的，可爱类的居多。人畜无害。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;说下体验抖音感受吧&lt;/p&gt;
+&lt;p&gt;第一，沉浸，高清，人好看，体验确实比同类好不少。也让我眼前一亮。再打开其他的就有一种失落感。因为看到第一眼就是视频里的样子，而其他的，都给你一张他妈都不认识的封面，点击一看…我就不说了…&lt;/p&gt;
+&lt;p&gt;第二，运营好，相比于快手的不干扰用户让
+    
+    </summary>
+    
+    
+      <category term="产品经理" scheme="http://yoursite.com/tags/%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86/"/>
+    
+      <category term="产品体验" scheme="http://yoursite.com/tags/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>《需求》读书笔记：创造需求的6个关键</title>
     <link href="http://yoursite.com/2018/01/25/%E3%80%8A%E9%9C%80%E6%B1%82%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%9B%E9%80%A0%E9%9C%80%E6%B1%82%E7%9A%846%E4%B8%AD%E9%AD%94%E5%8A%9B/"/>
     <id>http://yoursite.com/2018/01/25/《需求》读书笔记：创造需求的6中魔力/</id>
@@ -1753,81 +1790,6 @@
     
     
       <category term="mac" scheme="http://yoursite.com/tags/mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>jdk8-32-groupingBy 源码分析</title>
-    <link href="http://yoursite.com/2017/04/30/jdk8-32-groupingBy-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    <id>http://yoursite.com/2017/04/30/jdk8-32-groupingBy-源码分析/</id>
-    <published>2017-04-30T08:58:34.000Z</published>
-    <updated>2017-04-30T09:02:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>jdk8 集合的工厂类 <code>Collectors</code> 提供了两个很好用的静态函数。</p>
-<ul>
-<li>groupingBy</li>
-<li>partitioningBy</li>
-</ul>
-<a id="more"></a>
-<p><code>groupingBy</code> 实现类似 Mysql 中分分组功能。返回一个 Map; 而 <code>partitioningBy</code>可以看做是 <code>groupingBy</code> 的特殊形式。我们后面会接着介绍。 使用的是比如统计每个城市人的“姓”，可以这么写</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Map&lt;City, Set&lt;String&gt;&gt; namesByCity = people.stream().collect(groupingBy(Person::getCity,                                            mapping(Person::getLastName, toSet())));</div></pre></td></tr></table></figure>
-<p>那么，他到底如何利用 <code>Collector</code> 的各个接口来实现的呢？下面我们将深入 JDK 的 <code>Collectors</code> 的源码中，分析一下他是如何工作的。 </p>
-<h2 id="groupingBy"><a href="#groupingBy" class="headerlink" title="groupingBy"></a>groupingBy</h2><h3 id="1-第一个重载方法-要简单就别那么多要求，给你个List不错了"><a href="#1-第一个重载方法-要简单就别那么多要求，给你个List不错了" class="headerlink" title="1 第一个重载方法, 要简单就别那么多要求，给你个List不错了"></a>1 第一个重载方法, 要简单就别那么多要求，给你个List不错了</h3><p>分组 <code>groupingBy</code> 有三个重载方法。一个比一复杂。</p>
-<p>先看最简单的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> &lt;T&gt; the type of the input elements</div><div class="line">     * <span class="doctag">@param</span> &lt;K&gt; the type of the keys</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T, K&gt; Collector&lt;T, ?, Map&lt;K, List&lt;T&gt;&gt;&gt;</div><div class="line">    groupingBy(Function&lt;? <span class="keyword">super</span> T, ? extends K&gt; classifier) &#123;</div><div class="line">        <span class="keyword">return</span> groupingBy(classifier, toList());</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>这里 <code>T</code> 是输入集合的元素类型， <code>K</code> 是最后产生的 Map 的主键key 的类型。</p>
-<p>函数需要传入一个 <code>Function</code> 的函数式接口，<code>Function</code> 的中作就是分类器，比如传入的类型是<code>T</code> 是一个 <code>Person</code>类型 ， 通过 <code>apply()</code> 方法，返回 <code>Person</code> 的属性 <code>name</code>；因为我们要按照 <code>name</code> 来分组。</p>
-<p>所以，如果 <code>name</code> 的类型是 <code>String</code> ； 那么 <code>K</code> 就是 <code>String</code></p>
-<p>故而，这个 <code>groupingBy(function)</code> 的功能就很清晰了，就是通过 <code>function</code> 对传入的 <code>T</code> 类型进行分类。然后调用 <code>toList()</code> 方法，也就是说每个分类的<code>Person</code> 会放进一个 <code>List&lt;Person&gt;</code> 中</p>
-<p>最终返回的类型就是 <code>Map&lt;String, List&lt;Person&gt;&gt;</code>.</p>
-<p>而如果你不想返回的是一个<code>List</code> , 希望是一个 <code>Set</code>. 你就要使用第二个重载方法~ 他允许你定义最后的输出函数。</p>
-<h3 id="2-第二个重载方法：我要输出Set"><a href="#2-第二个重载方法：我要输出Set" class="headerlink" title="2 第二个重载方法：我要输出Set"></a>2 第二个重载方法：我要输出Set</h3><p>看一下函数的定义：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> &lt;T&gt; the type of the input elements</div><div class="line">     * <span class="doctag">@param</span> &lt;K&gt; the type of the keys</div><div class="line">     * <span class="doctag">@param</span> &lt;A&gt; the intermediate accumulation type of the downstream collector</div><div class="line">     * <span class="doctag">@param</span> &lt;D&gt; the result type of the downstream reduction</div><div class="line">     * <span class="doctag">@param</span> classifier a classifier function mapping input elements to keys</div><div class="line">     * <span class="doctag">@param</span> downstream a &#123;<span class="doctag">@code</span> Collector&#125; implementing the downstream reduction</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T, K, A, D&gt;</div><div class="line">    Collector&lt;T, ?, Map&lt;K, D&gt;&gt; groupingBy(Function&lt;? <span class="keyword">super</span> T, ? extends K&gt; classifier,</div><div class="line">                                          Collector&lt;? <span class="keyword">super</span> T, A, D&gt; downstream) &#123;</div><div class="line">        <span class="keyword">return</span> groupingBy(classifier, HashMap::<span class="keyword">new</span>, downstream);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>这个函数，明显比上一个要复杂，可以看到，多了一个 <code>Collector</code> 的 <code>downstream</code> , 可以自定义输出的集合。上面那个简单版本的函数是是写死的 <code>List</code></p>
-<p>这个函数有四个泛型。</p>
-<ul>
-<li><code>T</code> 原始元素类型，比如我们这是 <code>Person</code></li>
-<li><code>K</code> 返回 Map 的 key, 即最终返回的Map 的建的类型。如果你想按照人的名字分类，那T就是 <code>String</code>, 如果按照年龄分类，那就是 <code>Interger</code></li>
-<li><code>A</code> 是 downstream 的 accumulation 的中间结果类型</li>
-<li><code>D</code> 是最终输出 Map 的 Value 的类型。比如 <code>List</code> 或者 <code>Set</code> </li>
-</ul>
-<p>这个方法会调用第三个重载函数，比第二个函数，多了中间的 <code>HashMap::new</code>； 这个是最终返回的 Map 的类型，这里写死的是 HashMap, 如果你想用其他类型，就需要使用最终的也是最复杂的第三个重载函数。</p>
-<p>越是你用起来简单的函数，背后的实现就越来越复杂。</p>
-<h3 id="3-第三个重载方法-能看懂就随便你怎么玩"><a href="#3-第三个重载方法-能看懂就随便你怎么玩" class="headerlink" title="3 第三个重载方法: 能看懂就随便你怎么玩"></a>3 第三个重载方法: 能看懂就随便你怎么玩</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">* <span class="doctag">@param</span> &lt;T&gt; the type of the input elements</div><div class="line">* <span class="doctag">@param</span> &lt;K&gt; the type of the keys</div><div class="line">* <span class="doctag">@param</span> &lt;A&gt; the intermediate accumulation type of the downstream collector</div><div class="line">* <span class="doctag">@param</span> &lt;D&gt; the result type of the downstream reduction</div><div class="line">* <span class="doctag">@param</span> &lt;M&gt; the type of the resulting &#123;<span class="doctag">@code</span> Map&#125;</div><div class="line">* <span class="doctag">@param</span> classifier a classifier function mapping input elements to keys</div><div class="line">* <span class="doctag">@param</span> downstream a &#123;<span class="doctag">@code</span> Collector&#125; implementing the downstream reduction</div><div class="line">* <span class="doctag">@param</span> mapFactory a function which, when called, produces a new empty</div><div class="line">*                   &#123;<span class="doctag">@code</span> Map&#125; of the desired type</div><div class="line">*/</div><div class="line"></div><div class="line"> <span class="keyword">public</span> <span class="keyword">static</span> &lt;T, K, D, A, M extends Map&lt;K, D&gt;&gt;</div><div class="line">    Collector&lt;T, ?, M&gt; groupingBy(Function&lt;? <span class="keyword">super</span> T, ? extends K&gt; classifier,</div><div class="line">                                  Supplier&lt;M&gt; mapFactory,</div><div class="line">                                  Collector&lt;? <span class="keyword">super</span> T, A, D&gt; downstream) &#123;</div><div class="line">        Supplier&lt;A&gt; downstreamSupplier = downstream.supplier();</div><div class="line">        BiConsumer&lt;A, ? <span class="keyword">super</span> T&gt; downstreamAccumulator = downstream.accumulator();</div><div class="line">        BiConsumer&lt;Map&lt;K, A&gt;, T&gt; accumulator = (m, t) -&gt; &#123;</div><div class="line">            K key = Objects.requireNonNull(classifier.apply(t), <span class="string">"element cannot be mapped to a null key"</span>);</div><div class="line">            A container = m.computeIfAbsent(key, k -&gt; downstreamSupplier.get());</div><div class="line">            downstreamAccumulator.accept(container, t);</div><div class="line">        &#125;;</div><div class="line">        BinaryOperator&lt;Map&lt;K, A&gt;&gt; merger = Collectors.&lt;K, A, Map&lt;K, A&gt;&gt;mapMerger(downstream.combiner());</div><div class="line">        <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">        Supplier&lt;Map&lt;K, A&gt;&gt; mangledFactory = (Supplier&lt;Map&lt;K, A&gt;&gt;) mapFactory;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (downstream.characteristics().contains(Collector.Characteristics.IDENTITY_FINISH)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> CollectorImpl&lt;&gt;(mangledFactory, accumulator, merger, CH_ID);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">            Function&lt;A, A&gt; downstreamFinisher = (Function&lt;A, A&gt;) downstream.finisher();</div><div class="line">            Function&lt;Map&lt;K, A&gt;, M&gt; finisher = intermediate -&gt; &#123;</div><div class="line">                intermediate.replaceAll((k, v) -&gt; downstreamFinisher.apply(v));</div><div class="line">                <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line">                M castResult = (M) intermediate;</div><div class="line">                <span class="keyword">return</span> castResult;</div><div class="line">            &#125;;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> CollectorImpl&lt;&gt;(mangledFactory, accumulator, merger, finisher, CH_NOID);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>这个函数有5个泛型，除去上面说的 <code>T</code>，<code>K</code>，<code>A</code>，<code>D</code><br>多了一个 mapFactory 的 Supplier() , 用于得到最终返回的 Map 的类型，第二个重载函数写死的 HashMap，这就可以进行自定义。</p>
-<p>这个函数有连个值得注意的点：</p>
-<ul>
-<li>所有的Collectors 中函数，如果函数内部还要做集合处理的，都是使用 <code>downstream</code> 这种模式，利用 <code>downstream</code> 的各种已有的的 <code>Supplier</code> <code>Accumulator</code>等，修改来实现自己的功能。比如在 <code>groupingBy</code> 这个函数，一开始就获取了 <code>downstream</code> 的各个组件，组合成自己需要的收集器，进而用于完成分类的行为。（你还可以去看一看 <code>collectingAndThen()</code> 这个函数）</li>
-</ul>
-<p><img src="http://static.zybuluo.com/zhumin1990719/r9lzmhqejhu4poxfa65jrwg0/image_1be34fqkpdosrnqo8317uhcnc9.png" alt="image_1be34fqkpdosrnqo8317uhcnc9.png-228kB"></p>
-<ul>
-<li><code>groupingBy</code> 函数中有有两处强制类型转换。这里其实很难理解，为何可以直接成功的转换呢？</li>
-</ul>
-<p>第一处<br><img src="http://static.zybuluo.com/zhumin1990719/9aw6m36vtunxhzintfqzhw8x/image_1be351ek7187m19721kb3vijudj13.png" alt="image_1be351ek7187m19721kb3vijudj13.png-186.2kB"></p>
-<p>第二处<br><img src="http://static.zybuluo.com/zhumin1990719/lqq4sk8y37vbchc9m7ajs0cn/image_1be353p451uuhvefd57r2u16ad1g.png" alt="image_1be353p451uuhvefd57r2u16ad1g.png-161.3kB"></p>
-<p>两处其实都是将最终结果泛型 <code>D</code> 转成 中间结果 <code>A</code>。<br>对于第一处， mapFactory 是作为一个 <code>Supplier</code> 出现，而他的目的是提供中间结果类型，而他上面的 <code>accumulator</code> 的中间结果类型，就是<strong>K,A</strong>， 所以这样的强转是一定可以成功的</p>
-<p><img src="http://static.zybuluo.com/zhumin1990719/sqtr5d56vcc4y5qtm6yhv271/image_1be35m758itj1grmlc71nu81rrm1t.png" alt="image_1be35m758itj1grmlc71nu81rrm1t.png-139.5kB"></p>
-<p>第二处也是一样的，因为全称都使用了 <code>A</code>，其实 <code>A</code> 和 <code>D</code> 在这里，是等价的。所以转换都可以成功。</p>
-<p>你去可以从这么一个角度思考问题：</p>
-<blockquote>
-<p>你最终需要生成 <code>D</code> 类型，为何中间要给自己生成一个不一样的 <code>A</code> 类型添堵呢？ 你 4 不 4 sa？</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;jdk8 集合的工厂类 &lt;code&gt;Collectors&lt;/code&gt; 提供了两个很好用的静态函数。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;groupingBy&lt;/li&gt;
-&lt;li&gt;partitioningBy&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
-    
-      <category term="java8" scheme="http://yoursite.com/tags/java8/"/>
     
   </entry>
   
