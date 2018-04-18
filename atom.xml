@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-12T15:42:45.000Z</updated>
+  <updated>2018-04-18T16:17:34.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,169 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《增长黑客》读书笔记（上篇）：你应该有的理论基础</title>
+    <link href="http://yoursite.com/2018/04/19/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%8A%E7%AF%87%EF%BC%89%EF%BC%9A%E4%BD%A0%E5%BA%94%E8%AF%A5%E6%9C%89%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2018/04/19/《增长黑客》读书笔记（上篇）：你应该有的理论基础/</id>
+    <published>2018-04-18T16:16:50.000Z</published>
+    <updated>2018-04-18T16:17:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p><strong>If you are not growing, then you are dying!</strong></p>
+</blockquote>
+<p>一句话道出了<code>增长</code>这一企业的永恒真理。增长黑客的职业因此慢慢发展。虽说国内第一本增长黑客的书是大佬 <strong>范冰</strong> 的《增长黑客》，但是真正的增长黑客之父是在2010提出<code>增长黑客</code>概念的 <strong>肖恩·艾丽斯</strong>。也就是这一本《增长黑客》的作者。所以这本书应该更加值得一读。</p>
+<a id="more"></a>
+<p>fackbook 有单独的增长部门，头条的200人增长团队支撑了头条系列app近几年来的飞速增长。滴滴也开始组建增长部门，各个创业公司拼多多，小红书，即刻都在招用户增长的产品经理（别问我怎么知道），这个职业可能是目前比较火的职业。</p>
+<p>但是到底是什么是增长黑客？可能你是通过各种增长黑客的文章了解到各类看上去很轻松的四两拨千千的策略使得产品获得爆发式的增长，内心澎湃不已。</p>
+<p>但这都是你观察的表面现象，就像我们不能只按表面需求做产品一样，在我们应用各种增长方法之前，我们首先要理解他的起源，适用场景。而不是看了皮毛就以为自己已经修炼的心法。（别对号入座，说的是我，不过欢迎你加入我）</p>
+<p>作者写这本书的目标，也是系统的介绍增长黑客的起源，多年实践下来的理论，以及实战经验。<br>全书分为我划分为三个部分：</p>
+<ol>
+<li>理论部分，1-4 章。增长理论。</li>
+<li>实战部分，5-8 章节。获客，激活，留存，和变现</li>
+<li>良性循环，</li>
+</ol>
+<p>第一部分包括如何搭建增长团队，好产品的对于增长的重要性，如何确定增长杠杆，以及快节奏的实验</p>
+<p>下面一块一块来看。</p>
+<h3 id="1-搭建增长团队"><a href="#1-搭建增长团队" class="headerlink" title="1 搭建增长团队"></a>1 搭建增长团队</h3><p>想要更好的执行增长策略，很重要的一点就是 <code>打破筒仓</code>。<strong>搭建跨职能的增长团队</strong>，让各个部门之间可以进行合作。</p>
+<p>因为工程师和产品设计师能找到满足用户喜好的方式，但是他们远离用户。不知道他们喜欢什么。</p>
+<p>而如果你想要较为顺利执行你的增长计划，一些必要高层支持就非常必要。（你懂得）<br>一般有两种团队模式：</p>
+<ul>
+<li>公司有一个专门增长团队，有专门的增长副总裁，增长团队都向副总裁汇报</li>
+<li>增长负责人由产品负责人兼任，增长由产品部门负责</li>
+</ul>
+<p>团队推进一些事情的时候一定会遇到资源问题的阻力。公司管理得当，利益共享，在很大程度上是可以减少一些阻力的。</p>
+<p><strong>一个合个的增长团队应该有以下角色：</strong></p>
+<ul>
+<li><strong>增长负责人</strong>：理解战略，懂得增长方法论，懂得如何管理团队</li>
+<li><strong>产品经理</strong>：监督产品以及功能的实现过程。一般由增长团队所负责的产品的产品经理加入</li>
+<li><strong>软件工程师</strong>：实现构想。同时也是团队中重要的意见来源。</li>
+<li><strong>数据分析师</strong>：懂得确保数据的严密性并且在统计上有效果。</li>
+</ul>
+<p><strong>大体上的工作流程分为以下四个步骤：</strong></p>
+<ol>
+<li>分析数据&amp;洞察�收集</li>
+<li>想法产生</li>
+<li>排定优先级</li>
+<li>试验执行</li>
+</ol>
+<p>但是在做增长团队之前，有几点需要注意：首先增长不是一簇而就，一开始做的时候可以从某一个小的点开始，不断向外延展。如果你希望尝试一下增长黑客，也最好先能获得一定的支持。因为过程中难免会犯错，这是试验的必经之路，这个时候有人的支持就会很不一样。</p>
+<p>最最重要的一点是，如果你的产品被喜爱，花再多心思都无济于事。因为：<strong>好产品是增长的根本</strong></p>
+<h3 id="2-好产品是增长的根本"><a href="#2-好产品是增长的根本" class="headerlink" title="2 好产品是增长的根本"></a>2 好产品是增长的根本</h3><p>要记住无论营销的投入有多大，用户都不可能爱上一款不合格的产品。一味的追逐增长，可能会让你灰飞烟灭。BranchOut 就是一个过早展开增长攻势但产品却一般，最终到导致被低价收购的反面例子。</p>
+<p>所以增长黑客在着手工作前要明白：</p>
+<ul>
+<li>你的产品对用户是否不可获取</li>
+<li>目标用户什么，核心价值是什么</li>
+<li>最终的产品的核心价值可能不一定是最初的愿景，而你<strong>必须找到</strong></li>
+<li>是爱创造的增长，不是增长创造了爱</li>
+</ul>
+<p>而要赢得用户的喜爱，就要创造产品的 <strong>啊哈时刻</strong>。</p>
+<h4 id="找到产品的“啊哈时刻”"><a href="#找到产品的“啊哈时刻”" class="headerlink" title="找到产品的“啊哈时刻”"></a>找到产品的“啊哈时刻”</h4><blockquote>
+<p><strong>啊哈时刻</strong> ： 就是用户真正发现了他们能从产品中获得什么（核心价值）的时刻。</p>
+</blockquote>
+<p>淘宝的啊哈时刻是能够买到各种想要的东西。微信的啊哈时刻是可以联系到看到好久不见的朋友。点评的啊哈时刻是可以找想要去的店。优步的则是点一下手机，8分钟之内有车来接你。</p>
+<p>你要问问自己的是，你是否知道用户的啊哈时刻的点在哪里？</p>
+<p>而这些点可能难以确定，所以挖掘用户数据和反馈就很重要。这可以帮助你找到那些真正热爱你的产品的人的相似之处，找到他们已经获得而其他用户还未获得的价值。就像推特通过分析发现“关注了30个人用户活跃度很高”。</p>
+<p>但是如何找到或者实现自己产品的啊哈时刻呢？作者给出了自己答案：我总结为三点：<strong>调研</strong>，<strong>分析</strong>，<strong>实验</strong>。</p>
+<p>（其实做产品的大致流程也如此。只不过大部分人在做没有调研的数据分析，或者没有分析的实验。）</p>
+<p><strong>第一步调研</strong>，首先你需要在你的活跃用户中进行调研，确认你的产品是否对用户来说不可或缺。如果问卷调研的结果超过40%，则算合格。<br>调研的对象最好是<strong>活跃用户</strong>，因为从不怎么使用产品的用户那里获得的反馈往往没什么作用。</p>
+<p><strong>第二步分析</strong>，线上去获取用户的基础数据，线下深入用户群体去和用户进行更加深层次的交流。<strong>以便获取用户真正需要的是什么，阻碍你产品成功的因素和障碍是什么</strong> （大部分时间，我们都是在拍脑袋，不是么。）</p>
+<p>展开调研和分析是为了<strong>获取洞见</strong>，有些人觉得浪费时间，但其实这是误区。首先你不去调研做产品就有些本末倒置，其次，调研有时候根本不需要花费很多时间。也许几百分问卷，也许和几个用户深度交流就可以伴你找到在数据分析中发现的用户行为 <strong> 背后的动机</strong></p>
+<p><strong>第三步试验</strong>，在大版本试验之前，快节奏小成本的不断的进行AB测试，或者多变量测试是增长黑客的基本原则。我们通过不断的测试可以知道那些改动是真正有效的。但是这些测试都有<strong>数据表面性</strong> 的问题，因为他们只能告诉你某种行为的转化率高，但是不代表最终是否成功黏住了用户，所以数据需要最终测试用户的生命周期。</p>
+<p>通过调研分析和试验的过程，我们最终会构建一个完整的数据仓库，最终分析师要通过这些数据找到活跃用户最常使用的功能以及他们使用产品的逻辑，发现产品的 <code>啊哈时刻</code>，然后让更多的人体验到，从而提高其他用户转化成活跃用户的概率。</p>
+<blockquote>
+<p>我们做的所有工作，都是为了找到你能够给客户提供的啊哈时刻。在这个过程中，我们还是要记住，在找到之前，我们和客户都不知道他们需要什么。</p>
+</blockquote>
+<h3 id="3-确定增长的杠杆"><a href="#3-确定增长的杠杆" class="headerlink" title="3 确定增长的杠杆"></a>3 确定增长的杠杆</h3><p>通过一系列方法找到了啊哈时刻后，剩下的就是制定明确的增长战略，然后严密的执行。因为如果没有全力的增长，那么即使真正出色的产品也会面临失败。（警示）</p>
+<p><strong>聚焦战略在影响力最大的因素上</strong><br>增长初期，通过快速实验找到并优化 <code>最具有潜力的增长因素</code>。因为初期增长团队必须专注于高影响力的目标。如果不确定是否有高影响力，那也需要非常有说服力的说明。初期的增长实验的机会成本很高，所以一定要想办法获得高影响力，对小公司来说就是要获得大幅提升，因为用户量上去之后，才可能测试更多的<code>利基领域</code>。</p>
+<p>聚焦战略我们需要做到以下几点</p>
+<ul>
+<li>1 确定核心指标，列出基本增长公式</li>
+</ul>
+<blockquote>
+<p>这其实是最难的一个部分。也是最重要的一步。因为后面的所有操作都会围绕着核心指标开展。</p>
+</blockquote>
+<p>要确定核心指标首先要知道用户对产品价值体验最直观的行为在哪里。<strong>我们需要跟踪用户达到啊哈时刻之前每一个步骤，以及这些步骤的频率。</strong></p>
+<p>明确产品的相关的特殊指标非常关键。每个产品都有自己共同的增长因素，比如获得新客，高转化和留存。但是每个产品可能更具自己的啊哈时刻的不同有着特定的因素组合。比如uber是司机的数量和乘客的数量。yelp是被评价的商家和商家的评价数。</p>
+<p>基本增长公式就是所有重要因素的体现。比如ebay的可能是：</p>
+<blockquote>
+<p>发布商品的卖家 <em> 发布物品的数量 </em> 买家数量 * 成功交易数量 = 总商品增长数量</p>
+</blockquote>
+<p>虽然他很简单，但是在数据爆炸时代，跟踪到对你而言最为重要的指标会防止你在数据中迷失。</p>
+<p>比如Arbnb，他重要的是订房率，每日虚高的日活对他而言意义不大。ylep 每个人每周打开一次就已经很高的，有些产品在用户使用的频率上本身就有局限性。但是对于facebook来说，日活就非常重要。</p>
+<ul>
+<li>2 确定北极星指标，</li>
+</ul>
+<p>然后我们要做的就是选择一个关键的能够决定成败的指标，以此指导所有增长活动。这应该是产品和企业为用户创造的核心价值的体现。</p>
+<p>比如Arbnb的订房率。北极星指标让我们开展实验的时候不会走偏方向。不会为了提高某个指标而做实验，最终都要以 “北极星指标” 作为依据。</p>
+<ul>
+<li>3 数据分析和定性研究同样重要</li>
+</ul>
+<p>数据的收集统计和分析，是我们找到增长因素的关键。所以优秀的团队已经会花时间做好数据的手机和分析。但是数据只能告诉你表面原因，用户不会通过数据告诉你为什么，所以线下的定性分析依旧很重要。</p>
+<p>最后别忘了用简单明了的趋势图，向公司和团队展示工作进展，监控核心指标的变化。</p>
+<h3 id="4-快节奏实验"><a href="#4-快节奏实验" class="headerlink" title="4 快节奏实验"></a>4 快节奏实验</h3><p>增长黑客的巨大成功往往来源于一连串小成功的积累。复利的效果是很惊人。快节奏的学习和实验就显得非常重要。高效的团队每周可能有20-30次的试验。</p>
+<p>但一开始，团队应该放缓步调，遵循流程站稳脚跟在起步，不要陷入无止境的头脑风暴中。</p>
+<p>增长黑客的循环：1  分析数据，2 形成想法，3 排定优先级，4 运行实验，就此循环。</p>
+<p>具体描述下来是这样，一个团队开始快速实验之前要和团队明确的是之前的数据分析，核心指标，北极星指标，用户的啊哈时刻到底是怎么样的。然后设定每周的实验的节奏，每个人的分工，然后就可以开始有条不紊的开展实验</p>
+<p><strong>首先是分析</strong>：剖析用户路径，对用户进行分组，找到核心用户的路径与其他用户的不同，线下用户的使用习惯，他们里体会到啊哈时刻还有多远，什么阻碍了他们体验到这种时刻。</p>
+<blockquote>
+<p>比如假设京东的啊哈时刻是当天定时送达，体验到这个点的用户的复购率显著高于其他用户，那么通过调研和分析得到：阻碍用户体验到这一点的可能是运费门槛。然后可能要分析接近活跃用户的那群人的平均客单价如何，用来决定后续的策略</p>
+</blockquote>
+<p><strong>第二根据分析提出想法</strong>：这里很关键的一点是<code>建立想法库</code>，团队所有成员都可以像里面填充想法。但是每个想法都要很明确，可以是如下模板：</p>
+<blockquote>
+<p>1 名称：根据场景给用户推送商场相关的美食优惠的套餐可以增加用户访问场景和频次<br>2 描述：如何产生，可能如何发挥作用<br>3 假设：简要说明预期的因果关系，以及预期的结果。<br>4 待测指标：需要追踪那些指标</p>
+</blockquote>
+<p>这个提出想法的阶段参与的人越多越好，目标就是提出尽可能多的想法。而且不要局限于本团队，外部成员有时候会提供很好的洞见。</p>
+<blockquote>
+<p>但是在接受意见之前，我们要确保我们已经告诉了他们<code>增长杠杆和核心指标到底是什么</code> ，否则我们可能收到很多模糊的请求。</p>
+</blockquote>
+<p><strong>第三就是排定优先级</strong>，作者给出了ICE原则用户排列。分别是 <strong>impact(影响力)</strong>，<strong>confidence（信心）</strong>，<strong>ease(简易性)</strong><br>然后团队就可以在在关注的<strong>核心领域</strong>知道得分最高的一批想法进行试验。<br>其中核心关注领域的分类作用很关键。比如一段时间内我们关注的核心指标是<code>留存率</code>，那么即使某一个实验能在拉新的领域有更好的ICE得分，我们也不会采用。</p>
+<p>但是这个得分可能不是最终的执行顺序。实际情况可能比预判的要复杂，但是这可以给我们一个大致范围的筛选。</p>
+<p>这些流程，可以通过每周一次的增长例会进行协同选择。</p>
+<p><strong>第四就是测试</strong>了，每次测试的机会都要珍惜，因为一次糟糕的实验就浪费了一次学习的机会，因此作者指出每个实验都能产生统计上的效果。并给出了两个意见：</p>
+<p>a. 采用99%的置信区间。以的降低假阳性的影响。</p>
+<blockquote>
+<ul>
+<li>假阳性（第一类错误）： 把不具备特征的对象当成了具备特征的对象<br>捉错了好人</li>
+<li>假阴性（第二类错误）：把具备特征的对象，当做不具备特征 对象<br>错放了坏人<br>一般情况下，第一类错误的影响是超过第二种的。你看看那么些冤案的社会影响就知道了。</li>
+</ul>
+</blockquote>
+<p>b. 坚持用对照组作为依据。差的情况很快可以反映，而好的不是很明显的情况下，为了不让辛苦的实验白费，对照组就很重要了。</p>
+<p>最后，要再回到第一阶段，进行分析和学习。要写下完整的实验分析，关键指标，假设与结果，可能的干扰因素等等。也要记得将成功的实验告诉团队，帮助公司的了解增长的工作进展。（你如果想分享失败的经验也不是不可以）</p>
+<p>这一章节的最后，作者给出了一个完整增长会议的流程，帮助我们在会议的时候注意思路的梳理。记录如下</p>
+<blockquote>
+<ul>
+<li>每周二召开会议（周一留给数据整理）</li>
+<li>15分钟：回顾指标，并更新关注领域（核心指标，北极星指标的变化，下面要关注哪一个增长杠杆，短期目标是否有变化）</li>
+<li>10分钟：回顾上一周工作</li>
+<li>15分钟：从结果分析中获得主要收获</li>
+<li>15分钟：选择下一周的增长实验（大家可以提名，然后根据ICE筛选，讨论达成共识，负责人拍板）</li>
+<li>5分钟：检查增长想法储备库（确保有有源源不断的想法）</li>
+</ul>
+</blockquote>
+<h3 id="5-朱老师的废话总结"><a href="#5-朱老师的废话总结" class="headerlink" title="5 朱老师的废话总结"></a>5 朱老师的废话总结</h3><p>全书的上半部通过四个章节有条理的讲述了完整的增长黑客的流程。总结起来就是，首先搭建一个团队，然后找到产品对用户增长，提升活跃度最为核心的价值点（啊哈时刻），然后通过一个严格执行的增长实验流程，让更多的人体验到啊哈时刻，从而获得增长。</p>
+<p>但是，我们做的似乎总是丢掉了最重要的东西。</p>
+<p>有一句印象深刻：“<strong>记住是爱创造的增长，而不是增长创造了爱</strong>”</p>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>“转发点赞表示期待吧”</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;If you are not growing, then you are dying!&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;一句话道出了&lt;code&gt;增长&lt;/code&gt;这一企业的永恒真理。增长黑客的职业因此慢慢发展。虽说国内第一本增长黑客的书是大佬 &lt;strong&gt;范冰&lt;/strong&gt; 的《增长黑客》，但是真正的增长黑客之父是在2010提出&lt;code&gt;增长黑客&lt;/code&gt;概念的 &lt;strong&gt;肖恩·艾丽斯&lt;/strong&gt;。也就是这一本《增长黑客》的作者。所以这本书应该更加值得一读。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="产品经理" scheme="http://yoursite.com/tags/%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86/"/>
+    
+      <category term="读书笔记" scheme="http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="增长黑客" scheme="http://yoursite.com/tags/%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2/"/>
+    
+  </entry>
   
   <entry>
     <title>《游戏化思维》读书笔记： 如果没有外部激励你还会不会继续玩下去</title>
@@ -1413,9 +1576,9 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
-    
       <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
     
   </entry>
   
@@ -1724,80 +1887,6 @@
       <category term="coding life" scheme="http://yoursite.com/tags/coding-life/"/>
     
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>老版本MacBookPro (厚的) 格式化, U盘安装 MacOS Sierra</title>
-    <link href="http://yoursite.com/2017/05/01/%E8%80%81%E7%89%88%E6%9C%ACMacBookPro-%E5%8E%9A%E7%9A%84-%E6%A0%BC%E5%BC%8F%E5%8C%96-U%E7%9B%98%E5%AE%89%E8%A3%85-MacOS-Sierra/"/>
-    <id>http://yoursite.com/2017/05/01/老版本MacBookPro-厚的-格式化-U盘安装-MacOS-Sierra/</id>
-    <published>2017-05-01T15:12:25.000Z</published>
-    <updated>2017-05-02T00:51:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>主要写的点是：U 盘安装盘的制作，以及，为什么会有 </p>
-<ul>
-<li>can’t be verified</li>
-<li>已损坏，重新下载</li>
-</ul>
-<p>这些问题，即使你是从 app store 中下载的完整版本。</p>
-<a id="more"></a>
-<p>前两天，我一个朋友拿了一台很老的 <code>MacBook pro</code> , 说他不小心格式化了硬盘，要我重装系统。。</p>
-<p>电脑图如下。。<br><img src="http://static.zybuluo.com/zhumin1990719/ky6nya8775sxhivrqgdiqq7c/image_1bf10mmqp1ifr1lgpklstgs1h9o9.png" alt="image_1bf10mmqp1ifr1lgpklstgs1h9o9.png-308.8kB"></p>
-<p>有点洁癖的我看到了想说说，要不你砸了吧（当然我没说。。）<br>但是碍于面子（毕竟我是程序员，外界都说是搞电脑的，约等于 修电脑的，近似于你是修电脑的，也就是说电脑相关的你全都会，不会就是大傻逼）。。</p>
-<blockquote>
-<p>我当然是很愤怒的，之所以没有发作是因为他是我老师。。</p>
-</blockquote>
-<h2 id="如何制作安装盘"><a href="#如何制作安装盘" class="headerlink" title="如何制作安装盘"></a>如何制作安装盘</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>你需要一下物品：</p>
-<blockquote>
-<ul>
-<li>一个只要8G的U盘</li>
-<li>一台工作良好的 macbook pro</li>
-<li>良好的网络</li>
-<li>我（你没戏了）</li>
-</ul>
-</blockquote>
-<p>言归正传：</p>
-<h3 id="步骤一-：-在App-Store-中下载最新的-macos"><a href="#步骤一-：-在App-Store-中下载最新的-macos" class="headerlink" title="步骤一 ： 在App Store 中下载最新的 macos"></a>步骤一 ： 在App Store 中下载最新的 macos</h3><p>连接如下 <a href="https://itunes.apple.com/cn/app/macos-sierra/id1127487414?mt=12" target="_blank" rel="external">下载地址</a><br>她会跳转到 app store. 点击下载即可。它会弹出提示让你更新啥的，不用管它，直接下载</p>
-<p>下载好了之后，你在你的 <code>应用程序</code> 文件夹，你就可以看到这个了</p>
-<p><img src="http://static.zybuluo.com/zhumin1990719/y0agrs81opqu504ydcxb59nl/image_1bf1226d41kb315mb1ja21bi6fkbm.png" alt="image_1bf1226d41kb315mb1ja21bi6fkbm.png-253.8kB"></p>
-<p>至此，你的第一任务完成。</p>
-<h3 id="步骤二-：用磁盘工具格式化你的U盘"><a href="#步骤二-：用磁盘工具格式化你的U盘" class="headerlink" title="步骤二 ：用磁盘工具格式化你的U盘"></a>步骤二 ：用磁盘工具格式化你的U盘</h3><p>打开 “应用程序 → 实用工具 → 磁盘工具”，将U盘「抹掉」(格式化) 成「Mac OS X 扩展（日志式）」格式、GUID 分区图，并将U盘命名为<br>「Sierra」。(注意：这个盘符名称将会与后面的命令一一对应，如果你改了这盘符的名字，必须保证后面的命令里的名称也要一致。)</p>
-<blockquote>
-<p>如果不成功，你就多试几次</p>
-</blockquote>
-<h3 id="步骤三-：-制作安装盘"><a href="#步骤三-：-制作安装盘" class="headerlink" title="步骤三 ： 制作安装盘"></a>步骤三 ： 制作安装盘</h3><p>打开你的终端，输入如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/Sierra --applicationpath /Applications/Install\ macOS\ Sierra.app --nointeraction</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意空格前面需要有 <code>\</code> 进行转义</p>
-</blockquote>
-<p><img src="http://static.zybuluo.com/zhumin1990719/wx8yijvchu5smsimltbdgl9p/image_1bf28fv4l1uph1cvgv581u0uecs13.png" alt="image_1bf28fv4l1uph1cvgv581u0uecs13.png-51.3kB"></p>
-<p>耐心得到 <code>done</code>,  你就可以拿着 U 盘去安装了</p>
-<h2 id="无法验证？or-已经损坏？"><a href="#无法验证？or-已经损坏？" class="headerlink" title="无法验证？or 已经损坏？"></a>无法验证？or 已经损坏？</h2><p>重装的步骤简单，插入u盘，开机按住 <code>option</code>, 选择u 盘的安装盘。接下来选择安装就可以了。</p>
-<p>但是，大部分情况下，都会遇到类似</p>
-<blockquote>
-<p> This copy of the Install OS X El Capitan application can’t be verified. It may have been corrupted or tampered with during downloading</p>
-</blockquote>
-<p><img src="http://static.zybuluo.com/zhumin1990719/v32y8u4lwltu78uco91rnee0/image_1bf28oaj5122pbej121d1nfgq831g.png" alt="image_1bf28oaj5122pbej121d1nfgq831g.png-57.5kB"></p>
-<p>或者，直接告诉你损坏了，让你再去下载完整版本。</p>
-<p>导致这个的原因是，当你决定将一台mac格式化后，在重装系统的时候，系统的时间已经被改变了。这个时候安装程序就会爆出各种错误。你可以通过 终端输入 date 进行查看，时间应该变成了 2001 年。</p>
-<p>这个时候， 你只要通过 <code>date</code> 命令重置时间，就可以解决这个问题。<br>他的参数如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">date MMDDHHmmYY replacing the letters as follows.</div><div class="line">MM - 2 digit month  01 - 12</div><div class="line">DD - 2 digit date   01 - 31</div><div class="line">HH - 2 digit hour   01 - 24</div><div class="line">mm - 2 digit minute 01 - 59</div><div class="line">YY - 2 digit year   &gt; 15</div></pre></td></tr></table></figure>
-<p>你将时间设置成，你要安装的系统发布之后的一个时间后，退出终端，再次点击操作，就不会有问题。</p>
-<p>你也可以看做这个视频 <a href="https://www.youtube.com/watch?v=LRPiynS15_U" target="_blank" rel="external">土逼视频</a> ，需要翻墙。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;引子&quot;&gt;&lt;a href=&quot;#引子&quot; class=&quot;headerlink&quot; title=&quot;引子&quot;&gt;&lt;/a&gt;引子&lt;/h2&gt;&lt;p&gt;主要写的点是：U 盘安装盘的制作，以及，为什么会有 &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;can’t be verified&lt;/li&gt;
-&lt;li&gt;已损坏，重新下载&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这些问题，即使你是从 app store 中下载的完整版本。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="mac" scheme="http://yoursite.com/tags/mac/"/>
     
   </entry>
   
